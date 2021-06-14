@@ -25,7 +25,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        {this.state.Token}
+        {this.state.Token}<br />
+        React + Express
       </div>
     );
   }

@@ -3,7 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
+var helloworldRouter = require('./routes/helloworld');
 var usersRouter = require('./routes/users');
 
 var app = express();
@@ -19,11 +19,11 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname+'/client/build/index.html'));
-});
+// app.get('*', (req, res) => {
+//     res.render(path.join(__dirname+'/client/build/index.html'));
+// });
 
-app.use('/', indexRouter);
+app.use('/helloworld', helloworldRouter);
 app.use('/users', usersRouter);
 
 module.exports = app;

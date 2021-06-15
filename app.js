@@ -5,6 +5,7 @@ var logger = require('morgan');
 
 var helloworldRouter = require('./routes/helloworld');
 var usersRouter = require('./routes/users');
+var acstokenRouter = require('./routes/acs-token');
 
 var app = express();
 
@@ -25,5 +26,6 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.use('/helloworld', helloworldRouter);
 app.use('/users', usersRouter);
+app.use('/acs-token', acstokenRouter);
 
 module.exports = app;

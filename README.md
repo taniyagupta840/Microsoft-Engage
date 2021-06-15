@@ -1,19 +1,27 @@
-# Microsoft-Engage
+> # Microsoft-Engage
 
-Microsoft Engage' 21 - Teams Clone
-Live - <a>agile-teams-clone.herokuapp.com</a>
-Developer - <code><b>Umang Barthwal</b></code>
+__Microsoft Engage' 21 - Teams Clone__
+
+__Live -__ [agile-teams-clone.herokuapp.com](agile-teams-clone.herokuapp.com)
+
+__Developer -__ <code><b>Umang Barthwal</b></code>
+
+___
 
 #### Setup Instructions
 
 ###### Prerequisites
-<li> Node + npm
-<li> React
+- Node + npm
+- React
 
 ###### Process
-<li> Clone the repo
-<li> <code>npm install</code>
-<li> <code>npm start</code>
+- Clone the repo
+- <code>npm install</code>
+- <code>npm start</code>
+
+___
 
 #### Daily Logs
-<li><b> june 14, 2021 - </b> setup react + express app and deployed on Heroku.
+- <b> june 14, 2021 - </b> setup react + express app and deployed on Heroku.
+
+___

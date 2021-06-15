@@ -1,7 +1,5 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { token } from 'morgan';
 
 class App extends React.Component {
 

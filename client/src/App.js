@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import MakeCall from './Components/MakeCall';
 
 class App extends React.Component {
 
@@ -26,10 +27,11 @@ class App extends React.Component {
         <div className="row">
           <h1>React + Express</h1>
         </div>
-        <div>
+        {/* <div>
           <p>generated-token: </p>
             {this.state.Token} <br />
-        </div>
+        </div> */}
+          <MakeCall/>
       </div>
     );
   }

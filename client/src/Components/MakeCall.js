@@ -197,7 +197,7 @@ export default class MakeCall extends React.Component {
                                 <b>{this.state.deviceManagerWarning}</b>
                             </MessageBar>
                         }
-                        {
+                        {/* {
                             !this.state.incomingCall && !this.state.call &&
                             <div className="ms-Grid-row mt-3">
                                 <div className="call-input-panel mb-5 ms-Grid-col ms-sm12 ms-lg12 ms-xl12 ms-xxl4">
@@ -219,7 +219,7 @@ export default class MakeCall extends React.Component {
                                     </PrimaryButton>
                                 </div>
                             </div>
-                        }
+                        } */}
                         {/* {
                             this.state.call &&
                             <CallCard

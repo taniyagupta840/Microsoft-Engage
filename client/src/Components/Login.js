@@ -1,6 +1,7 @@
 import React from "react";
 import { TextField, PrimaryButton } from 'office-ui-fabric-react'
 import { utils } from "./Utilities/Utilities";
+import { IconButton } from "@fluentui/react";
 
 export default class Login extends React.Component {
     constructor(props) {
@@ -11,7 +12,8 @@ export default class Login extends React.Component {
             showUserProvisioningAndSdkInitializationCode: false,
             showSpinner: false,
             disableInitializeButton: false,
-            loggedIn: false
+            loggedIn: false,
+            connect: false
         }
     }
 
@@ -31,48 +33,36 @@ export default class Login extends React.Component {
 
     render() {
         return (
-            <div className="container border p-3">
-                <div className="ms-Grid">
+            <div className="">
+                <div className="App">
                     <div className="row">
-                        <h2 className="h4 text-secondary"><b>Generate Access Token</b></h2>
+                        <IconButton ariaDescription="Connect" 
+                            iconProps={{iconName: 'AddGroup'}}
+                            hidden={this.state.connect}
+                            onClick={() => this.setState({connect: true})}
+                        >
+                        </IconButton>
                     </div>
-                    {
-                        this.state.loggedIn && 
-                        <div className="text-dark">
-                            <br></br>
-                            <div>Generated Provisioned Identity: <span className="identity"><b>{this.state.id}</b></span></div>
-                        </div>
-                    }
-                    {
-                        this.state.showSpinner &&
-                        <div className="custom-row justify-content-left align-items-center mt-4">
-                            <div className="loader"> </div>
-                            <div className="ml-2">Fetching token...</div>
-                        </div>
-                    }
-                    {
-                        !this.state.loggedIn &&
-                        <div>
-                            <div className="ms-Grid-row">
-                                <div className="ms-Grid-col ms-sm12 ms-lg6 ms-xl6 ms-xxl3">
-                                    <TextField className="mt-3"
-                                                defaultValue={undefined}
-                                                label="Optional display name"
-                                                onChange={(e) => { this.displayName = e.target.value }} />
-                                </div>
-                            </div>
-                            <div className="mt-1">
-                                <PrimaryButton className="primary-button mt-3"
-                                    iconProps={{iconName: 'ReleaseGate', style: {verticalAlign: 'middle', fontSize: 'large'}}}
-                                    label="Provision an user" 
-                                    disabled={this.state.disableInitializeButton}
-                                    onClick={() => this.provisionNewUser()}>
-                                        generate
-                                </PrimaryButton>
-                            </div>
-                        </div>
-                    }
                 </div>
+                {   this.state.connect && !this.state.loggedIn &&
+                    <div className="App">
+                        <div className="row">
+                            <div className="ms-Grid-col ms-sm12 ms-lg6 ms-xl6 ms-xxl3">
+                                <TextField defaultValue={undefined}
+                                    label="Enter Name"
+                                    onChange={(e) => { this.displayName = e.target.value }} 
+                                />
+                            </div>
+                        </div>
+                        <div className="">
+                            <IconButton
+                                iconProps={{iconName: 'Accept'}}
+                                onClick={() => {this.provisionNewUser();}}
+                            >
+                            </IconButton>
+                        </div>
+                    </div>
+                }
             </div>
         );
     }

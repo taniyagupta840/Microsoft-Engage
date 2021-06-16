@@ -9,6 +9,7 @@ import {
     TextField
 } from 'office-ui-fabric-react'
 import Login from './Login';
+import CallCard from "./CallCard";
 import { setLogLevel } from '@azure/logger';
 
 export default class MakeCall extends React.Component {
@@ -229,7 +230,7 @@ export default class MakeCall extends React.Component {
                                 </div>
                             </div>
                         }
-                        {/* {
+                        {
                             this.state.call &&
                             <CallCard
                                 call={this.state.call}
@@ -241,7 +242,7 @@ export default class MakeCall extends React.Component {
                                 onShowCameraNotFoundWarning={(show) => { this.setState({ showCameraNotFoundWarning: show }) }}
                                 onShowSpeakerNotFoundWarning={(show) => { this.setState({ showSpeakerNotFoundWarning: show }) }}
                                 onShowMicrophoneNotFoundWarning={(show) => { this.setState({ showMicrophoneNotFoundWarning: show }) }} />
-                        } */}
+                        }
                     </div>
                 </div>
             </div>

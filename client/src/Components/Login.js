@@ -44,7 +44,8 @@ export default class Login extends React.Component {
                             <div className="ms-Grid-col ms-sm12 ms-lg6 ms-xl6 ms-xxl3">
                                 <TextField defaultValue={undefined}
                                     className="mb-3"
-                                    label="Enter Name"
+                                    size="15"
+                                    label="Enter Name (optional)"
                                     onChange={(e) => { this.displayName = e.target.value }}/>
                             </div>
                         </div>

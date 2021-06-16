@@ -1,7 +1,7 @@
 import React from "react";
-import { TextField, PrimaryButton } from 'office-ui-fabric-react'
+import { TextField } from 'office-ui-fabric-react'
 import { utils } from "./Utilities/Utilities";
-import { IconButton } from "@fluentui/react";
+import { PrimaryButton, IconButton, Spinner } from "@fluentui/react";
 
 export default class Login extends React.Component {
     constructor(props) {
@@ -9,26 +9,20 @@ export default class Login extends React.Component {
         this.userDetailsResponse = undefined;
         this.displayName = undefined;
         this.state = {
-            showUserProvisioningAndSdkInitializationCode: false,
-            showSpinner: false,
-            disableInitializeButton: false,
             loggedIn: false,
-            connect: false
+            connect: false,
         }
     }
 
     provisionNewUser = async () => {
         try {
-            this.setState({ showSpinner: true, disableInitializeButton: true });
             this.userDetailsResponse = await utils.provisionNewUser();
             this.setState({ id: utils.getIdentifierText(this.userDetailsResponse.user) });
             await this.props.onLoggedIn({ id: this.state.id, token: this.userDetailsResponse.token, displayName: this.displayName });
             this.setState({ loggedIn: true });
         } catch (error) {
             console.log(error);
-        } finally {
-            this.setState({ disableInitializeButton: false, showSpinner: false });
-        }
+        } 
     }
 
     render() {
@@ -44,23 +38,28 @@ export default class Login extends React.Component {
                         </IconButton>
                     </div>
                 </div>
-                {   this.state.connect && !this.state.loggedIn &&
+                {   this.state.connect && !this.state.loggedIn && !this.displayName &&
                     <div className="App">
                         <div className="row">
                             <div className="ms-Grid-col ms-sm12 ms-lg6 ms-xl6 ms-xxl3">
                                 <TextField defaultValue={undefined}
+                                    className="mb-3"
                                     label="Enter Name"
-                                    onChange={(e) => { this.displayName = e.target.value }} 
-                                />
+                                    onChange={(e) => { this.displayName = e.target.value }}/>
                             </div>
                         </div>
                         <div className="">
-                            <IconButton
-                                iconProps={{iconName: 'Accept'}}
-                                onClick={() => {this.provisionNewUser();}}
-                            >
-                            </IconButton>
+                            <PrimaryButton
+                                iconProps={{iconName: ''}}
+                                text="Submit"
+                                onClick={ () => {this.provisionNewUser(); } }>
+                            </PrimaryButton>
                         </div>
+                    </div>
+                }
+                {   this.state.connect && !this.state.loggedIn && this.displayName &&
+                    <div className="App">
+                        <Spinner label="Loading..." />
                     </div>
                 }
             </div>

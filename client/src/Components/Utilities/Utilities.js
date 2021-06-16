@@ -47,7 +47,7 @@ export const utils = {
                     return rm.identifier.phoneNumber === identifier.phoneNumber
                 });
             }
-            case 'unknown': {
+            default: {
                 return call.remoteParticipants.find(rm => {
                     return rm.identifier.id === identifier.id
                 });

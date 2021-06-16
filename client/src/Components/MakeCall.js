@@ -2,12 +2,12 @@ import React from "react";
 import { CallClient, LocalVideoStream } from '@azure/communication-calling';
 import { AzureCommunicationTokenCredential } from '@azure/communication-common';
 import {
-    PrimaryButton,
-    TextField,
+    IconButton,
     MessageBar,
-    MessageBarType
+    MessageBarType,
+    PrimaryButton,
+    TextField
 } from 'office-ui-fabric-react'
-// import CallCard from './CallCard'
 import Login from './Login';
 import { setLogLevel } from '@azure/logger';
 
@@ -17,26 +17,20 @@ export default class MakeCall extends React.Component {
         this.callClient = null;
         this.callAgent = null;
         this.deviceManager = null;
-        this.destinationUserIds = null;
-        this.destinationPhoneIds = null;
         this.destinationGroup = null;
-        this.meetingLink = null;
-        this.threadId = null;
-        this.messageId = null;
-        this.organizerId = null;
-        this.tenantId = null;
         this.callError = null;
 
         this.state = {
             id: undefined,
             loggedIn: false,
             call: undefined,
-            incomingCall: undefined,
             selectedCameraDeviceId: null,
             selectedSpeakerDeviceId: null,
             selectedMicrophoneDeviceId: null,
             deviceManagerWarning: null,
-            callError: null
+            callError: null,
+            createGroupCall: false,
+            joinGroupCall: false
         };
     }
 
@@ -175,8 +169,25 @@ export default class MakeCall extends React.Component {
         return (
             <div>
                 <Login onLoggedIn={this.handleLogIn} />
-                <div className="card">
-                    <div className="ms-Grid">
+                {   
+                    this.state.loggedIn && !this.state.createGroupCall && !this.state.joinGroupCall &&
+                    <div className="App row">
+                        <div className="col-sm-6 p-3">
+                            <IconButton aria-label="Create" 
+                                iconProps={{iconName: 'Add'}}
+                                onClick={ () => {this.setState({createGroupCall: true})}}>
+                            </IconButton>
+                        </div>
+                        <div className="col-sm-6 p-3">
+                            <IconButton aria-label="Join" 
+                                iconProps={{iconName: 'AddLink'}}
+                                onClick={ () => {this.setState({joinGroupCall: true})}}>
+                            </IconButton>
+                        </div>
+                    </div>    
+                }
+                <div className="">
+                    <div className="">
                         {
                             this.state.callError &&
                             <MessageBar
@@ -197,29 +208,27 @@ export default class MakeCall extends React.Component {
                                 <b>{this.state.deviceManagerWarning}</b>
                             </MessageBar>
                         }
-                        {/* {
-                            !this.state.incomingCall && !this.state.call &&
-                            <div className="ms-Grid-row mt-3">
-                                <div className="call-input-panel mb-5 ms-Grid-col ms-sm12 ms-lg12 ms-xl12 ms-xxl4">
-                                    <h3 className="mb-1">Join Group Call</h3>
-                                    <div>Group Id must be in GUID format.</div>
+                        {
+                            !this.state.call && this.state.joinGroupCall &&
+                            <div className="App">
+                                <div className="ms-Grid-col ms-sm12 ms-lg12 ms-xl12 ms-xxl4">
                                     <TextField
                                         className="mb-3"
-                                        disabled={this.state.call || !this.state.loggedIn}
-                                        label="Group Id"
+                                        disabled={this.state.call}
+                                        label="Enter Code"
                                         placeholder="29228d3e-040e-4656-a70e-890ab4e173e5"
                                         defaultValue="29228d3e-040e-4656-a70e-890ab4e173e5"
                                         componentRef={(val) => this.destinationGroup = val} />
                                     <PrimaryButton
                                         className="primary-button"
                                         iconProps={{ iconName: 'Video', style: { verticalAlign: 'middle', fontSize: 'large' } }}
-                                        text="Join video call"
-                                        disabled={this.state.call || !this.state.loggedIn}
+                                        text="Join"
+                                        disabled={this.state.call}
                                         onClick={() => this.joinGroup(true)}>
                                     </PrimaryButton>
                                 </div>
                             </div>
-                        } */}
+                        }
                         {/* {
                             this.state.call &&
                             <CallCard

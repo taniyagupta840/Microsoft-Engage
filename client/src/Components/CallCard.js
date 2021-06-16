@@ -1,6 +1,7 @@
 import React from "react";
 import { Icon } from '@fluentui/react/lib/Icon';
 import LocalVideoPreviewCard from './LocalVideoPreviewCard';
+import RemoteParticipantCard from "./RemoteParticipantCard";
 import { LocalVideoStream, Features } from '@azure/communication-calling';
 import { utils } from './Utilities/Utilities';
 
@@ -15,7 +16,7 @@ export default class CallCard extends React.Component {
             callId: this.call.id,
             remoteParticipants: this.call.remoteParticipants,
             allRemoteParticipantStreams: [],
-            videoOn: !!this.call.localVideoStreams[0],
+            videoOn: !this.call.localVideoStreams[0],
             micMuted: false,
             onHold: this.call.state === 'LocalHold' || this.call.state === 'RemoteHold',
             screenShareOn: this.call.isScreenShareOn,
@@ -165,108 +166,8 @@ export default class CallCard extends React.Component {
 
                 });
             });
-
-            // const dominantSpeakersChangedHandler = async () => {
-            //     try {
-            //         if(this.state.dominantSpeakerMode) {
-
-            //             const newDominantSpeakerIdentifier = this.call.api(Features.DominantSpeakers).dominantSpeakers.speakersList[0];
-            //             if (newDominantSpeakerIdentifier) {
-            //                 console.log(`DominantSpeaker changed, new dominant speaker: ${newDominantSpeakerIdentifier ? utils.getIdentifierText(newDominantSpeakerIdentifier) : `None`}`);
-
-            //                 // Set the new dominant remote participant
-            //                 const newDominantRemoteParticipant = utils.getRemoteParticipantObjFromIdentifier(this.call, newDominantSpeakerIdentifier);
-
-            //                 // Get the new dominant remote participant's stream tuples
-            //                 const streamsToRender = [];
-            //                 for (const streamTuple of this.state.allRemoteParticipantStreams) {
-            //                     if (streamTuple.participant === newDominantRemoteParticipant && streamTuple.stream.isAvailable) {
-            //                         streamsToRender.push(streamTuple);
-            //                         if(!streamTuple.streamRendererComponentRef.current.getRenderer()) {
-            //                             await streamTuple.streamRendererComponentRef.current.createRenderer();
-            //                         };
-            //                     }
-            //                 }
-
-            //                 const previousDominantSpeaker = this.state.dominantRemoteParticipant;
-            //                 this.setState({ dominantRemoteParticipant: newDominantRemoteParticipant });
-
-            //                 if(previousDominantSpeaker) {
-            //                     // Remove the old dominant remote participant's streams
-            //                     this.state.allRemoteParticipantStreams.forEach(streamTuple => {
-            //                         if (streamTuple.participant === previousDominantSpeaker) {
-            //                             streamTuple.streamRendererComponentRef.current.disposeRenderer();
-            //                         }
-            //                     });
-            //                 }
-
-            //                 // Render the new dominany speaker's streams
-            //                 streamsToRender.forEach(streamTuple => {
-            //                     streamTuple.streamRendererComponentRef.current.attachRenderer();
-            //                 })
-
-            //             } else {
-            //                 console.warn('New dominant speaker is undefined');
-            //             }
-            //         }
-            //     } catch (error) {
-            //         console.error(error);
-            //     }
-            // };
-
-            // const dominantSpeakerIdentifier = this.call.api(Features.DominantSpeakers).dominantSpeakers.speakersList[0];
-            // if(dominantSpeakerIdentifier) {
-            //     this.setState({ dominantRemoteParticipant: utils.getRemoteParticipantObjFromIdentifier(dominantSpeakerIdentifier) })
-            // }
-            // this.call.api(Features.DominantSpeakers).on('dominantSpeakersChanged', dominantSpeakersChangedHandler);
         }
     }
-
-    // subscribeToRemoteParticipant(participant) {
-    //     if (!this.state.remoteParticipants.find((p) => { return p === participant })) {
-    //         this.setState(prevState => ({ remoteParticipants: [...prevState.remoteParticipants, participant] }));
-    //     }
-
-    //     participant.on('displayNameChanged', () => {
-    //         console.log('displayNameChanged ', participant.displayName);
-    //     });
-
-    //     participant.on('stateChanged', () => {
-    //         console.log('Participant state changed', participant.identifier.communicationUserId, participant.state);
-    //     });
-
-    //     const addToListOfAllRemoteParticipantStreams = (participantStreams) => {
-    //         if (participantStreams) {
-    //             let participantStreamTuples = participantStreams.map(stream => { return { stream, participant, streamRendererComponentRef: React.createRef() }});
-    //             participantStreamTuples.forEach(participantStreamTuple => {
-    //                 if (!this.state.allRemoteParticipantStreams.find((v) => { return v === participantStreamTuple })) {
-    //                     this.setState(prevState => ({
-    //                         allRemoteParticipantStreams: [...prevState.allRemoteParticipantStreams, participantStreamTuple]
-    //                     }));
-    //                 }
-    //             })
-    //         }
-    //     }
-
-    //     const removeFromListOfAllRemoteParticipantStreams = (participantStreams) => {
-    //         participantStreams.forEach(streamToRemove => {
-    //             const tupleToRemove = this.state.allRemoteParticipantStreams.find((v) => { return v.stream === streamToRemove })
-    //             if (tupleToRemove) {
-    //                 this.setState({
-    //                     allRemoteParticipantStreams: this.state.allRemoteParticipantStreams.filter(streamTuple => { return streamTuple !== tupleToRemove })
-    //                 });
-    //             }
-    //         });
-    //     }
-
-    //     const handleVideoStreamsUpdated = (e) => {
-    //         addToListOfAllRemoteParticipantStreams(e.added);
-    //         removeFromListOfAllRemoteParticipantStreams(e.removed);
-    //     }
-
-    //     addToListOfAllRemoteParticipantStreams(participant.videoStreams);
-    //     participant.on('videoStreamsUpdated', handleVideoStreamsUpdated);
-    // }
 
     async handleVideoOnOff() {
         try {
@@ -338,96 +239,6 @@ export default class CallCard extends React.Component {
         }
     }
 
-    // async handleHoldUnhold() {
-    //     try {
-    //         if (this.call.state === 'LocalHold') {
-    //             this.call.resume();
-    //         } else {
-    //             this.call.hold();
-    //         }
-    //     } catch (e) {
-    //         console.error(e);
-    //     }
-    // }
-
-    // async handleScreenSharingOnOff() {
-    //     try {
-    //         if (this.call.isScreenSharingOn) {
-    //             await this.call.stopScreenSharing()
-    //         } else {
-    //             await this.call.startScreenSharing();
-    //         }
-    //         this.setState({ screenShareOn: this.call.isScreenSharingOn });
-    //     } catch (e) {
-    //         console.error(e);
-    //     }
-    // }
-
-    // async toggleDominantSpeakerMode() {
-    //     try {
-    //         if (this.state.dominantSpeakerMode) {
-    //             // Turn off dominant speaker mode
-    //             this.setState({ dominantSpeakerMode: false });
-    //             // Render all remote participants's streams
-    //             for (const streamTuple of this.state.allRemoteParticipantStreams) {
-    //                 if(streamTuple.stream.isAvailable && !streamTuple.streamRendererComponentRef.current.getRenderer()) {
-    //                     await streamTuple.streamRendererComponentRef.current.createRenderer();
-    //                     streamTuple.streamRendererComponentRef.current.attachRenderer();
-    //                 }
-    //             }
-    //         } else {
-    //             // Turn on dominant speaker mode
-    //             this.setState({ dominantSpeakerMode: true });
-    //             // Dispose of all remote participants's stream renderers
-    //             const dominantSpeakerIdentifier = this.call.api(Features.DominantSpeakers).dominantSpeakers.speakersList[0];
-    //             if(!dominantSpeakerIdentifier) {
-    //                 this.state.allRemoteParticipantStreams.forEach(v => {
-    //                     v.streamRendererComponentRef.current.disposeRenderer();
-    //                 });
-
-    //                 // Return, no action needed
-    //                 return;
-    //             }
-
-    //             // Set the dominant remote participant obj
-    //             const dominantRemoteParticipant = utils.getRemoteParticipantObjFromIdentifier(this.call, dominantSpeakerIdentifier);
-    //             this.setState({ dominantRemoteParticipant: dominantRemoteParticipant });
-    //             // Dispose of all the remote participants's stream renderers except for the dominant speaker
-    //             this.state.allRemoteParticipantStreams.forEach(v => {
-    //                 if(v.participant !== dominantRemoteParticipant) {
-    //                     v.streamRendererComponentRef.current.disposeRenderer();
-    //                 }
-    //             });
-    //         }
-    //     } catch (e) {
-    //         console.error(e);
-    //     }
-    // }
-
-    // cameraDeviceSelectionChanged = async (event, item) => {
-    //     const cameras = await this.deviceManager.getCameras();
-    //     const cameraDeviceInfo = cameras.find(cameraDeviceInfo => { return cameraDeviceInfo.id === item.key });
-    //     const localVideoStream = this.call.localVideoStreams[0];
-    //     if (localVideoStream) {
-    //         localVideoStream.switchSource(cameraDeviceInfo);
-    //     }
-    //     this.setState({ selectedCameraDeviceId: cameraDeviceInfo.id });
-    // };
-
-    // speakerDeviceSelectionChanged = async (event, item) => {
-    //     const speakers = await this.deviceManager.getSpeakers();
-    //     const speakerDeviceInfo = speakers.find(speakerDeviceInfo => { return speakerDeviceInfo.id === item.key });
-    //     this.deviceManager.selectSpeaker(speakerDeviceInfo);
-    //     this.setState({ selectedSpeakerDeviceId: speakerDeviceInfo.id });
-    // };
-
-    // microphoneDeviceSelectionChanged = async (event, item) => {
-    //     const microphones = await this.deviceManager.getMicrophones();
-    //     const microphoneDeviceInfo = microphones.find(microphoneDeviceInfo => { return microphoneDeviceInfo.id === item.key });
-    //     this.deviceManager.selectMicrophone(microphoneDeviceInfo);
-    //     this.setState({ selectedMicrophoneDeviceId: microphoneDeviceInfo.id });
-    // };
-
     render() {
         return (
             <div className="ms-Grid mt-2">
@@ -435,6 +246,19 @@ export default class CallCard extends React.Component {
                     {
                         this.state.callState === 'Connected' &&
                         <div className="ms-Grid-col ms-sm12 ms-lg12 ms-xl12 ms-xxl3">
+                             <div className="participants-panel mt-1 mb-3">
+                                {
+                                    this.state.remoteParticipants.length === 0 &&
+                                    <p className="text-center">No other participants currently in the call</p>
+                                }
+                                <ul className="participants-panel-list">
+                                    {
+                                        this.state.remoteParticipants.map(remoteParticipant =>
+                                            <RemoteParticipantCard key={`${utils.getIdentifierText(remoteParticipant.identifier)}`} remoteParticipant={remoteParticipant} call={this.call} />
+                                        )
+                                    }
+                                </ul>
+                            </div>
                             <div>
                                 {
                                     this.state.showLocalVideo && this.state.videoOn &&

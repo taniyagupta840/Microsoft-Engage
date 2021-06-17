@@ -1,8 +1,9 @@
 import React from "react";
-import { Icon } from '@fluentui/react/lib/Icon';
+import { Icon,IconButton } from 'office-ui-fabric-react';
 import LocalVideoPreviewCard from './LocalVideoPreviewCard';
 import RemoteParticipantCard from "./RemoteParticipantCard";
-import { LocalVideoStream, Features } from '@azure/communication-calling';
+import StreamRenderer from "./StreamRenderer";
+import { LocalVideoStream } from '@azure/communication-calling';
 import { utils } from './Utilities/Utilities';
 
 export default class CallCard extends React.Component {
@@ -16,8 +17,8 @@ export default class CallCard extends React.Component {
             callId: this.call.id,
             remoteParticipants: this.call.remoteParticipants,
             allRemoteParticipantStreams: [],
-            videoOn: !this.call.localVideoStreams[0],
-            micMuted: false,
+            videoOn: !!this.call.localVideoStreams[0],
+            micMuted: true,
             onHold: this.call.state === 'LocalHold' || this.call.state === 'RemoteHold',
             screenShareOn: this.call.isScreenShareOn,
             cameraDeviceOptions: props.cameraDeviceOptions ? props.cameraDeviceOptions : [],
@@ -45,10 +46,7 @@ export default class CallCard extends React.Component {
                         cameraDeviceOptions: [...prevState.cameraDeviceOptions, addedCameraDeviceOption]
                     }));
                 });
-                // When connectnig a new camera, ts device manager automatically switches to use this new camera and
-                // this.call.localVideoStream[0].source is never updated. Hence I have to do the following logic to update
-                // this.call.localVideoStream[0].source to the newly added camera. This is a bug. Under the covers, this.call.localVideoStreams[0].source
-                // should have been updated automatically by the sdk.
+
                 if (newCameraDeviceToUse) {
                     try {
                         await this.call.localVideoStreams[0]?.switchSource(newCameraDeviceToUse);
@@ -120,11 +118,7 @@ export default class CallCard extends React.Component {
                         this.callFinishConnectingResolve();
                     }
                 }
-                // if (this.call.state === 'Incoming') {
-                //     this.setState({ selectedCameraDeviceId: cameraDevices[0]?.id });
-                //     this.setState({ selectedSpeakerDeviceId: speakerDevices[0]?.id });
-                //     this.setState({ selectedMicrophoneDeviceId: microphoneDevices[0]?.id });
-                // }
+
                 if (this.call.state === 'Disconnected') {
                     this.setState({ dominantRemoteParticipant: undefined });
                 }
@@ -167,6 +161,52 @@ export default class CallCard extends React.Component {
                 });
             });
         }
+    }
+
+    subscribeToRemoteParticipant(participant) {
+        if (!this.state.remoteParticipants.find((p) => { return p === participant })) {
+            this.setState(prevState => ({ remoteParticipants: [...prevState.remoteParticipants, participant] }));
+        }
+
+        participant.on('displayNameChanged', () => {
+            console.log('displayNameChanged ', participant.displayName);
+        });
+
+        participant.on('stateChanged', () => {
+            console.log('Participant state changed', participant.identifier.communicationUserId, participant.state);
+        });
+
+        const addToListOfAllRemoteParticipantStreams = (participantStreams) => {
+            if (participantStreams) {
+                let participantStreamTuples = participantStreams.map(stream => { return { stream, participant, streamRendererComponentRef: React.createRef() }});
+                participantStreamTuples.forEach(participantStreamTuple => {
+                    if (!this.state.allRemoteParticipantStreams.find((v) => { return v === participantStreamTuple })) {
+                        this.setState(prevState => ({
+                            allRemoteParticipantStreams: [...prevState.allRemoteParticipantStreams, participantStreamTuple]
+                        }));
+                    }
+                })
+            }
+        }
+
+        const removeFromListOfAllRemoteParticipantStreams = (participantStreams) => {
+            participantStreams.forEach(streamToRemove => {
+                const tupleToRemove = this.state.allRemoteParticipantStreams.find((v) => { return v.stream === streamToRemove })
+                if (tupleToRemove) {
+                    this.setState({
+                        allRemoteParticipantStreams: this.state.allRemoteParticipantStreams.filter(streamTuple => { return streamTuple !== tupleToRemove })
+                    });
+                }
+            });
+        }
+
+        const handleVideoStreamsUpdated = (e) => {
+            addToListOfAllRemoteParticipantStreams(e.added);
+            removeFromListOfAllRemoteParticipantStreams(e.removed);
+        }
+
+        addToListOfAllRemoteParticipantStreams(participant.videoStreams);
+        participant.on('videoStreamsUpdated', handleVideoStreamsUpdated);
     }
 
     async handleVideoOnOff() {
@@ -239,73 +279,115 @@ export default class CallCard extends React.Component {
         }
     }
 
+
     render() {
         return (
-            <div className="ms-Grid mt-2">
-                <div className="ms-Grid-row">
+            <div className="container-fluid">
+                <div className="">
                     {
                         this.state.callState === 'Connected' &&
-                        <div className="ms-Grid-col ms-sm12 ms-lg12 ms-xl12 ms-xxl3">
-                             <div className="participants-panel mt-1 mb-3">
-                                {
-                                    this.state.remoteParticipants.length === 0 &&
-                                    <p className="text-center">No other participants currently in the call</p>
-                                }
-                                <ul className="participants-panel-list">
-                                    {
-                                        this.state.remoteParticipants.map(remoteParticipant =>
-                                            <RemoteParticipantCard key={`${utils.getIdentifierText(remoteParticipant.identifier)}`} remoteParticipant={remoteParticipant} call={this.call} />
-                                        )
-                                    }
-                                </ul>
+                        <div className="">
+                            <div className="">
+                            {
+                                this.state.remoteParticipants.length === 0 &&
+                                <p className="text-center">No other participants currently in the call</p>
+                            }
                             </div>
-                            <div>
+                            <div className="">
                                 {
-                                    this.state.showLocalVideo && this.state.videoOn &&
-                                    <div className="mb-3">
-                                        <LocalVideoPreviewCard selectedCameraDeviceId={this.state.selectedCameraDeviceId} deviceManager={this.deviceManager} />
-                                    </div>
+                                    this.state.remoteParticipants.map(remoteParticipant =>
+                                        <RemoteParticipantCard key={`${utils.getIdentifierText(remoteParticipant.identifier)}`} remoteParticipant={remoteParticipant} call={this.call} />
+                                    )
                                 }
                             </div>
                         </div>
                     }
+                </div>
                     <div className={this.state.callState === 'Connected' ? `ms-Grid-col ms-sm12 ms-lg12 ms-xl12 ms-xxl9` : 'ms-Grid-col ms-sm12 ms-lg12 ms-xl12 ms-xxl12'}>
-                        <div className="my-4">
-                            <div className="text-center">
-                                <span className="in-call-button"
-                                    title={`Turn your video ${this.state.videoOn ? 'off' : 'on'}`}
-                                    variant="secondary"
-                                    onClick={() => this.handleVideoOnOff()}>
-                                    {
-                                        this.state.videoOn &&
-                                        <Icon iconName="Video" />
-                                    }
-                                    {
-                                        !this.state.videoOn &&
-                                        <Icon iconName="VideoOff" />
-                                    }
-                                </span>
-                                <span className="in-call-button"
-                                    title={`${this.state.micMuted ? 'Unmute' : 'Mute'} your microphone`}
-                                    variant="secondary"
-                                    onClick={() => this.handleMicOnOff()}>
-                                    {
-                                        this.state.micMuted &&
-                                        <Icon iconName="MicOff2" />
-                                    }
-                                    {
-                                        !this.state.micMuted &&
-                                        <Icon iconName="Microphone" />
-                                    }
-                                </span>
-                                <span className="in-call-button"
-                                    onClick={() => this.call.hangUp()}>
-                                    <Icon iconName="DeclineCall" />
-                                </span>
+                        <div>
+                            {
+                                this.state.showLocalVideo && this.state.videoOn &&
+                                <div className="mb-3">
+                                    <LocalVideoPreviewCard selectedCameraDeviceId={this.state.selectedCameraDeviceId} deviceManager={this.deviceManager} />
+                                </div>
+                            }
+                        </div>
+                        {
+                            <div className="video-grid-row">
+                                {
+                                    (this.state.callState === 'Connected' ||
+                                    this.state.callState === 'LocalHold' ||
+                                    this.state.callState === 'RemoteHold') &&
+                                    this.state.allRemoteParticipantStreams.map(v =>
+                                        <StreamRenderer key={`${utils.getIdentifierText(v.participant.identifier)}-${v.stream.mediaStreamType}-${v.stream.id}`}
+                                                        ref ={v.streamRendererComponentRef}
+                                                        stream={v.stream}
+                                                        remoteParticipant={v.participant}
+                                                        />
+                                    )
+                                }
+                            </div>
+                        }
+                        <div className="">
+                            <div className="">
+                                <div className="btn-toolbar" role="toolbar" aria-label="call features">
+                                    <div className="btn-group  me-2" role="group" aria-label="First group">
+                                        <span>
+                                        {   this.state.videoOn &&
+                                            <div>
+                                                <IconButton 
+                                                    title = 'Video-On'
+                                                    iconProps = {{iconName: 'Video'}}
+                                                    onClick = { () => this.handleVideoOnOff()}  
+                                                ></IconButton>
+                                            </div>
+                                        }
+                                        {   !this.state.videoOn &&
+                                            <div>
+                                                <IconButton
+                                                    title = 'Video-Off'  
+                                                    iconProps = {{iconName: 'VideoOff'}}
+                                                    onClick = { () => this.handleVideoOnOff()}    
+                                                ></IconButton>
+                                            </div>
+                                        }
+                                        </span>
+                                        <span>
+                                        {   !this.state.micMuted &&
+                                            <div>
+                                                <IconButton
+                                                    title = 'Microphone-On'
+                                                    iconProps = {{iconName: 'Microphone'}}
+                                                    onClick = { () => this.handleMicOnOff()}  
+                                                ></IconButton>
+                                            </div>
+                                        }
+                                        {   this.state.micMuted &&
+                                            <div>
+                                                <IconButton
+                                                    title = 'Microphone-Off'  
+                                                    iconProps = {{iconName: 'MicOff2'}}
+                                                    onClick = { () => this.handleMicOnOff()}    
+                                                ></IconButton>
+                                            </div>
+                                        }
+                                        </span>
+                                        <span>
+                                        {   
+                                            <div>
+                                                <IconButton
+                                                    title = 'Call-HangUp'
+                                                    iconProps = {{iconName: 'DeclineCall'}}
+                                                    onClick = { () => this.call.hangUp()}  
+                                                ></IconButton>
+                                            </div>
+                                        }
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
         );
     }

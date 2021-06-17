@@ -1,7 +1,6 @@
 import React from "react";
 import { utils } from './Utilities/Utilities';
-import { Persona, PersonaSize } from 'office-ui-fabric-react';
-import { Icon } from '@fluentui/react/lib/Icon';
+import { Icon, Persona, PersonaSize } from 'office-ui-fabric-react';
 
 export default class RemoteParticipantCard extends React.Component {
     constructor(props) {
@@ -46,10 +45,10 @@ export default class RemoteParticipantCard extends React.Component {
 
     render() {
         return (
-            <li className={`participant-item`} key={utils.getIdentifierText(this.remoteParticipant.identifier)}>
-                <div className="ms-Grid-row">
-                    <div className="ms-Grid-col ms-lg11 ms-sm10">
-                    <Persona className={this.state.isSpeaking ? `speaking-border-for-initials` : ``}
+                <div className="">
+
+                    <div className="">
+                        <Persona className={this.state.isSpeaking ? `speaking-border-for-initials` : ``}
                             size={PersonaSize.size40}
                             text={ this.state.displayName ? this.state.displayName : utils.getIdentifierText(this.remoteParticipant.identifier) }
                             secondaryText={this.state.state}
@@ -65,11 +64,12 @@ export default class RemoteParticipantCard extends React.Component {
                             <Icon className="icon-text-large" iconName="Microphone"/>
                         }
                     </div>
+                    
                 </div>
-                {/* <div className="text-right">
-                    <a href="#" onClick={e => this.handleRemoveParticipant(e, this.remoteParticipant.identifier)} className="participant-remove float-right ml-3">Remove participant</a>
-                </div> */}
-            </li>
+                // {/* <div className="text-right">
+                //     <a href="#" onClick={e => this.handleRemoveParticipant(e, this.remoteParticipant.identifier)} className="participant-remove float-right ml-3">Remove participant</a>
+                // </div> */}
+            // </div>
         )
     }
 }

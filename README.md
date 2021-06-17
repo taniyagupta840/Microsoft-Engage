@@ -24,3 +24,4 @@ ___
 #### Daily Logs
 - <b> june 14, 2021 - </b> setup react + express app and deployed on Heroku.
 - <b> june 15, 2021 - </b> create & integrate acs-token api + login-ui development.
+- <b> june 16, 2021 - </b> add local video stream and video/audio/hangup functionalities.

@@ -16,9 +16,6 @@ export default class StreamRenderer extends React.Component {
         };
     }
 
-    /**
-     * Start stream after DOM has rendered
-     */
     async componentDidMount() {
         document.getElementById(this.componentId).hidden = true;
 
@@ -35,22 +32,12 @@ export default class StreamRenderer extends React.Component {
             this.setState({ displayName: this.remoteParticipant.displayName?.trim() });
         })
 
-        console.log(`[App][StreamMedia][id=${this.stream.id}] handle new stream`);
-        console.log(`[App][StreamMedia][id=${this.stream.id}] stream info - streamId=${this.stream.id}, streamType=${this.stream.mediaStreamType} isAvailable=${this.stream.isAvailable}`);
-        console.log(`[App][StreamMedia][id=${this.stream.id}] subscribing to isAvailableChanged`);
         this.stream.on('isAvailableChanged', async () => {
             try {
-                // if(this.dominantSpeakerMode && this.dominantRemoteParticipant !== this.remoteParticipant) {
-                //     return;
-                // }
-
-                console.log(`[App][StreamMedia][id=${this.stream.id}][isAvailableChanged] triggered`);
                 if (this.stream.isAvailable && !this.renderer) {
-                    console.log(`[App][StreamMedia][id=${this.stream.id}][isAvailableChanged] isAvailable=${this.stream.isAvailable}`);
                     await this.createRenderer();
                     this.attachRenderer();
                 } else {
-                    console.log(`[App][StreamMedia][id=${this.stream.id}][isAvailableChanged] isAvailable=${this.stream.isAvailable}`);
                     this.disposeRenderer();
                 }
             } catch (e) {
@@ -58,12 +45,7 @@ export default class StreamRenderer extends React.Component {
             }
         });
 
-        // if(this.dominantSpeakerMode && this.dominantRemoteParticipant !== this.remoteParticipant) {
-        //     return;
-        // }
-
         try {
-            console.log(`[App][StreamMedia][id=${this.stream.id}] checking initial value - isAvailable=${this.stream.isAvailable}`);
             if (this.stream.isAvailable && !this.renderer) {
                 await this.createRenderer();
                 this.attachRenderer();
@@ -78,18 +60,15 @@ export default class StreamRenderer extends React.Component {
     }
 
     async createRenderer() {
-        console.info(`[App][StreamMedia][id=${this.stream.id}][renderStream] attempt to render stream type=${this.stream.mediaStreamType}, id=${this.stream.id}`);
         if (!this.renderer) {
             this.renderer = new VideoStreamRenderer(this.stream);
             this.view = await this.renderer.createView();
-            console.info(`[App][StreamMedia][id=${this.stream.id}][renderStream] createView resolved, appending view`);
         } else {
             throw new Error(`[App][StreamMedia][id=${this.stream.id}][createRenderer] stream already has a renderer`);
         }
     }
 
     async attachRenderer() {
-        console.info(`[App][StreamMedia][id=${this.stream.id}][attachRenderer] attempt to attach view=${this.view.target}, id=${this.stream.id} to DOM, under container id=${this.videoContainerId}`);
         try {
             if(!this.view.target) {
                 throw new Error(`[App][StreamMedia][id=${this.stream.id}][attachRenderer] target is undefined. Must create renderer first`);
@@ -113,12 +92,17 @@ export default class StreamRenderer extends React.Component {
 
     render() {
         return (
-            <div id={this.componentId} className={`py-3 ms-Grid-col ms-sm-12 ms-lg12 ms-xl12 ${this.stream.mediaStreamType === 'ScreenSharing' ? `ms-xxl12` : `ms-xxl4`}`}>
-                <div className={`${this.state.isSpeaking ? `speaking-border-for-video` : ``}`}
-                    id={this.videoContainerId}>
-                    <h4 className="video-title">
-                        {this.state.displayName ? this.state.displayName : utils.getIdentifierText(this.remoteParticipant.identifier)}
-                    </h4>
+            <div id={this.componentId} className="">
+                <div className="col">
+                    <div className="card h-100 bg-light border-dark">
+                        <div className="card-body text-dark">
+                            <h6 className="card-title">
+                                <b>{this.state.displayName ? this.state.displayName : utils.getIdentifierText(this.remoteParticipant.identifier)}</b>
+                            </h6>
+                            <div className="" id={this.videoContainerId}>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

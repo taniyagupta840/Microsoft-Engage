@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon,IconButton } from 'office-ui-fabric-react';
+import { IconButton } from 'office-ui-fabric-react';
 import LocalVideoPreviewCard from './LocalVideoPreviewCard';
 import RemoteParticipantCard from "./RemoteParticipantCard";
 import StreamRenderer from "./StreamRenderer";
@@ -282,8 +282,8 @@ export default class CallCard extends React.Component {
 
     render() {
         return (
-            <div className="container-fluid">
-                <div className="">
+            <div className="">
+                <div className="container">
                     {
                         this.state.callState === 'Connected' &&
                         <div className="">
@@ -303,36 +303,34 @@ export default class CallCard extends React.Component {
                         </div>
                     }
                 </div>
-                    <div className={this.state.callState === 'Connected' ? `ms-Grid-col ms-sm12 ms-lg12 ms-xl12 ms-xxl9` : 'ms-Grid-col ms-sm12 ms-lg12 ms-xl12 ms-xxl12'}>
-                        <div>
-                            {
-                                this.state.showLocalVideo && this.state.videoOn &&
-                                <div className="mb-3">
-                                    <LocalVideoPreviewCard selectedCameraDeviceId={this.state.selectedCameraDeviceId} deviceManager={this.deviceManager} />
-                                </div>
-                            }
-                        </div>
+                <div className="container">
+                    {/* <div>
                         {
-                            <div className="video-grid-row">
-                                {
-                                    (this.state.callState === 'Connected' ||
-                                    this.state.callState === 'LocalHold' ||
-                                    this.state.callState === 'RemoteHold') &&
-                                    this.state.allRemoteParticipantStreams.map(v =>
-                                        <StreamRenderer key={`${utils.getIdentifierText(v.participant.identifier)}-${v.stream.mediaStreamType}-${v.stream.id}`}
-                                                        ref ={v.streamRendererComponentRef}
-                                                        stream={v.stream}
-                                                        remoteParticipant={v.participant}
-                                                        />
-                                    )
-                                }
+                            this.state.showLocalVideo && this.state.videoOn &&
+                            <div className="mb-3">
+                                <LocalVideoPreviewCard selectedCameraDeviceId={this.state.selectedCameraDeviceId} deviceManager={this.deviceManager} />
                             </div>
                         }
-                        <div className="">
-                            <div className="">
-                                <div className="btn-toolbar" role="toolbar" aria-label="call features">
-                                    <div className="btn-group  me-2" role="group" aria-label="First group">
-                                        <span>
+                    </div> */}
+                    <div className="row row-cols-1 row-cols-md-3 g-4">
+                        {
+                            this.state.callState === 'Connected' &&
+                            this.state.allRemoteParticipantStreams.map(v =>
+                                <StreamRenderer key={`${utils.getIdentifierText(v.participant.identifier)}-${v.stream.mediaStreamType}-${v.stream.id}`}
+                                                ref ={v.streamRendererComponentRef}
+                                                stream={v.stream}
+                                                remoteParticipant={v.participant}
+                                />
+                            )
+                        }
+                    </div>
+                </div>
+                <div className="container">
+                    <div className="row">
+                        <div className="col offset-5">
+                            <div className="btn-toolbar" role="toolbar" aria-label="call features">
+                                <div className="btn-group  me-2" role="group">
+                                    <span>
                                         {   this.state.videoOn &&
                                             <div>
                                                 <IconButton 
@@ -351,8 +349,8 @@ export default class CallCard extends React.Component {
                                                 ></IconButton>
                                             </div>
                                         }
-                                        </span>
-                                        <span>
+                                    </span>
+                                    <span>
                                         {   !this.state.micMuted &&
                                             <div>
                                                 <IconButton
@@ -371,8 +369,8 @@ export default class CallCard extends React.Component {
                                                 ></IconButton>
                                             </div>
                                         }
-                                        </span>
-                                        <span>
+                                    </span>
+                                    <span>
                                         {   
                                             <div>
                                                 <IconButton
@@ -382,12 +380,12 @@ export default class CallCard extends React.Component {
                                                 ></IconButton>
                                             </div>
                                         }
-                                        </span>
-                                    </div>
+                                    </span>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>     
             </div>
         );
     }

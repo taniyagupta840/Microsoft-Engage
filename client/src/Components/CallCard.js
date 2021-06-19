@@ -30,8 +30,6 @@ export default class CallCard extends React.Component {
             showSettings: false,
             showLocalVideo: false,
             callMessage: undefined,
-            dominantSpeakerMode: false,
-            dominantRemoteParticipant: undefined
         };
     }
 
@@ -279,11 +277,24 @@ export default class CallCard extends React.Component {
         }
     }
 
+    async handleScreenSharingOnOff() {
+        try {
+            if (this.call.isScreenSharingOn) {
+                await this.call.stopScreenSharing()
+            } else {
+                await this.call.startScreenSharing();
+            }
+            this.setState({ screenShareOn: this.call.isScreenSharingOn });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
 
     render() {
         return (
             <div className="">
-                <div className="container p-3">
+                <div className="container">
                     {
                         this.state.callState === 'Connected' &&
                         <div className="Center">
@@ -303,7 +314,7 @@ export default class CallCard extends React.Component {
                         </div>
                     }
                 </div>
-                <div className="container-mod">
+                <div className="container-mod mt-3 mb-3">
                     {/* <div>
                         {
                             this.state.showLocalVideo && this.state.videoOn &&
@@ -312,7 +323,7 @@ export default class CallCard extends React.Component {
                             </div>
                         }
                     </div> */}
-                    <div className="row row-cols-1 row-cols-md-2 g-4">
+                    <div className="row row-cols-2 row-cols-md-2 g-4">
                         {
                             this.state.callState === 'Connected' &&
                             this.state.allRemoteParticipantStreams.map(v =>
@@ -326,8 +337,8 @@ export default class CallCard extends React.Component {
                     </div>
                 </div>
                 <div className="Pos-toolbar">
-                    <div className="row">
-                        <div className="">
+                    <div className="container">
+                        <div className="row">
                             <div className="btn-toolbar" role="toolbar" aria-label="call features">
                                 <div className="btn-group  me-2" role="group">
                                     <span>
@@ -366,6 +377,26 @@ export default class CallCard extends React.Component {
                                                     title = 'Microphone-Off'  
                                                     iconProps = {{iconName: 'MicOff2'}}
                                                     onClick = { () => this.handleMicOnOff()}    
+                                                ></IconButton>
+                                            </div>
+                                        }
+                                    </span>
+                                    <span>
+                                        {   !this.state.screenShareOn &&
+                                            <div>
+                                                <IconButton
+                                                    title = 'ScreenSharing-On'
+                                                    iconProps = {{iconName: 'TVMonitor'}}
+                                                    onClick = { () => this.handleScreenSharingOnOff()}  
+                                                ></IconButton>
+                                            </div>
+                                        }
+                                        {   this.state.screenShareOn &&
+                                            <div>
+                                                <IconButton
+                                                    title = 'ScreenSharing-Off'  
+                                                    iconProps = {{iconName: 'CircleStop'}}
+                                                    onClick = { () => this.handleScreenSharingOnOff()}    
                                                 ></IconButton>
                                             </div>
                                         }

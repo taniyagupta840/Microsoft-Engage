@@ -62,7 +62,7 @@ export default class StreamRenderer extends React.Component {
     async createRenderer() {
         if (!this.renderer) {
             this.renderer = new VideoStreamRenderer(this.stream);
-            this.view = await this.renderer.createView();
+            this.view = await (await this.renderer.createView());
         } else {
             throw new Error(`[App][StreamMedia][id=${this.stream.id}][createRenderer] stream already has a renderer`);
         }
@@ -95,7 +95,7 @@ export default class StreamRenderer extends React.Component {
             <div id={this.componentId} className="">
                 <div className="col">
                     <div className={`card h-100 bg-light ${this.state.isSpeaking ? `border-primary text-primary` : `border-dark text-dark`}`}>
-                        <div className="card-body">
+                        <div className="">
                             <h6 className="card-title">
                                 <b>{this.state.displayName ? this.state.displayName : utils.getIdentifierText(this.remoteParticipant.identifier)}</b>
                             </h6>
@@ -103,6 +103,7 @@ export default class StreamRenderer extends React.Component {
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         );

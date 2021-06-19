@@ -283,27 +283,27 @@ export default class CallCard extends React.Component {
     render() {
         return (
             <div className="">
-                <div className="container">
+                <div className="container p-3">
                     {
                         this.state.callState === 'Connected' &&
-                        <div className="">
-                            <div className="">
+                        <div className="Center">
+                            <div className="h4">
                             {
                                 this.state.remoteParticipants.length === 0 &&
-                                <p className="text-center">No other participants currently in the call</p>
+                                <p className="text-center text-secondary">No other participants currently in the call</p>
                             }
                             </div>
-                            <div className="">
+                            {/* <div className="">
                                 {
                                     this.state.remoteParticipants.map(remoteParticipant =>
                                         <RemoteParticipantCard key={`${utils.getIdentifierText(remoteParticipant.identifier)}`} remoteParticipant={remoteParticipant} call={this.call} />
                                     )
                                 }
-                            </div>
+                            </div> */}
                         </div>
                     }
                 </div>
-                <div className="container">
+                <div className="container-mod">
                     {/* <div>
                         {
                             this.state.showLocalVideo && this.state.videoOn &&
@@ -312,7 +312,7 @@ export default class CallCard extends React.Component {
                             </div>
                         }
                     </div> */}
-                    <div className="row row-cols-1 row-cols-md-3 g-4">
+                    <div className="row row-cols-1 row-cols-md-2 g-4">
                         {
                             this.state.callState === 'Connected' &&
                             this.state.allRemoteParticipantStreams.map(v =>
@@ -325,14 +325,14 @@ export default class CallCard extends React.Component {
                         }
                     </div>
                 </div>
-                <div className="container">
+                <div className="Pos-toolbar">
                     <div className="row">
-                        <div className="col offset-5">
+                        <div className="">
                             <div className="btn-toolbar" role="toolbar" aria-label="call features">
                                 <div className="btn-group  me-2" role="group">
                                     <span>
                                         {   this.state.videoOn &&
-                                            <div>
+                                            <div className="">
                                                 <IconButton 
                                                     title = 'Video-On'
                                                     iconProps = {{iconName: 'Video'}}

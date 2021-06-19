@@ -33,3 +33,4 @@ ___
 - <b> june 15, 2021 - </b> create & integrate acs-token api + login-ui development.
 - <b> june 16, 2021 - </b> add local video stream and video/audio/hangup functionalities.
 - <b> june 17, 2021 - </b> add remote video stream and video/audio/hangup functionalities.
+- <b> june 18, 2021 - </b> add bootstrap cards to render video streams.

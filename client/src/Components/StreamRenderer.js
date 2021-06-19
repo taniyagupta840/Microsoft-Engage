@@ -94,8 +94,8 @@ export default class StreamRenderer extends React.Component {
         return (
             <div id={this.componentId} className="">
                 <div className="col">
-                    <div className="card h-100 bg-light border-dark">
-                        <div className="card-body text-dark">
+                    <div className={`card h-100 bg-light ${this.state.isSpeaking ? `border-primary text-primary` : `border-dark text-dark`}`}>
+                        <div className="card-body">
                             <h6 className="card-title">
                                 <b>{this.state.displayName ? this.state.displayName : utils.getIdentifierText(this.remoteParticipant.identifier)}</b>
                             </h6>

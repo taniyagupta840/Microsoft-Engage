@@ -172,7 +172,7 @@ export default class MakeCall extends React.Component {
                 <Login onLoggedIn={this.handleLogIn} />
                 {   
                     this.state.loggedIn && !this.state.createGroupCall && !this.state.joinGroupCall &&
-                    <div className="App row">
+                    <div className="Center row">
                         <div className="col-sm-6 p-3">
                             <IconButton aria-label="Create" 
                                 iconProps={{iconName: 'Add'}}
@@ -211,7 +211,7 @@ export default class MakeCall extends React.Component {
                         }
                         {
                             !this.state.call && this.state.joinGroupCall &&
-                            <div className="App">
+                            <div className="Center">
                                 <div className="ms-Grid-col ms-sm12 ms-lg12 ms-xl12 ms-xxl4">
                                     <TextField
                                         className="mb-3"

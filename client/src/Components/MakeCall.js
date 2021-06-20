@@ -31,7 +31,8 @@ export default class MakeCall extends React.Component {
             deviceManagerWarning: null,
             callError: null,
             createGroupCall: false,
-            joinGroupCall: false
+            joinGroupCall: false,
+            UUID: undefined
         };
     }
 
@@ -166,26 +167,60 @@ export default class MakeCall extends React.Component {
         return callOptions;
     }
 
+    async generateUuid() {
+        const uuid = await fetch('/generate-uuid')
+                        .then(async function(response){
+                            return response.json().then(function(parsedResponse) {
+                                console.log(parsedResponse);
+                                return parsedResponse;
+                            });
+                        });
+
+        this.setState({UUID: uuid});
+    }
+
     render() {
         return (
             <div>
                 <Login onLoggedIn={this.handleLogIn} />
                 {   
                     this.state.loggedIn && !this.state.createGroupCall && !this.state.joinGroupCall &&
-                    <div className="Center row">
-                        <div className="col-sm-6 p-3">
+                    <div className="container">
+                        <div className="Center">
+                            <div className="row">
+                                <div className="col-sm-6 p-3">
                             <IconButton aria-label="Create" 
                                 iconProps={{iconName: 'Add'}}
-                                onClick={ () => {this.setState({createGroupCall: true})}}>
+                                data-bs-toggle="modal"
+                                data-bs-target="#generated-uuid"
+                                onClick={ () => this.generateUuid() }
+                            >
                             </IconButton>
-                        </div>
-                        <div className="col-sm-6 p-3">
-                            <IconButton aria-label="Join" 
-                                iconProps={{iconName: 'AddLink'}}
-                                onClick={ () => {this.setState({joinGroupCall: true})}}>
-                            </IconButton>
-                        </div>
-                    </div>    
+                            
+                                    {/* <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        Launch
+                                    </button>    */}
+                                </div>
+                        
+                                <div className="col-sm-6 p-3">
+                                    <IconButton aria-label="Join" 
+                                        iconProps={{iconName: 'AddLink'}}
+                                        onClick={ () => {this.setState({joinGroupCall: true})}}>
+                                    </IconButton>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="modal fade" id="generated-uuid" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <b class="modal-title" id="staticBackdropLabel">Joining ID : <span className="text-primary">{this.state.UUID}</span></b>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
                 }
                 <div className="">
                     <div className="">
@@ -209,6 +244,14 @@ export default class MakeCall extends React.Component {
                                 <b>{this.state.deviceManagerWarning}</b>
                             </MessageBar>
                         }
+                        {/* {
+                            !this.state.call && this.state.createGroupCall &&
+                            <div className="Center">
+                                <div className="row">
+
+                                </div>
+                            </div>
+                        } */}
                         {
                             !this.state.call && this.state.joinGroupCall &&
                             <div className="Center">
@@ -217,8 +260,7 @@ export default class MakeCall extends React.Component {
                                         className="mb-3"
                                         disabled={this.state.call}
                                         label="Enter Code"
-                                        placeholder="29228d3e-040e-4656-a70e-890ab4e173e5"
-                                        defaultValue="29228d3e-040e-4656-a70e-890ab4e173e5"
+                                        placeholder=""
                                         componentRef={(val) => this.destinationGroup = val} />
                                     <PrimaryButton
                                         className="primary-button"

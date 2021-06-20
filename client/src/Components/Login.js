@@ -28,16 +28,19 @@ export default class Login extends React.Component {
     render() {
         return (
             <div className="">
-                <div className="App">
-                    <div className="row">
-                        <IconButton ariaDescription="Connect" 
-                            iconProps={{iconName: 'AddGroup'}}
-                            hidden={this.state.connect}
-                            onClick={() => this.setState({connect: true})}
-                        >
-                        </IconButton>
+                {
+                    !this.state.connect &&
+                    <div className="App">
+                        <div className="row">
+                            <IconButton ariaDescription="Connect" 
+                                iconProps={{iconName: 'AddGroup'}}
+                                hidden={this.state.connect}
+                                onClick={() => this.setState({connect: true})}
+                            >
+                            </IconButton>
+                        </div>
                     </div>
-                </div>
+                }
                 {   this.state.connect && !this.state.loggedIn && !this.displayName &&
                     <div className="App">
                         <div className="row">
@@ -58,7 +61,8 @@ export default class Login extends React.Component {
                         </div>
                     </div>
                 }
-                {   this.state.connect && !this.state.loggedIn && this.displayName &&
+                {   
+                    this.state.connect && !this.state.loggedIn && this.displayName &&
                     <div className="App">
                         <Spinner label="Loading..." />
                     </div>

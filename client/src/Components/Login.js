@@ -2,15 +2,18 @@ import React from "react";
 import { TextField } from 'office-ui-fabric-react'
 import { utils } from "./Utilities/Utilities";
 import { PrimaryButton, IconButton, Spinner } from "@fluentui/react";
+import FirebaseAuthentication from "./FirebaseAuthentication";
 
 export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.userDetailsResponse = undefined;
         this.displayName = undefined;
+        // this.isAuthenticated= false;
         this.state = {
             loggedIn: false,
             connect: false,
+            isAuthenticated: false
         }
     }
 
@@ -25,11 +28,16 @@ export default class Login extends React.Component {
         } 
     }
 
+    callbackAuthentication = (userAuthStatus) => {
+        this.setState({ isAuthenticated: userAuthStatus});
+        // this.isAuthenticated = user.isAuthenticated;
+    }
+
     render() {
         return (
             <div className="">
                 {
-                    !this.state.connect &&
+                    !this.state.connect && 
                     <div className="App">
                         <div className="row">
                             <IconButton ariaDescription="Connect" 
@@ -41,7 +49,12 @@ export default class Login extends React.Component {
                         </div>
                     </div>
                 }
-                {   this.state.connect && !this.state.loggedIn && !this.displayName &&
+                {
+                    this.state.connect &&
+                    <FirebaseAuthentication onAuthentication={this.callbackAuthentication} />
+                }
+                {   
+                    this.state.connect && !this.state.loggedIn && !this.displayName && this.state.isAuthenticated &&
                     <div className="App">
                         <div className="row">
                             <div className="ms-Grid-col ms-sm12 ms-lg6 ms-xl6 ms-xxl3">
@@ -63,7 +76,7 @@ export default class Login extends React.Component {
                 }
                 {   
                     this.state.connect && !this.state.loggedIn && this.displayName &&
-                    <div className="App">
+                    <div className="Center">
                         <Spinner label="Loading..." />
                     </div>
                 }

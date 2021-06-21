@@ -23,8 +23,18 @@ ___
 - Node.js
 - React
 - Azure Communication Services
+- Firebase
+- Heruko-Hosting
 - FluentUI Fabric
 - Bootstrap
+- Material UI
+- UUID Generator
+
+###### Challenges
+- React - Totally newbie
+- UI/UX
+- Video-Stream Representation ( still persist )
+- Lifting-Up State in React
 
 ___
 
@@ -36,3 +46,4 @@ ___
 - <b> june 18, 2021 - </b> add bootstrap cards to render video streams.
 - <b> june 19, 2021 - </b> create uuid-generator api
 - <b> june 20, 2021 - </b> integrate uuid-generator functionality
+- <b> june 21, 2021 - </b> add firebase authentication

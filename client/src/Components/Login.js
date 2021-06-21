@@ -30,7 +30,6 @@ export default class Login extends React.Component {
 
     callbackAuthentication = (userAuthStatus) => {
         this.setState({ isAuthenticated: userAuthStatus});
-        // this.isAuthenticated = user.isAuthenticated;
     }
 
     render() {

@@ -58,8 +58,8 @@ export default class SignInScreen extends React.Component {
         { 
           this.state.isSignedIn &&
           <div>
-            <p>Welcome {firebase.auth().currentUser.displayName}! You are now signed-in!</p>
-            <a onClick={() => firebase.auth().signOut()}>Sign-out</a>
+            {/* <p>Welcome {firebase.auth().currentUser.displayName}! You are now signed-in!</p> */}
+            {/* <a onClick={() => firebase.auth().signOut()}>Sign-out</a> */}
           </div>
         }
       </div>

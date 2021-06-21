@@ -35,3 +35,4 @@ ___
 - <b> june 17, 2021 - </b> add remote video stream and video/audio/hangup functionalities.
 - <b> june 18, 2021 - </b> add bootstrap cards to render video streams.
 - <b> june 19, 2021 - </b> create uuid-generator api
+- <b> june 20, 2021 - </b> integrate uuid-generator functionality

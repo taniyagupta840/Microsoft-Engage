@@ -28,7 +28,7 @@ export default class CallCard extends React.Component {
             selectedSpeakerDeviceId: this.deviceManager.selectedSpeaker?.id,
             selectedMicrophoneDeviceId: this.deviceManager.selectedMicrophone?.id,
             showSettings: false,
-            showLocalVideo: false,
+            showLocalVideo: true,
             callMessage: undefined,
         };
     }
@@ -315,15 +315,13 @@ export default class CallCard extends React.Component {
                     }
                 </div>
                 <div className="container-mod mt-3 mb-3">
-                    {/* <div>
+                    <div className="row row-cols-2 row-cols-md-2 g-4">
                         {
                             this.state.showLocalVideo && this.state.videoOn &&
                             <div className="mb-3">
                                 <LocalVideoPreviewCard selectedCameraDeviceId={this.state.selectedCameraDeviceId} deviceManager={this.deviceManager} />
                             </div>
                         }
-                    </div> */}
-                    <div className="row row-cols-2 row-cols-md-2 g-4">
                         {
                             this.state.callState === 'Connected' &&
                             this.state.allRemoteParticipantStreams.map(v =>

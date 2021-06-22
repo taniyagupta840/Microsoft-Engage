@@ -1,7 +1,9 @@
 import React from "react";
-import { TextField } from 'office-ui-fabric-react'
 import { utils } from "./Utilities/Utilities";
-import { PrimaryButton, IconButton, Spinner } from "@fluentui/react";
+import HomePage from "./HomePage";
+import { CssBaseline, IconButton, Grid, TextField } from "@material-ui/core";
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import FirebaseAuthentication from "./FirebaseAuthentication";
 
 export default class Login extends React.Component {
@@ -9,7 +11,6 @@ export default class Login extends React.Component {
         super(props);
         this.userDetailsResponse = undefined;
         this.displayName = undefined;
-        // this.isAuthenticated= false;
         this.state = {
             loggedIn: false,
             connect: false,
@@ -28,25 +29,21 @@ export default class Login extends React.Component {
         } 
     }
 
+    callbackConnect = (isConnect) => {
+        this.setState({connect: isConnect});
+    }
+
     callbackAuthentication = (userAuthStatus) => {
         this.setState({ isAuthenticated: userAuthStatus});
     }
 
     render() {
         return (
-            <div className="">
+            <div>
+                <CssBaseline />
                 {
                     !this.state.connect && 
-                    <div className="App">
-                        <div className="row">
-                            <IconButton ariaDescription="Connect" 
-                                iconProps={{iconName: 'AddGroup'}}
-                                hidden={this.state.connect}
-                                onClick={() => this.setState({connect: true})}
-                            >
-                            </IconButton>
-                        </div>
-                    </div>
+                    <HomePage isConnect={this.callbackConnect} />
                 }
                 {
                     this.state.connect &&
@@ -54,30 +51,62 @@ export default class Login extends React.Component {
                 }
                 {   
                     this.state.connect && !this.state.loggedIn && !this.displayName && this.state.isAuthenticated &&
-                    <div className="App">
-                        <div className="row">
-                            <div className="ms-Grid-col ms-sm12 ms-lg6 ms-xl6 ms-xxl3">
-                                <TextField defaultValue={undefined}
-                                    className="mb-3"
-                                    size="15"
-                                    label="Enter Name (optional)"
-                                    onChange={(e) => { this.displayName = e.target.value }}/>
+                    <Grid
+                        container
+                        spacing={0}
+                        direction="column"
+                        alignItems="center"
+                        justify="center"
+                        style={{ minHeight: '100vh' }}
+                    >
+                        <Grid>
+                            <div>
+                                <Grid container spacing={1} alignItems="flex-end">
+                                    <Grid item>
+                                        <AccountCircle color="primary" size="medium" />
+                                    </Grid>
+                                    <Grid item>
+                                        <TextField
+                                            id="input-with-icon-grid" 
+                                            label="Display Name" 
+                                            size="small" 
+                                            required={true}
+                                            onChange={(e) => { this.displayName = e.target.value }}
+                                            />   
+                                    </Grid>
+                                    <Grid item>
+                                        <IconButton
+                                            size="small"
+                                            onClick={ () => {this.provisionNewUser();} }
+                                        >
+                                            <ArrowForwardIosIcon color="primary"/>
+                                        </IconButton>
+                                    </Grid>
+                                </Grid>
                             </div>
-                        </div>
-                        <div className="">
-                            <PrimaryButton
-                                iconProps={{iconName: ''}}
-                                text="Submit"
-                                onClick={ () => {this.provisionNewUser(); } }>
-                            </PrimaryButton>
-                        </div>
-                    </div>
+                        </Grid>
+                    </Grid>
+
                 }
                 {   
                     this.state.connect && !this.state.loggedIn && this.displayName &&
-                    <div className="Center">
-                        <Spinner label="Loading..." />
-                    </div>
+                    <Grid
+                    container
+                    spacing={0}
+                    direction="column"
+                    alignItems="center"
+                    justify="center"
+                    style={{ minHeight: '100vh' }}
+                    >
+                        <Grid item>
+                            <div className="spinner-grow text-primary" role="status"></div>
+                            <div className="spinner-grow text-secondary" role="status"></div>
+                            <div className="spinner-grow text-success" role="status"></div>
+                            <div className="spinner-grow text-danger" role="status"></div>
+                            <div className="spinner-grow text-warning" role="status"></div>
+                            <div className="spinner-grow text-info" role="status"></div>
+                        </Grid>
+                    </Grid>
                 }
             </div>
         );

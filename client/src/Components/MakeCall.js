@@ -210,12 +210,12 @@ export default class MakeCall extends React.Component {
                                 </div>
                             </div>
                         </div> 
-                        <div class="modal fade" id="generated-uuid" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <b class="modal-title" id="staticBackdropLabel">Joining ID : <span className="text-primary">{this.state.UUID}</span></b>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div className="modal fade" id="generated-uuid" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div className="modal-dialog modal-dialog-centered">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <b className="modal-title" id="staticBackdropLabel">Joining ID : <span className="text-primary">{this.state.UUID}</span></b>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                 </div>
                             </div>

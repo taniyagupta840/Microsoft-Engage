@@ -1,10 +1,19 @@
 import React from "react";
-import { IconButton } from 'office-ui-fabric-react';
 import LocalVideoPreviewCard from './LocalVideoPreviewCard';
 import RemoteParticipantCard from "./RemoteParticipantCard";
 import StreamRenderer from "./StreamRenderer";
 import { LocalVideoStream } from '@azure/communication-calling';
 import { utils } from './Utilities/Utilities';
+import { Dropdown, Panel, PanelType } from "office-ui-fabric-react";
+import { CssBaseline, IconButton, Grid, Switch, Typography } from '@material-ui/core';
+import VideocamIcon from '@material-ui/icons/Videocam';
+import VideocamOffIcon from '@material-ui/icons/VideocamOff';
+import MicIcon from '@material-ui/icons/Mic';
+import MicOffIcon from '@material-ui/icons/MicOff';
+import ScreenShareIcon from '@material-ui/icons/ScreenShare';
+import StopScreenShareIcon from '@material-ui/icons/StopScreenShare';
+import CallEndIcon from '@material-ui/icons/CallEnd';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 export default class CallCard extends React.Component {
     constructor(props) {
@@ -28,8 +37,9 @@ export default class CallCard extends React.Component {
             selectedSpeakerDeviceId: this.deviceManager.selectedSpeaker?.id,
             selectedMicrophoneDeviceId: this.deviceManager.selectedMicrophone?.id,
             showSettings: false,
-            showLocalVideo: true,
+            showLocalVideo: false,
             callMessage: undefined,
+            drawer: false,
         };
     }
 
@@ -290,20 +300,58 @@ export default class CallCard extends React.Component {
         }
     }
 
+    cameraDeviceSelectionChanged = async (event, item) => {
+        const cameras = await this.deviceManager.getCameras();
+        const cameraDeviceInfo = cameras.find(cameraDeviceInfo => { return cameraDeviceInfo.id === item.key });
+        const localVideoStream = this.call.localVideoStreams[0];
+        if (localVideoStream) {
+            localVideoStream.switchSource(cameraDeviceInfo);
+        }
+        this.setState({ selectedCameraDeviceId: cameraDeviceInfo.id });
+    };
+
+    speakerDeviceSelectionChanged = async (event, item) => {
+        const speakers = await this.deviceManager.getSpeakers();
+        const speakerDeviceInfo = speakers.find(speakerDeviceInfo => { return speakerDeviceInfo.id === item.key });
+        this.deviceManager.selectSpeaker(speakerDeviceInfo);
+        this.setState({ selectedSpeakerDeviceId: speakerDeviceInfo.id });
+    };
+
+    microphoneDeviceSelectionChanged = async (event, item) => {
+        const microphones = await this.deviceManager.getMicrophones();
+        const microphoneDeviceInfo = microphones.find(microphoneDeviceInfo => { return microphoneDeviceInfo.id === item.key });
+        this.deviceManager.selectMicrophone(microphoneDeviceInfo);
+        this.setState({ selectedMicrophoneDeviceId: microphoneDeviceInfo.id });
+    };
 
     render() {
         return (
-            <div className="">
-                <div className="container">
+            <React.Fragment>
+                <CssBaseline />
+                <Grid 
+                    container
+                    spacing={0}
+                    direction="column"
+                    alignItems="center"
+                    justify="space-evenly"
+                    style={{ height: "100vh"}}
+                    >
                     {
-                        this.state.callState === 'Connected' &&
-                        <div className="Center">
-                            <div className="h4">
+                        <Grid 
+                            item
+                            container
+                            spacing={3}
+                            direction="row"
+                            alignItems="center"
+                            justify="space-around"
+                            style={{ height: "80vh", overflow: "auto", padding: "5vh" }}
+                        >
                             {
-                                this.state.remoteParticipants.length === 0 &&
-                                <p className="text-center text-secondary">No other participants currently in the call</p>
+                                this.state.callState === 'Connected' && this.state.remoteParticipants.length === 0 &&
+                                <Typography style={{color: "slategray", fontWeight: "normal"}}>
+                                    No other participants currently on this call
+                                </Typography>
                             }
-                            </div>
                             {/* <div className="">
                                 {
                                     this.state.remoteParticipants.map(remoteParticipant =>
@@ -311,111 +359,208 @@ export default class CallCard extends React.Component {
                                     )
                                 }
                             </div> */}
-                        </div>
+                            {
+                                this.state.callState === 'Connected' &&
+                                this.state.allRemoteParticipantStreams.map(v => <StreamRenderer 
+                                            key={`${utils.getIdentifierText(v.participant.identifier)}-${v.stream.mediaStreamType}-${v.stream.id}`}
+                                            ref ={v.streamRendererComponentRef}
+                                            stream={v.stream}
+                                            remoteParticipant={v.participant}
+                                        />
+                                    )
+                            }
+                        </Grid>
                     }
-                </div>
-                <div className="container-mod mt-3 mb-3">
-                    <div className="row row-cols-2 row-cols-md-2 g-4">
-                        {
-                            this.state.showLocalVideo && this.state.videoOn &&
-                            <div className="mb-3">
-                                <LocalVideoPreviewCard selectedCameraDeviceId={this.state.selectedCameraDeviceId} deviceManager={this.deviceManager} />
-                            </div>
-                        }
-                        {
-                            this.state.callState === 'Connected' &&
-                            this.state.allRemoteParticipantStreams.map(v =>
-                                <StreamRenderer key={`${utils.getIdentifierText(v.participant.identifier)}-${v.stream.mediaStreamType}-${v.stream.id}`}
-                                                ref ={v.streamRendererComponentRef}
-                                                stream={v.stream}
-                                                remoteParticipant={v.participant}
+                    {
+                        <Grid
+                        item 
+                        container
+                        spacing={0}
+                        direction="row"
+                        alignItems="center"
+                        justify="center"
+                        style= {{ height: "20vh"}}
+                        
+                        >
+                            <span>
+                                {   
+                                    this.state.videoOn &&
+                                    <IconButton
+                                        onClick = { () => this.handleVideoOnOff()}
+                                    >
+                                        <VideocamIcon color="primary" />
+                                    </IconButton>
+                                }
+                                {   
+                                    !this.state.videoOn &&
+                                    <IconButton
+                                        onClick = { () => this.handleVideoOnOff()} 
+                                    >
+                                        <VideocamOffIcon color="primary" />
+                                    </IconButton>
+                                }
+                            </span>
+                            <span>
+                                {
+                                    !this.state.micMuted &&
+                                    <IconButton
+                                        onClick = { () => this.handleMicOnOff()}
+                                    >
+                                        <MicIcon style={{color: "#4682b4"}} />
+                                    </IconButton>
+                                }
+                                {
+                                    this.state.micMuted &&
+                                    <IconButton
+                                        onClick = { () => this.handleMicOnOff()}
+                                    >
+                                        <MicOffIcon style={{color: "#4682b4"}} />
+                                    </IconButton>
+                                }
+                            </span>
+                            <span>
+                                {
+                                    !this.state.screenShareOn &&
+                                    <IconButton
+                                        onClick = { () => this.handleScreenSharingOnOff()} 
+                                    >
+                                        <ScreenShareIcon style={{color: "#2e8b57"}} />
+                                    </IconButton>
+                                }
+                                {
+                                    this.state.screenShareOn &&
+                                    <IconButton
+                                        onClick = { () => this.handleScreenSharingOnOff() } 
+                                    >
+                                        <StopScreenShareIcon style={{color: "#2e8b57"}} />
+                                    </IconButton>
+                                }
+                            </span>
+                            <span>
+                                <IconButton
+                                    onClick={() => this.setState({ showSettings: true })}
+                                >
+                                    <SettingsIcon style={{color: "#f4a460"}} />
+                                </IconButton>
+                            </span>
+                            <span>
+                                {
+                                    <IconButton
+                                        onClick = { () => this.call.hangUp()} 
+                                    >
+                                        <CallEndIcon color="secondary"/>
+                                    </IconButton>
+                                } 
+                            </span>
+                        </Grid>
+                    }
+                    <Panel 
+                        type={PanelType.small}
+                        isLightDismiss
+                        isOpen={this.state.showSettings}
+                        onDismiss={() => this.setState({ showSettings: false })}
+                        closeButtonAriaLabel="Close"
+                        headerText="Settings"
+                        style={{ paddingRight: "24px" }}    
+                    >
+                            <Typography 
+                                color="textPrimary" 
+                                variant="subtitle1" 
+                                style={{ fontWeight: "bold", paddingTop: "3vh" }}
+                            >
+                                Video Settings
+                            </Typography>
+                            {
+                                this.state.callState === 'Connected' &&
+                                <span>
+                                    <Typography 
+                                        color="textSecondary" 
+                                        variant="subtitle2" 
+                                        style={{ fontWeight: "bold" }}
+                                    >
+                                        Camera
+                                    </Typography>
+                                    <Dropdown
+                                        selectedKey={this.state.selectedCameraDeviceId}
+                                        onChange={this.cameraDeviceSelectionChanged}
+                                        options={this.state.cameraDeviceOptions}
+                                        placeHolder={this.state.cameraDeviceOptions.length === 0 ? 'No camera devices found' : this.state.selectedCameraDeviceId }
+                                        styles={{ dropdown: { width: 290 } }}
+                                    />
+                                </span>
+                            }
+                            <span>
+                                <Typography 
+                                    color="textSecondary" 
+                                    variant="subtitle2" 
+                                    style={{ fontWeight: "bold" }}
+                                >
+                                        Camera Preview
+                                    </Typography>
+                            </span>
+                            <Switch
+                                checked={this.state.showLocalVideo}
+                                onChange={() => this.setState({ showLocalVideo: !this.state.showLocalVideo })}
+                                color="primary"
+                                name="checkedB"
+                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                            />
+                            {
+                                this.state.showLocalVideo &&
+                                <LocalVideoPreviewCard 
+                                    selectedCameraDeviceId={this.state.selectedCameraDeviceId} 
+                                    deviceManager={this.deviceManager}
+                                    style={{ paddingTop: "3vh" }}
                                 />
-                            )
-                        }
-                    </div>
-                </div>
-                <div className="Pos-toolbar">
-                    <div className="container">
-                        <div className="row">
-                            <div className="btn-toolbar" role="toolbar" aria-label="call features">
-                                <div className="btn-group  me-2" role="group">
-                                    <span>
-                                        {   this.state.videoOn &&
-                                            <div className="">
-                                                <IconButton 
-                                                    title = 'Video-On'
-                                                    iconProps = {{iconName: 'Video'}}
-                                                    onClick = { () => this.handleVideoOnOff()}  
-                                                ></IconButton>
-                                            </div>
-                                        }
-                                        {   !this.state.videoOn &&
-                                            <div>
-                                                <IconButton
-                                                    title = 'Video-Off'  
-                                                    iconProps = {{iconName: 'VideoOff'}}
-                                                    onClick = { () => this.handleVideoOnOff()}    
-                                                ></IconButton>
-                                            </div>
-                                        }
-                                    </span>
-                                    <span>
-                                        {   !this.state.micMuted &&
-                                            <div>
-                                                <IconButton
-                                                    title = 'Microphone-On'
-                                                    iconProps = {{iconName: 'Microphone'}}
-                                                    onClick = { () => this.handleMicOnOff()}  
-                                                ></IconButton>
-                                            </div>
-                                        }
-                                        {   this.state.micMuted &&
-                                            <div>
-                                                <IconButton
-                                                    title = 'Microphone-Off'  
-                                                    iconProps = {{iconName: 'MicOff2'}}
-                                                    onClick = { () => this.handleMicOnOff()}    
-                                                ></IconButton>
-                                            </div>
-                                        }
-                                    </span>
-                                    <span>
-                                        {   !this.state.screenShareOn &&
-                                            <div>
-                                                <IconButton
-                                                    title = 'ScreenSharing-On'
-                                                    iconProps = {{iconName: 'TVMonitor'}}
-                                                    onClick = { () => this.handleScreenSharingOnOff()}  
-                                                ></IconButton>
-                                            </div>
-                                        }
-                                        {   this.state.screenShareOn &&
-                                            <div>
-                                                <IconButton
-                                                    title = 'ScreenSharing-Off'  
-                                                    iconProps = {{iconName: 'CircleStop'}}
-                                                    onClick = { () => this.handleScreenSharingOnOff()}    
-                                                ></IconButton>
-                                            </div>
-                                        }
-                                    </span>
-                                    <span>
-                                        {   
-                                            <div>
-                                                <IconButton
-                                                    title = 'Call-HangUp'
-                                                    iconProps = {{iconName: 'DeclineCall'}}
-                                                    onClick = { () => this.call.hangUp()}  
-                                                ></IconButton>
-                                            </div>
-                                        }
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>     
-            </div>
+                            }
+                            <Typography 
+                                color="textPrimary" 
+                                variant="subtitle1" 
+                                style={{ fontWeight: "bold", paddingTop: "3vh" }}
+                            >
+                                Sound Settings
+                            </Typography>
+                            {
+                                this.state.callState === 'Connected' &&
+                                <span>
+                                    <Typography 
+                                        color="textSecondary" 
+                                        variant="subtitle2" 
+                                        style={{ fontWeight: "bold" }}
+                                    >
+                                        Speaker
+                                    </Typography>
+                                    <Dropdown
+                                        selectedKey={this.state.selectedSpeakerDeviceId}
+                                        onChange={this.speakerDeviceSelectionChanged}
+                                        options={this.state.speakerDeviceOptions}
+                                        placeHolder={this.state.speakerDeviceOptions.length === 0 ? 'No speaker devices found' : this.state.selectedSpeakerDeviceId}
+                                        styles={{ dropdown: { width: 290 } }}
+                                    />
+                                </span>
+                            }
+                            {
+                                this.state.callState === 'Connected' &&
+                                <span>
+                                    <Typography 
+                                        color="textSecondary" 
+                                        variant="subtitle2" 
+                                        style={{ fontWeight: "bold" }}
+                                    >
+                                        Microphone
+                                    </Typography>
+                                    <Dropdown
+                                        selectedKey={this.state.selectedMicrophoneDeviceId}
+                                        onChange={this.microphoneDeviceSelectionChanged}
+                                        options={this.state.microphoneDeviceOptions}
+                                        placeHolder={this.state.microphoneDeviceOptions.length === 0 ? 'No microphone devices found' : this.state.selectedMicrophoneDeviceId}
+                                        styles={{ dropdown: { width: 290 } }}
+                                    />
+                                </span>
+                            }
+                    </Panel>
+                </Grid>
+            </React.Fragment>
         );
     }
 }

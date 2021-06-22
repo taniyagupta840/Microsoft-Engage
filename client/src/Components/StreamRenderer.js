@@ -1,6 +1,8 @@
 import React from "react";
 import { utils } from './Utilities/Utilities';
 import { VideoStreamRenderer } from "@azure/communication-calling";
+import { Card, CardActionArea, CardMedia, Typography } from "@material-ui/core";
+
 export default class StreamRenderer extends React.Component {
     constructor(props) {
         super(props);
@@ -92,20 +94,19 @@ export default class StreamRenderer extends React.Component {
 
     render() {
         return (
-            <div id={this.componentId} className="">
-                <div className="col">
-                    <div className={`card h-100 bg-light ${this.state.isSpeaking ? `border-primary text-primary` : `border-dark text-dark`}`}>
-                        <div className="">
-                            <h6 className="card-title">
-                                <b>{this.state.displayName ? this.state.displayName : utils.getIdentifierText(this.remoteParticipant.identifier)}</b>
-                            </h6>
-                            <div className="" id={this.videoContainerId}>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+            <Card
+                id={this.componentId}
+                raised={2}
+            >
+                <CardActionArea>
+                    <CardMedia 
+                        id={this.videoContainerId}
+                    />
+                    <Typography style={{ textAlign: "center", fontWeight: "normal", fontSmooth: "always" }}>
+                        {this.state.displayName ? this.state.displayName : utils.getIdentifierText(this.remoteParticipant.identifier)}
+                    </Typography>
+                </CardActionArea>
+            </Card>
         );
     }
 }

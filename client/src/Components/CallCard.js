@@ -338,13 +338,14 @@ export default class CallCard extends React.Component {
                     >
                     {
                         <Grid 
-                            item
                             container
+                            item
                             spacing={3}
                             direction="row"
                             alignItems="center"
-                            justify="space-around"
+                            justify="space-evenly"
                             style={{ height: "80vh", overflow: "auto", padding: "5vh" }}
+                            zeroMinWidth
                         >
                             {
                                 this.state.callState === 'Connected' && this.state.remoteParticipants.length === 0 &&
@@ -373,14 +374,13 @@ export default class CallCard extends React.Component {
                     }
                     {
                         <Grid
-                        item 
-                        container
-                        spacing={0}
-                        direction="row"
-                        alignItems="center"
-                        justify="center"
-                        style= {{ height: "20vh"}}
-                        
+                            item 
+                            container
+                            spacing={0}
+                            direction="row"
+                            alignItems="center"
+                            justify="center"
+                            style= {{ height: "20vh"}}
                         >
                             <span>
                                 {   

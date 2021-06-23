@@ -96,16 +96,32 @@ export default class StreamRenderer extends React.Component {
         return (
             <Card
                 id={this.componentId}
-                raised={2}
+                raised={true}
+                style={{ margin: "2vh" }}
             >
-                <CardActionArea>
+                {
+                    !(this.stream.mediaStreamType === 'ScreenSharing') &&
+                    <CardActionArea>
+                        <CardMedia 
+                           id={this.videoContainerId}
+                        />
+                        <Typography style={{ textAlign: "center", fontWeight: "normal", fontSmooth: "always" }}>
+                            {this.state.displayName ? this.state.displayName : utils.getIdentifierText(this.remoteParticipant.identifier)}
+                        </Typography>
+                        </CardActionArea>
+                }
+                {
+                    (this.stream.mediaStreamType === 'ScreenSharing') &&
+                    <CardActionArea>
                     <CardMedia 
                         id={this.videoContainerId}
+                        style={{ maxHeight: "36vh", maxWidth: "64vh" }}
                     />
                     <Typography style={{ textAlign: "center", fontWeight: "normal", fontSmooth: "always" }}>
                         {this.state.displayName ? this.state.displayName : utils.getIdentifierText(this.remoteParticipant.identifier)}
                     </Typography>
-                </CardActionArea>
+                    </CardActionArea>   
+                }
             </Card>
         );
     }

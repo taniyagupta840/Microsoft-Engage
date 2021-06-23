@@ -3,9 +3,6 @@ import { Button, CssBaseline, Grid } from '@material-ui/core';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
 export default class SimpleContainer extends React.Component {
-  constructor(props) {
-      super(props);
-  }
 
 render() {
   return (

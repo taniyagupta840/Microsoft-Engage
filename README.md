@@ -8,16 +8,36 @@ __Developer -__ <code><b>Umang Barthwal</b></code>
 
 ___
 
+#### Features
+
+- Video
+- Audio
+- Screen-Share
+- Firebase Authentication
+- File-Sharing
+
+___
+
 #### Setup Instructions
 
 ###### Prerequisites
 - Node + npm
 - React
 
-###### Process
-- Clone the repo
-- <code>npm install</code>
-- <code>npm start</code>
+###### Development Setup
+- Clone the Repository
+- Setup Backend-Server
+ <code>npm install</code>
+ <code>npm start</code>
+
+
+- Setup React-Server
+ <code>cd client</code>
+ <code>npm install</code>
+ <code>npm start</code>
+
+- Open-Browser
+ <code>http://localhost:3000</code>
 
 ###### Tools & Technologies
 - Node.js
@@ -48,3 +68,4 @@ ___
 - <b> june 20, 2021 - </b> integrate uuid-generator functionality.
 - <b> june 21, 2021 - </b> add firebase authentication.
 - <b> june 22, 2021 - </b> add setting panel & major ui changes using Material UI.
+- <b> june 23, 2021 - </b> change firebase configration & add file sharing functionality.

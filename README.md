@@ -40,15 +40,17 @@ ___
  <code>http://localhost:3000</code>
 
 ###### Tools & Technologies
-- Node.js
-- React
-- Azure Communication Services
-- Firebase
-- Heruko-Hosting
-- FluentUI Fabric
-- Bootstrap
-- Material UI
-- UUID Generator
+- Node.js: Backend Server
+- React: Frontend Server
+- Azure Communication Services: End-Points for Video Calling
+- Firebase Authentication: Google & Email Athentication
+- Firebase Storage: File-Sharing Feature
+- Heruko-Hosting: Web-app Hosting
+- FluentUI Fabric: Design
+- Bootstrap: Design
+- Material UI: Design
+- UUID Generator: Unique Join ID 
+- Vanta.js: Background Animation
 
 ###### Challenges
 - React - Totally newbie
@@ -69,3 +71,4 @@ ___
 - <b> june 21, 2021 - </b> add firebase authentication.
 - <b> june 22, 2021 - </b> add setting panel & major ui changes using Material UI.
 - <b> june 23, 2021 - </b> change firebase configration & add file sharing functionality.
+- <b> june 24, 2021 - </b> add animated background on homepage.

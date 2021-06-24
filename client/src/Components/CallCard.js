@@ -446,11 +446,6 @@ export default class CallCard extends React.Component {
                                 </IconButton>
                             </span>
                             <span>
-                                {/* <IconButton
-                                    onClick={ () => {this.setState({openDialog: !this.state.openDialog});}}
-                                >
-                                    <FolderSharedIcon />
-                                </IconButton> */}
                                 <ShareFile />
                             </span>
                             <span>

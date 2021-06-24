@@ -6,17 +6,17 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import AddIcon from '@material-ui/icons/Add';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
+import ClearIcon from '@material-ui/icons/Clear';
 
 export default class ShareFile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             openDialog: false,
-            openAlert: false,
             PROGRESS_UPLOAD:0,
             FILES_UPLOAD: [],
             SIZE : 5e+6,
-            UPLOADED:false,
+            UPLOADED: false,
             URL : '',
             PROGRESS_DOWNLOAD:0,
             FILES_DOWNLOAD:[]
@@ -199,8 +199,8 @@ export default class ShareFile extends React.Component {
         this.setState({openDialog: !this.state.openDialog});
     };
 
-    handleAlert = () => {
-        this.setState({openAlert: !this.state.openAlert});
+    handleClear = () => {
+        this.setState({UPLOADED: !this.state.UPLOADED});
     };
 
     render() {
@@ -291,8 +291,16 @@ export default class ShareFile extends React.Component {
                                             container 
                                             item
                                             justify="center"
+                                            alignItems="center"
                                             style={{ padding:"1vh" }}
                                         >
+                                            <IconButton
+                                                color="secondary"
+                                                onClick={this.handleClear}
+                                                size="small"
+                                            >
+                                                <ClearIcon style={{ fontSize: "2.5vh" }} />
+                                            </IconButton>  
                                             <Typography
                                                 variant="caption"
                                                 color= "textSecondary"
@@ -301,10 +309,8 @@ export default class ShareFile extends React.Component {
                                                 {this.state.URL}   
                                             </Typography>
                                             <IconButton
-                                                
                                                 onClick={ () => {
                                                     this.copy();
-                                                    this.handleAlert();
                                                 }}
                                                 size="small"
                                             >

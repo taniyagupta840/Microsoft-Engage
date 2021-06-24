@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, CssBaseline, Grid } from '@material-ui/core';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
-export default class SimpleContainer extends React.Component {
+export default class HomePage extends React.Component {
 
 render() {
   return (
@@ -16,7 +16,7 @@ render() {
         justify="center"
         style={{ minHeight: '100vh' }}
       >
-        <Grid>
+        <Grid item>
             <Button
                 variant="contained"
                 color="primary"
@@ -26,7 +26,7 @@ render() {
             >
                 <b>Connect</b>
             </Button>
-        </Grid>   
+        </Grid>
       </Grid>
     </React.Fragment>
   );}

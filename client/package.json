@@ -12,7 +12,8 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-firebaseui": "^5.0.2",
-    "react-scripts": "4.0.3"
+    "react-scripts": "4.0.3",
+    "vanta": "^0.5.21"
   },
   "scripts": {
     "start": "react-scripts start",

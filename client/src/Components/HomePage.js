@@ -1,12 +1,30 @@
-import React from 'react';
+import React from 'react'
 import { Button, CssBaseline, Grid } from '@material-ui/core';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import Birds from 'vanta/dist/vanta.birds.min';
 
-export default class HomePage extends React.Component {
+export default class App extends React.Component {
+  constructor() {
+    super()
+    this.vantaRef = React.createRef()
+  }
+  componentDidMount() {
+    this.vantaEffect = Birds({
+      el: this.vantaRef.current,
+      backgroundColor: 0xffffff,
+      birdSize: 1.30,
+      wingSpan: 20.00,
+      separation: 25.00,
+    })
+  }
+  componentWillUnmount() {
+    if (this.vantaEffect) this.vantaEffect.destroy()
+  }
 
-render() {
-  return (
-    <React.Fragment>
+  render() {
+    return( 
+      <div ref={this.vantaRef}>
+      <React.Fragment>
       <CssBaseline />
       <Grid
         container
@@ -28,6 +46,8 @@ render() {
             </Button>
         </Grid>
       </Grid>
-    </React.Fragment>
-  );}
+      </React.Fragment>
+      </div>
+    );
+  }
 }

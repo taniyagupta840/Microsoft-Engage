@@ -60,6 +60,18 @@ ___
 
 ___
 
+#### Resources
+
+- microsoft.acehacker.com
+- docs.microsoft.com
+- stackoverflow.com
+- medium.com
+- material-ui.com
+- www.w3schools.com
+- www.vantajs.com
+
+___
+
 #### Daily Logs
 - <b> june 14, 2021 - </b> setup react + express app and deployed on Heroku.
 - <b> june 15, 2021 - </b> create & integrate acs-token api + login-ui development.

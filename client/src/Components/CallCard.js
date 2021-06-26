@@ -1,6 +1,6 @@
 import React from "react";
 import LocalVideoPreviewCard from './LocalVideoPreviewCard';
-import RemoteParticipantCard from "./RemoteParticipantCard";
+// import RemoteParticipantCard from "./RemoteParticipantCard";
 import StreamRenderer from "./StreamRenderer";
 import { LocalVideoStream } from '@azure/communication-calling';
 import { utils } from './Utilities/Utilities';
@@ -14,7 +14,6 @@ import ScreenShareIcon from '@material-ui/icons/ScreenShare';
 import StopScreenShareIcon from '@material-ui/icons/StopScreenShare';
 import CallEndIcon from '@material-ui/icons/CallEnd';
 import SettingsIcon from '@material-ui/icons/Settings';
-import FolderSharedIcon from '@material-ui/icons/FolderShared';
 import ShareFile from "./ShareFile";
 
 export default class CallCard extends React.Component {

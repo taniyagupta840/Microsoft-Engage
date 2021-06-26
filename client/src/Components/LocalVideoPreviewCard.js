@@ -1,6 +1,7 @@
 import React from "react";
 import { LocalVideoStream, VideoStreamRenderer} from '@azure/communication-calling';
 import { Card, CardActionArea, CardMedia } from "@material-ui/core";
+
 export default class LocalVideoPreviewCard extends React.Component {
     constructor(props) {
         super(props);

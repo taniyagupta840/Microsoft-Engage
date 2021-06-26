@@ -107,7 +107,9 @@ export default class ShareFile extends React.Component {
                     this.state.FILES_UPLOAD.push(file);
                     this.setState({SIZE : parseFloat(oldVal)-parseFloat(size)});
                     let list = document.createElement("LI");
-                    let node = document.createTextNode(String(file.name).substr(0,11)+"..."+"("+String((size/(1e+6)).toFixed(2))+" MB)");
+                    const FILENAME = String(file.name).substr(0,11);
+                    const FILESIZE = String((size/(1e+6)).toFixed(2));
+                    let node = document.createTextNode(`${FILENAME}... (${FILESIZE}MB)`);
                     list.appendChild(node);
                     document.getElementById("filedisplaylist").appendChild(list);
                 }

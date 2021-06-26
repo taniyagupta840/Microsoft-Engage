@@ -10,6 +10,7 @@ ___
 
 #### Features
 
+- Responsive
 - Video
 - Audio
 - Screen-Share
@@ -52,11 +53,15 @@ ___
 - UUID Generator: Unique Join ID 
 - Vanta.js: Background Animation
 
-###### Challenges
+___
+
+#### Challenges
+
 - React - Totally newbie
 - UI/UX
 - Video-Stream Representation ( still persist )
 - Lifting-Up State in React
+- Not able to catch updated messages in React state
 
 ___
 
@@ -84,3 +89,4 @@ ___
 - <b> june 22, 2021 - </b> add setting panel & major ui changes using Material UI.
 - <b> june 23, 2021 - </b> change firebase configration & add file sharing functionality.
 - <b> june 24, 2021 - </b> add animated background on homepage.
+- <b> june 25, 2021 - </b> start chat development.

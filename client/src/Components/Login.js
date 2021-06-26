@@ -63,7 +63,7 @@ export default class Login extends React.Component {
                             <div>
                                 <Grid container spacing={1} alignItems="flex-end">
                                     <Grid item>
-                                        <AccountCircle color="primary" size="medium" />
+                                        <AccountCircle color="primary" style={{ fontSize:"5vh" }}/>
                                     </Grid>
                                     <Grid item>
                                         <TextField

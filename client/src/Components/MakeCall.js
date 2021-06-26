@@ -1,13 +1,12 @@
 import React from "react";
 import { CallClient, LocalVideoStream } from '@azure/communication-calling';
 import { AzureCommunicationTokenCredential } from '@azure/communication-common';
-import {
-    IconButton,
-    MessageBar,
-    MessageBarType,
-    PrimaryButton,
-    TextField
-} from 'office-ui-fabric-react'
+import { Button, Dialog, DialogContent, DialogTitle, Divider, Grid, IconButton, TextField, Typography } from "@material-ui/core";
+import AddBoxIcon from '@material-ui/icons/AddBox';
+import LinkIcon from '@material-ui/icons/Link';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+import ShareIcon from '@material-ui/icons/Share';
+import { MessageBar, MessageBarType } from 'office-ui-fabric-react'
 import Login from './Login';
 import CallCard from "./CallCard";
 import { setLogLevel } from '@azure/logger';
@@ -18,7 +17,7 @@ export default class MakeCall extends React.Component {
         this.callClient = null;
         this.callAgent = null;
         this.deviceManager = null;
-        this.destinationGroup = null;
+        this.destinationGroup = undefined;
         this.callError = null;
 
         this.state = {
@@ -32,7 +31,8 @@ export default class MakeCall extends React.Component {
             callError: null,
             createGroupCall: false,
             joinGroupCall: false,
-            UUID: undefined
+            UUID: undefined,
+            openDialog: false
         };
     }
 
@@ -79,7 +79,7 @@ export default class MakeCall extends React.Component {
     joinGroup = async (withVideo) => {
         try {
             const callOptions = await this.getCallOptions(withVideo);
-            this.callAgent.join({ groupId: this.destinationGroup.value }, callOptions);
+            this.callAgent.join({ groupId: this.destinationGroup }, callOptions);
         } catch (e) {
             console.error('Failed to join a call', e);
             this.setState({ callError: 'Failed to join a call: ' + e });
@@ -179,48 +179,113 @@ export default class MakeCall extends React.Component {
         this.setState({UUID: uuid});
     }
 
+    copy = () =>{
+        let uuid = this.state.UUID;
+        navigator.clipboard.writeText(uuid);
+        console.table("copied");
+    }
+
+    handleDialog = () => {
+        this.setState({openDialog: !this.state.openDialog});
+    };
+
     render() {
         return (
             <div>
                 <Login onLoggedIn={this.handleLogIn} />
                 {   
                     this.state.loggedIn && !this.state.createGroupCall && !this.state.joinGroupCall &&
-                    <div className="container">
-                        <div className="Center">
-                            <div className="row">
-                                <div className="col-sm-6 p-3">
-                            <IconButton aria-label="Create" 
-                                iconProps={{iconName: 'Add'}}
-                                data-bs-toggle="modal"
-                                data-bs-target="#generated-uuid"
-                                onClick={ () => this.generateUuid() }
+                    <Grid
+                        container
+                        spacing={3}
+                        direction="row"
+                        alignItems="center"
+                        justify="center"
+                        style={{ minHeight: '100vh' }}
+                    >
+                        <Grid item>
+                            <Button
+                                startIcon={<AddBoxIcon />}
+                                onClick={ () => {this.generateUuid();
+                                                 this.handleDialog();} }
                             >
-                            </IconButton>
-                            
-                                    {/* <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                        Launch
-                                    </button>    */}
-                                </div>
-                        
-                                <div className="col-sm-6 p-3">
-                                    <IconButton aria-label="Join" 
-                                        iconProps={{iconName: 'AddLink'}}
-                                        onClick={ () => {this.setState({joinGroupCall: true})}}>
-                                    </IconButton>
-                                </div>
-                            </div>
-                        </div> 
-                        <div className="modal fade" id="generated-uuid" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                            <div className="modal-dialog modal-dialog-centered">
-                                <div className="modal-content">
-                                    <div className="modal-header">
-                                        <b className="modal-title" id="staticBackdropLabel">Joining ID : <span className="text-primary">{this.state.UUID}</span></b>
-                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>  
-                    </div>
+                                Create Link
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <Button
+                                startIcon={<LinkIcon />}
+                                onClick={ () => {this.setState({joinGroupCall: true})} }
+                            >
+                                Join Link
+                            </Button>
+                        </Grid>
+                        <Dialog
+                            open={this.state.openDialog}
+                            onClose={this.handleDialog}
+                            aria-labelledby="responsive-dialog-title"
+                            fullWidth
+                        >
+                            <DialogTitle >
+                                <Typography 
+                                    color="textSecondary"
+                                    style={{ textAlign: "center", fontWeight: "bold"}}
+                                >
+                                    Join Code
+                                </Typography>
+                            </DialogTitle>
+                            <Divider variant="middle" />
+                            <DialogContent
+                                style={{ minHeight: "30vh", maxHeight: "10vh" }}
+                            >
+                                <Grid 
+                                    container
+                                    spacing={3}
+                                    direction="column"
+                                    alignItems="center"
+                                    justify="center"
+                                >
+                                    <Grid 
+                                        container
+                                        item
+                                        justify="center"
+                                    >
+                                        <Button>
+                                            <Typography
+                                                color="primary"
+                                                variant="subtitle2"
+                                            >
+                                                {this.state.UUID}
+                                            </Typography>
+                                        </Button>   
+                                    </Grid>
+                                    <Grid
+                                       container
+                                       item 
+                                       justify="space-evenly"
+                                    >
+                                        <Grid 
+                                            item 
+                                        >
+                                            <IconButton
+                                            >
+                                                <ShareIcon />
+                                            </IconButton>
+                                        </Grid>
+                                        <Grid 
+                                            item 
+                                        >
+                                            <IconButton
+                                                onClick={ this.copy }    
+                                            >
+                                                <FileCopyIcon />
+                                            </IconButton>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </DialogContent>
+                         </Dialog>
+                    </Grid>
                 }
                 <div className="">
                     <div className="">
@@ -244,33 +309,44 @@ export default class MakeCall extends React.Component {
                                 <b>{this.state.deviceManagerWarning}</b>
                             </MessageBar>
                         }
-                        {/* {
-                            !this.state.call && this.state.createGroupCall &&
-                            <div className="Center">
-                                <div className="row">
-
-                                </div>
-                            </div>
-                        } */}
                         {
                             !this.state.call && this.state.joinGroupCall &&
-                            <div className="Center">
-                                <div className="ms-Grid-col ms-sm12 ms-lg12 ms-xl12 ms-xxl4">
-                                    <TextField
-                                        className="mb-3"
-                                        disabled={this.state.call}
-                                        label="Enter Code"
-                                        placeholder=""
-                                        componentRef={(val) => this.destinationGroup = val} />
-                                    <PrimaryButton
-                                        className="primary-button"
-                                        iconProps={{ iconName: 'Video', style: { verticalAlign: 'middle', fontSize: 'large' } }}
-                                        text="Join"
-                                        disabled={this.state.call}
-                                        onClick={() => this.joinGroup(true)}>
-                                    </PrimaryButton>
-                                </div>
-                            </div>
+                            <Grid
+                                container
+                                spacing={2}
+                                direction="column"
+                                alignItems="center"
+                                justify="center"
+                                style={{ minHeight: '100vh' }}   
+                            >
+                                <Grid 
+                                    container
+                                    item
+                                    justify="center"
+                                >
+                                    <TextField 
+                                        variant="outlined"
+                                        placeholder=" - Enter Joining Code - " 
+                                        size="small"
+                                        onChange={ (e) => { this.destinationGroup = e.target.value }}
+                                    />
+                                </Grid>
+                                <Grid
+                                    container
+                                    item
+                                    justify="center"
+                                >
+                                    <Button
+                                        color="primary"
+                                        size="small"
+                                        onClick={() => {this.joinGroup(true);}}
+                                    >
+                                        <Typography variant="subtitle2">
+                                            Join    
+                                        </Typography>
+                                    </Button>
+                                </Grid>
+                            </Grid>
                         }
                         {
                             this.state.call &&

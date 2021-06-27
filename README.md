@@ -16,6 +16,7 @@ ___
 - Screen-Share
 - Firebase Authentication
 - File-Sharing
+- Group Chat
 
 ___
 
@@ -46,6 +47,7 @@ ___
 - Azure Communication Services: End-Points for Video Calling
 - Firebase Authentication: Google & Email Athentication
 - Firebase Storage: File-Sharing Feature
+- Firebase Database: Chat Feature
 - Heruko-Hosting: Web-app Hosting
 - FluentUI Fabric: Design
 - Bootstrap: Design
@@ -67,13 +69,14 @@ ___
 
 #### Resources
 
-- microsoft.acehacker.com
-- docs.microsoft.com
-- stackoverflow.com
-- medium.com
-- material-ui.com
+- www.microsoft.acehacker.com
+- www.docs.microsoft.com
+- www.stackoverflow.com
+- www.medium.com
+- www.material-ui.com
 - www.w3schools.com
 - www.vantajs.com
+- https://firebase.google.com/docs/database/web/read-and-write
 
 ___
 
@@ -90,3 +93,4 @@ ___
 - <b> june 23, 2021 - </b> change firebase configration & add file sharing functionality.
 - <b> june 24, 2021 - </b> add animated background on homepage.
 - <b> june 25, 2021 - </b> start chat development.
+- <b> june 26, 2021 - </b> add chat & code optimization.

@@ -17,6 +17,8 @@ ___
 - Firebase Authentication
 - File-Sharing
 - Group Chat
+- Participant's Avatar
+- Remove Participants
 
 ___
 
@@ -94,3 +96,4 @@ ___
 - <b> june 24, 2021 - </b> add animated background on homepage.
 - <b> june 25, 2021 - </b> start chat development.
 - <b> june 26, 2021 - </b> add chat & code optimization.
+- <b> june 27, 2021 - </b> add participant avatar & remove-participants functionality.

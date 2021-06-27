@@ -32,7 +32,8 @@ export default class MakeCall extends React.Component {
             createGroupCall: false,
             joinGroupCall: false,
             UUID: undefined,
-            openDialog: false
+            openDialog: false,
+            displayName: undefined,
         };
     }
 
@@ -189,11 +190,15 @@ export default class MakeCall extends React.Component {
         this.setState({openDialog: !this.state.openDialog});
     };
 
+    callbackDisplayName = (displayName) => {
+        this.setState({displayName: displayName});
+    }
+
     render() {
         return (
             <div>
-                <Login onLoggedIn={this.handleLogIn} />
-                {   
+                <Login onLoggedIn={this.handleLogIn} callbackDisplayName={this.callbackDisplayName} />
+                { 
                     this.state.loggedIn && !this.state.createGroupCall && !this.state.joinGroupCall &&
                     <Grid
                         container
@@ -351,6 +356,8 @@ export default class MakeCall extends React.Component {
                         {
                             this.state.call &&
                             <CallCard
+                                groupId={this.destinationGroup}
+                                displayName={this.state.displayName}
                                 call={this.state.call}
                                 deviceManager={this.deviceManager}
                                 selectedCameraDeviceId={this.state.selectedCameraDeviceId}

@@ -45,6 +45,7 @@ export default class App extends React.Component {
                 <b>Connect</b>
             </Button>
         </Grid>
+          {/* <Chat /> */}
       </Grid>
       </React.Fragment>
       </div>

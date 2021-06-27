@@ -217,7 +217,7 @@ export default class ShareFile extends React.Component {
                 <Dialog
                     open={this.state.openDialog}
                     onClose={this.handleDialog}
-                    aria-labelledby="responsive-dialog-title"
+                    aria-labelledby="Share File Box"
                     fullWidth
                 >
                     <DialogTitle >
@@ -230,7 +230,7 @@ export default class ShareFile extends React.Component {
                     </DialogTitle>
                     <Divider variant="middle" />
                     <DialogContent
-                        style={{ minHeight: "30vh", maxHeight: "10vh" }}
+                        style={{ minHeight: "30vh" }}
                     >
                         {
                             <Grid 
@@ -240,7 +240,7 @@ export default class ShareFile extends React.Component {
                                 <Grid 
                                     item
                                     style={{ width: "35vh" }}
-                                    justify="center"
+                                    // justify="center"
                                 >
                                     <Grid 
                                         container
@@ -324,7 +324,7 @@ export default class ShareFile extends React.Component {
                                 <Grid 
                                     item
                                     style={{ width: "35vh" }}
-                                    justify="center"
+                                    // justify="center"
                                 >
                                     <Grid 
                                         container

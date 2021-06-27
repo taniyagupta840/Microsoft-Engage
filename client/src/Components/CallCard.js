@@ -14,7 +14,8 @@ import ScreenShareIcon from '@material-ui/icons/ScreenShare';
 import StopScreenShareIcon from '@material-ui/icons/StopScreenShare';
 import CallEndIcon from '@material-ui/icons/CallEnd';
 import SettingsIcon from '@material-ui/icons/Settings';
-import ShareFile from "./ShareFile";
+import ShareFile from './ShareFile';
+import Chat from './Chat';
 
 export default class CallCard extends React.Component {
     constructor(props) {
@@ -446,6 +447,9 @@ export default class CallCard extends React.Component {
                             </span>
                             <span>
                                 <ShareFile />
+                            </span>
+                            <span>
+                                <Chat groupId={this.props.groupId} displayName={this.props.displayName} />
                             </span>
                             <span>
                                 {

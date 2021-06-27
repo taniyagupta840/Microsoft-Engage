@@ -1,6 +1,7 @@
 import React from "react";
 import { utils } from './Utilities/Utilities';
-import { Icon, Persona, PersonaSize } from 'office-ui-fabric-react';
+import { Avatar, Badge, CssBaseline, Grid, IconButton } from "@material-ui/core";
+import CancelTwoToneIcon from '@material-ui/icons/CancelTwoTone';
 
 export default class RemoteParticipantCard extends React.Component {
     constructor(props) {
@@ -8,7 +9,7 @@ export default class RemoteParticipantCard extends React.Component {
         this.call = props.call;
         this.remoteParticipant = props.remoteParticipant;
         this.id = utils.getIdentifierText(this.remoteParticipant.identifier);
-
+        this.avatarColor = ["orange", "pink", "violet", "blue", "purple", "yellowgreen", "skyblue"];
         this.state = {
             isSpeaking: this.remoteParticipant.isSpeaking,
             state: this.remoteParticipant.state,
@@ -38,38 +39,41 @@ export default class RemoteParticipantCard extends React.Component {
         })
     }
 
-    // handleRemoveParticipant(e, identifier) {
-    //     e.preventDefault();
-    //     this.call.removeParticipant(identifier).catch((e) => console.error(e))
-    // }
+    handleRemoveParticipant(e, identifier) {
+        e.preventDefault();
+        this.call.removeParticipant(identifier).catch((e) => console.error(e))
+    }
 
     render() {
         return (
-                <div className="">
-
-                    <div className="">
-                        <Persona className={this.state.isSpeaking ? `speaking-border-for-initials` : ``}
-                            size={PersonaSize.size40}
-                            text={ this.state.displayName ? this.state.displayName : utils.getIdentifierText(this.remoteParticipant.identifier) }
-                            secondaryText={this.state.state}
-                            styles={{ primaryText: {color: '#edebe9'}, secondaryText: {color: '#edebe9'} }}/>
-                    </div>
-                    <div className="ms-Grid-col ms-lg1 ms-sm2">
-                        {
-                            this.state.isMuted &&
-                            <Icon className="icon-text-large" iconName="MicOff2"/>
+            <React.Fragment>
+                <CssBaseline />
+                <Grid
+                    item
+                >
+                    <Badge
+                        overlap="circle"
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                          }}
+                        badgeContent={
+                            <IconButton
+                                size="small"
+                                onClick={ (e) => this.handleRemoveParticipant(e, this.remoteParticipant.identifier) }
+                            >
+                                <CancelTwoToneIcon fontSize="small" color="secondary" />
+                            </IconButton>
                         }
-                        {
-                            !this.state.isMuted &&
-                            <Icon className="icon-text-large" iconName="Microphone"/>
-                        }
-                    </div>
-                    
-                </div>
-                // {/* <div className="text-right">
-                //     <a href="#" onClick={e => this.handleRemoveParticipant(e, this.remoteParticipant.identifier)} className="participant-remove float-right ml-3">Remove participant</a>
-                // </div> */}
-            // </div>
+                    >
+                        <Avatar 
+                            style={{ backgroundColor: this.avatarColor[Math.floor(Math.random()*6)] }}
+                        >
+                            {String(this.state.displayName).substring(0,1).toUpperCase()}
+                        </Avatar>
+                    </Badge>
+                </Grid>
+            </React.Fragment>
         )
     }
 }

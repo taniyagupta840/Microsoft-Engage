@@ -1,6 +1,6 @@
 import React from "react";
 import LocalVideoPreviewCard from './LocalVideoPreviewCard';
-// import RemoteParticipantCard from "./RemoteParticipantCard";
+import RemoteParticipantCard from "./RemoteParticipantCard";
 import StreamRenderer from "./StreamRenderer";
 import { LocalVideoStream } from '@azure/communication-calling';
 import { utils } from './Utilities/Utilities';
@@ -335,33 +335,45 @@ export default class CallCard extends React.Component {
                     spacing={0}
                     direction="column"
                     alignItems="center"
-                    justify="space-evenly"
-                    style={{ height: "100vh"}}
-                    >
+                    justify="flex-start"
+
+                >
+                    {
+                        <Grid
+                            container
+                            item
+                            spacing={1}
+                            direction="row"
+                            alignItems="center"
+                            justify="center"
+                            style={{ height: "10vh" }}
+                        >
+                            {
+                                this.state.remoteParticipants.map(remoteParticipant =>
+                                    <RemoteParticipantCard key={`${utils.getIdentifierText(remoteParticipant.identifier)}`} remoteParticipant={remoteParticipant} call={this.call} />
+                                )
+                            }
+                        </Grid>
+                    }
                     {
                         <Grid 
                             container
                             item
-                            spacing={3}
+                            spacing={0}
                             direction="row"
                             alignItems="center"
-                            justify="space-evenly"
-                            style={{ height: "80vh", overflow: "auto", padding: "5vh" }}
-                            zeroMinWidth
+                            justify="center"
+                            style={{ height: "70vh", overflow: "scroll" }}
                         >
                             {
                                 this.state.callState === 'Connected' && this.state.remoteParticipants.length === 0 &&
-                                <Typography style={{color: "slategray", fontWeight: "normal"}}>
+                                <Typography 
+                                    variant="subtitle2"
+                                    color="textSecondary"   
+                                >
                                     No other participants currently on this call
                                 </Typography>
                             }
-                            {/* <div className="">
-                                {
-                                    this.state.remoteParticipants.map(remoteParticipant =>
-                                        <RemoteParticipantCard key={`${utils.getIdentifierText(remoteParticipant.identifier)}`} remoteParticipant={remoteParticipant} call={this.call} />
-                                    )
-                                }
-                            </div> */}
                             {
                                 this.state.callState === 'Connected' &&
                                 this.state.allRemoteParticipantStreams.map(v => <StreamRenderer 
@@ -382,7 +394,7 @@ export default class CallCard extends React.Component {
                             direction="row"
                             alignItems="center"
                             justify="center"
-                            style= {{ height: "20vh"}}
+                            style= {{ height: "20vh" }}
                         >
                             <span>
                                 {   

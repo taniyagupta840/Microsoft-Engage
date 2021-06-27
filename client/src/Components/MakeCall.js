@@ -229,7 +229,7 @@ export default class MakeCall extends React.Component {
                             open={this.state.openDialog}
                             onClose={this.handleDialog}
                             aria-labelledby="responsive-dialog-title"
-                            fullWidth
+                            maxWidth="sm"
                         >
                             <DialogTitle >
                                 <Typography 
@@ -241,14 +241,14 @@ export default class MakeCall extends React.Component {
                             </DialogTitle>
                             <Divider variant="middle" />
                             <DialogContent
-                                style={{ minHeight: "30vh", maxHeight: "10vh" }}
+                                style={{ minHeight: "20vh" }}
                             >
                                 <Grid 
                                     container
-                                    spacing={3}
+                                    spacing={0}
                                     direction="column"
                                     alignItems="center"
-                                    justify="center"
+                                    justify="space-around"
                                 >
                                     <Grid 
                                         container
@@ -330,9 +330,9 @@ export default class MakeCall extends React.Component {
                                     justify="center"
                                 >
                                     <TextField 
-                                        variant="outlined"
-                                        placeholder=" - Enter Joining Code - " 
-                                        size="small"
+                                        variant="standard"
+                                        label=" -- Enter Joining Code -- " 
+                                        size="medium"
                                         onChange={ (e) => { this.destinationGroup = e.target.value }}
                                     />
                                 </Grid>

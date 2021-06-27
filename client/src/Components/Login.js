@@ -54,40 +54,42 @@ export default class Login extends React.Component {
                     <Grid
                         container
                         spacing={0}
-                        direction="column"
+                        direction="row"
                         alignItems="center"
                         justify="center"
                         style={{ minHeight: '100vh' }}
                     >
-                        <Grid>
-                            <div>
-                                <Grid container spacing={1} alignItems="flex-end">
-                                    <Grid item>
-                                        <AccountCircle color="primary" style={{ fontSize:"5vh" }}/>
-                                    </Grid>
-                                    <Grid item>
-                                        <TextField
-                                            id="input-with-icon-grid" 
-                                            label="Display Name" 
-                                            size="small" 
-                                            required={true}
-                                            onChange={(e) => { this.displayName = e.target.value }}
-                                            />   
-                                    </Grid>
-                                    <Grid item>
-                                        <IconButton
-                                            size="small"
-                                            onClick={ () => {this.provisionNewUser();
-                                                this.props.callbackDisplayName(this.displayName);} }
-                                        >
-                                            <ArrowForwardIosIcon color="primary"/>
-                                        </IconButton>
-                                    </Grid>
-                                </Grid>
-                            </div>
+                        <Grid 
+                            container 
+                            item
+                            direction="row"
+                            spacing={1} 
+                            alignItems="flex-end"
+                            justify="center"
+                        >
+                            <Grid item>
+                                <AccountCircle color="primary" style={{ fontSize:"5vh" }}/>
+                            </Grid>
+                            <Grid item>
+                                <TextField
+                                    id="input-with-icon-grid" 
+                                    label="Display Name" 
+                                    size="small" 
+                                    required={true}
+                                    onChange={(e) => { this.displayName = e.target.value }}
+                                />   
+                            </Grid>
+                            <Grid item>
+                                <IconButton
+                                    size="small"
+                                    onClick={ () => {this.provisionNewUser();
+                                    this.props.callbackDisplayName(this.displayName);} }
+                                >
+                                    <ArrowForwardIosIcon color="primary"/>
+                                </IconButton>
+                            </Grid>
                         </Grid>
                     </Grid>
-
                 }
                 {   
                     this.state.connect && !this.state.loggedIn && this.displayName &&

@@ -1,5 +1,6 @@
 import React from 'react';
-import firebase from 'firebase';
+// import firebase from 'firebase';
+import { firebaseStorage, firebaseStorageTaskEventSTATE_CHANGED, firebaseStorageTaskStatePAUSED, firebaseStorageTaskStateRUNNING } from './FirebaseConfig';
 import { Button, CssBaseline, Dialog, DialogContent, DialogTitle, Divider, Grid, IconButton, TextField, Typography } from '@material-ui/core';
 import FolderSharedIcon from '@material-ui/icons/FolderShared';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
@@ -47,7 +48,7 @@ export default class ShareFile extends React.Component {
         else{
             try{
                 console.log("uploading file ");
-                const storageRef  = firebase.storage().ref();
+                const storageRef  = firebaseStorage.ref();
                 let folderName = this.random();
                 for(let i of this.state.FILES_UPLOAD){
                     this.setState ({PROGRESS_UPLOAD : parseFloat(0)});
@@ -56,16 +57,16 @@ export default class ShareFile extends React.Component {
                     uploadTask.then(snapshot => {
                         console.log('File Uploaded Successfully');
                         switch (snapshot.state) {
-                            case firebase.storage.TaskState.PAUSED:
+                            case firebaseStorageTaskStatePAUSED:
                                 alert("Sorry, we are facing some problem!!");
                               break;
-                            case firebase.storage.TaskState.RUNNING:
+                            case firebaseStorageTaskStateRUNNING:
                                 alert("Sorry, we are facing some problem!!");
                               break;
                             default: break;
                           }
                     });
-                    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+                    uploadTask.on(firebaseStorageTaskEventSTATE_CHANGED, // or 'state_changed'
                         snapshot => {
                             var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                             this.setState ({PROGRESS_UPLOAD : parseFloat(progress)});
@@ -149,7 +150,7 @@ export default class ShareFile extends React.Component {
         if(len > 0){
             let i;  
             for(i=0;i<len;i++){
-                const storageRef  = firebase.storage().ref();
+                const storageRef  = firebaseStorage.ref();
                 var starsRef = storageRef.child(files[i]);
                 starsRef.getDownloadURL()
                 .then((url) => {
@@ -173,7 +174,7 @@ export default class ShareFile extends React.Component {
     checkFiles = () => {
         let text = document.getElementById('inputCode').value
         if (text.length>0){
-            const storageRef  = firebase.storage().ref();
+            const storageRef  = firebaseStorage.ref();
             var listRef = storageRef.child(text+"/");
             listRef.listAll().then((res) => {
                 res.items.forEach((itemRef) => {

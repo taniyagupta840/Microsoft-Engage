@@ -1,4 +1,7 @@
 import firebase from "firebase/app";
+import 'firebase/auth';
+import 'firebase/storage';
+import 'firebase/database';
 
 const config = {
     apiKey: "AIzaSyAKvkSFi4_G0SY2EE6W9bzIU5MsH6PDI20",
@@ -11,3 +14,14 @@ const config = {
   };
 
 export default firebase.initializeApp(config);
+
+export const firebaseAuth = firebase.auth();
+export const GoogleAuthProvider = firebase.auth.GoogleAuthProvider.PROVIDER_ID;
+export const EmailAuthProvider =  firebase.auth.EmailAuthProvider.PROVIDER_ID;
+
+export const firebaseStorage = firebase.storage();
+export const firebaseStorageTaskStatePAUSED = firebase.storage.TaskState.PAUSED;
+export const firebaseStorageTaskStateRUNNING = firebase.storage.TaskState.RUNNING;
+export const firebaseStorageTaskEventSTATE_CHANGED = firebase.storage.TaskEvent.STATE_CHANGED;
+
+export const firebaseDatabase = firebase.database();

@@ -1,5 +1,6 @@
 import React from 'react';
-import firebase from 'firebase';
+// import firebase from 'firebase';
+import { firebaseDatabase } from './FirebaseConfig';
 import { Avatar, Chip, CssBaseline, Dialog, DialogActions, DialogTitle, DialogContent, Divider, Grid, IconButton, TextField, Typography } from '@material-ui/core';
 import ChatIcon from '@material-ui/icons/Chat';
 import SendIcon from '@material-ui/icons/Send';
@@ -24,12 +25,12 @@ export default class Chat extends React.Component {
             message: message,
             time: today.getHours()+':'+today.getMinutes()+':'+today.getSeconds()+':'+today.getMilliseconds()  
         }
-        firebase.database().ref('teams-chat').child(groupId).push(sendMessageBlock);
+        firebaseDatabase.ref('teams-chat').child(groupId).push(sendMessageBlock);
         console.log("send: "+ sendMessageBlock);
     }
 
     recieveMessage(groupId) {
-        firebase.database().ref('teams-chat').child(groupId).limitToLast(20).on('child_added', (snapshot) => {
+        firebaseDatabase.ref('teams-chat').child(groupId).limitToLast(20).on('child_added', (snapshot) => {
             this.setState({chat: [...this.state.chat, snapshot.val()]});
         });
     }

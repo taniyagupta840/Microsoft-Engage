@@ -1,6 +1,6 @@
 import React from "react";
 import { LocalVideoStream, VideoStreamRenderer} from '@azure/communication-calling';
-import { Card, CardActionArea, CardMedia } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 
 export default class LocalVideoPreviewCard extends React.Component {
     constructor(props) {
@@ -27,15 +27,10 @@ export default class LocalVideoPreviewCard extends React.Component {
 
     render() {
         return (
-            <Card
-                raised={false}
-            >
-            <CardActionArea>
-                <CardMedia 
-                    id="localVideoRenderer"
-                />
-            </CardActionArea>
-            </Card>
+            <Paper
+                elevation={0}
+                id="localVideoRenderer"
+            />
         );
     }
 }

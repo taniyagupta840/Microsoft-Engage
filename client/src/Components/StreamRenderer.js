@@ -1,7 +1,7 @@
 import React from "react";
 import { utils } from './Utilities/Utilities';
 import { VideoStreamRenderer } from "@azure/communication-calling";
-import { Card, CardActionArea, CardMedia, Typography } from "@material-ui/core";
+import { Grid, Paper, Typography } from "@material-ui/core";
 
 export default class StreamRenderer extends React.Component {
     constructor(props) {
@@ -94,35 +94,47 @@ export default class StreamRenderer extends React.Component {
 
     render() {
         return (
-            <Card
+            <Grid
+                item
                 id={this.componentId}
-                raised={true}
-                style={{ margin: "2vh" }}
+                xl={4}
+                lg={4}
+                md={4}
+                sm={4}
             >
                 {
                     !(this.stream.mediaStreamType === 'ScreenSharing') &&
-                    <CardActionArea>
-                        <CardMedia 
-                           id={this.videoContainerId}
-                        />
-                        <Typography style={{ textAlign: "center", fontWeight: "normal", fontSmooth: "always" }}>
-                            {this.state.displayName ? this.state.displayName : utils.getIdentifierText(this.remoteParticipant.identifier)}
+                    <Paper
+                        variant="elevation"
+                        elevation={10}
+                    >
+                        <span id={this.videoContainerId} ></span>
+                        <Typography 
+                            variant="subtitle2"
+                            color="textSecondary"
+                            style={{ fontWeight: "bold", textAlign: "center" }}
+                        >
+                            {String(this.state.displayName).toUpperCase()}
                         </Typography>
-                        </CardActionArea>
+                    </Paper>
                 }
-                {
+                                {
                     (this.stream.mediaStreamType === 'ScreenSharing') &&
-                    <CardActionArea>
-                    <CardMedia 
-                        id={this.videoContainerId}
-                        style={{ maxHeight: "36vh", maxWidth: "64vh" }}
-                    />
-                    <Typography style={{ textAlign: "center", fontWeight: "normal", fontSmooth: "always" }}>
-                        {this.state.displayName ? this.state.displayName : utils.getIdentifierText(this.remoteParticipant.identifier)}
-                    </Typography>
-                    </CardActionArea>   
+                    <Paper
+                        variant="elevation"
+                        elevation={10}
+                    >
+                        <span id={this.videoContainerId} ></span>
+                        <Typography 
+                            variant="subtitle2"
+                            color="textSecondary"
+                            style={{ fontWeight: "bold", textAlign: "center" }}
+                        >
+                            {`${String(this.state.displayName).toUpperCase()} Screen`}
+                        </Typography>
+                    </Paper>
                 }
-            </Card>
+            </Grid>
         );
     }
 }

@@ -115,7 +115,7 @@ export default class StreamRenderer extends React.Component {
                 return this.emojis[0];
         }
         else if(expression==='happy') {
-            if(probability==1){
+            if(probability===1){
                 return this.emojis[3];
             }
             else if (probability>=0.9999){

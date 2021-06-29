@@ -19,6 +19,7 @@ ___
 - Group Chat
 - Participant's Avatar
 - Remove Participants
+- Face Expression Detector
 
 ___
 
@@ -56,6 +57,9 @@ ___
 - Material UI: Design
 - UUID Generator: Unique Join ID 
 - Vanta.js: Background Animation
+- Face-API: Processing Trained-Models
+- Tiny-Face-Detector Model: Trained Face Model
+- Face-Expression-Model: Trained Expression Model
 
 ___
 
@@ -66,6 +70,7 @@ ___
 - Video-Stream Representation ( still persist )
 - Lifting-Up State in React
 - Not able to catch updated messages in React state
+- Input video stream to Face api AI model and optimisation
 
 ___
 
@@ -79,6 +84,7 @@ ___
 - www.w3schools.com
 - www.vantajs.com
 - https://firebase.google.com/docs/database/web/read-and-write
+- https://justadudewhohacks.github.io/face-api.js/face_and_landmark_detection/
 
 ___
 
@@ -97,3 +103,4 @@ ___
 - <b> june 25, 2021 - </b> start chat development.
 - <b> june 26, 2021 - </b> add chat & code optimization.
 - <b> june 27, 2021 - </b> add participant avatar & remove-participants functionality.
+- <b> june 28, 2021 - </b> integrate face detection and expression detection model.

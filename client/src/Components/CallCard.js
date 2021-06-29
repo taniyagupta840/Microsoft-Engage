@@ -527,7 +527,6 @@ export default class CallCard extends React.Component {
                                 <LocalVideoPreviewCard 
                                     groupId={this.props.groupId}
                                     userId={this.props.userId}
-                                    // showExpression={this.state.showExpression}
                                     selectedCameraDeviceId={this.state.selectedCameraDeviceId} 
                                     deviceManager={this.deviceManager}
                                     style={{ paddingTop: "3vh" }}

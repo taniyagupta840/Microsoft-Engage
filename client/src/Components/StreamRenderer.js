@@ -2,6 +2,7 @@ import React from "react";
 import { utils } from './Utilities/Utilities';
 import { VideoStreamRenderer } from "@azure/communication-calling";
 import { Grid, Paper, Typography } from "@material-ui/core";
+import { firebaseDatabase } from "./FirebaseConfig";
 
 export default class StreamRenderer extends React.Component {
     constructor(props) {
@@ -12,13 +13,21 @@ export default class StreamRenderer extends React.Component {
         this.videoContainerId = this.componentId + '-videoContainer';
         this.renderer = undefined;
         this.view = undefined;
+        // this.emojis = ["🙂","😂","😫","😲","😡","😰","🤢","😐","🤣"];
+        this.emojis = ["😐","🙂","😂","🤣","😫","😲","😡","😰","🤢"];
         this.state = {
             isSpeaking: false,
             displayName: this.remoteParticipant.displayName?.trim(),
+            userExpression: [],
         };
     }
 
     async componentDidMount() {
+
+        // console.log("!!!"+utils.getIdentifierText(this.remoteParticipant.identifier));
+        // console.log("!!! callId"+this.props.callId)
+        // console.log("!!! groupId"+this.props.groupId);
+
         document.getElementById(this.componentId).hidden = true;
 
         this.remoteParticipant.on('isSpeakingChanged', () => {
@@ -55,6 +64,8 @@ export default class StreamRenderer extends React.Component {
         } catch (e) {
             console.error(e);
         }
+
+        this.recieveUserExpression(this.props.groupId, this.props.userId);
     }
 
     getRenderer() {
@@ -64,7 +75,7 @@ export default class StreamRenderer extends React.Component {
     async createRenderer() {
         if (!this.renderer) {
             this.renderer = new VideoStreamRenderer(this.stream);
-            this.view = await (await this.renderer.createView());
+            this.view = (await this.renderer.createView());
         } else {
             throw new Error(`[App][StreamMedia][id=${this.stream.id}][createRenderer] stream already has a renderer`);
         }
@@ -92,6 +103,45 @@ export default class StreamRenderer extends React.Component {
         }
     }
 
+    recieveUserExpression(groupId, userId) {
+        firebaseDatabase.ref('expression').child(groupId).child(userId).on("value", (snapshot) => {
+                this.setState({userExpression: snapshot.val()});
+                console.log(this.state.userExpression);
+        })
+    }
+
+    getEmoji(expression,probability){
+        if(expression==='neutral') {
+                return this.emojis[0];
+        }
+        else if(expression==='happy') {
+            if(probability==1){
+                return this.emojis[3];
+            }
+            else if (probability>=0.9999){
+                return this.emojis[2];
+            }
+            else {
+                return this.emojis[1];
+            }
+        }
+        else if(expression==='sad') {
+            return this.emojis[2];
+        }
+        else if(expression==='surprised') {
+            return this.emojis[5];
+        }
+        else if(expression==='angry') {
+            return this.emojis[6];
+        }
+        else if(expression==='fearful') {
+            return this.emojis[7];
+        }
+        else if(expression==='disgusted') {
+            return this.emojis[8];
+        }
+    }
+
     render() {
         return (
             <Grid
@@ -114,7 +164,16 @@ export default class StreamRenderer extends React.Component {
                             color="textSecondary"
                             style={{ fontWeight: "bold", textAlign: "center" }}
                         >
-                            {String(this.state.displayName).toUpperCase()}
+                            {`${String(this.state.displayName).toUpperCase()}`}                           
+                        </Typography>
+                        <Typography
+                            variant="h4"
+                            style={{ textAlign: "center" }}    
+                        >
+                            {
+                                this.props.showExpression && !(this.state.userExpression===undefined) && !(this.state.userExpression===null) &&
+                                ` ${this.getEmoji(this.state.userExpression.expression,this.state.userExpression.probability)} `
+                            } 
                         </Typography>
                     </Paper>
                 }

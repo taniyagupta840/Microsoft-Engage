@@ -34,6 +34,7 @@ export default class MakeCall extends React.Component {
             UUID: undefined,
             openDialog: false,
             displayName: undefined,
+            userId: undefined,
         };
     }
 
@@ -41,6 +42,8 @@ export default class MakeCall extends React.Component {
         if (userDetails) {
             try {
                 const tokenCredential = new AzureCommunicationTokenCredential(userDetails.token);
+                // console.log("!!! tokencred"+userDetails.id);
+                this.setState({userId: userDetails.id});
                 setLogLevel('verbose');
                 this.callClient = new CallClient();
                 this.callAgent = await this.callClient.createCallAgent(tokenCredential, { displayName: userDetails.displayName });
@@ -357,6 +360,7 @@ export default class MakeCall extends React.Component {
                             this.state.call &&
                             <CallCard
                                 groupId={this.destinationGroup}
+                                userId={this.state.userId}
                                 displayName={this.state.displayName}
                                 call={this.state.call}
                                 deviceManager={this.deviceManager}

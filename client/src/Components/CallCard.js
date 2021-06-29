@@ -39,9 +39,10 @@ export default class CallCard extends React.Component {
             selectedSpeakerDeviceId: this.deviceManager.selectedSpeaker?.id,
             selectedMicrophoneDeviceId: this.deviceManager.selectedMicrophone?.id,
             showSettings: false,
-            showLocalVideo: false,
+            showLocalVideo: true,
             callMessage: undefined,
-            openDialog: false
+            openDialog: false,
+            showExpression: false,
         };
     }
 
@@ -381,6 +382,9 @@ export default class CallCard extends React.Component {
                                             ref ={v.streamRendererComponentRef}
                                             stream={v.stream}
                                             remoteParticipant={v.participant}
+                                            groupId={this.props.groupId}
+                                            userId={utils.getIdentifierText(v.participant.identifier)}
+                                            showExpression={this.state.showExpression}
                                         />
                                     )
                             }
@@ -518,21 +522,33 @@ export default class CallCard extends React.Component {
                                         Camera Preview
                                     </Typography>
                             </span>
-                            <Switch
-                                checked={this.state.showLocalVideo}
-                                onChange={() => this.setState({ showLocalVideo: !this.state.showLocalVideo })}
-                                color="primary"
-                                name="checkedB"
-                                inputProps={{ 'aria-label': 'primary checkbox' }}
-                            />
                             {
                                 this.state.showLocalVideo &&
                                 <LocalVideoPreviewCard 
+                                    groupId={this.props.groupId}
+                                    userId={this.props.userId}
+                                    // showExpression={this.state.showExpression}
                                     selectedCameraDeviceId={this.state.selectedCameraDeviceId} 
                                     deviceManager={this.deviceManager}
                                     style={{ paddingTop: "3vh" }}
                                 />
                             }
+                            <span>
+                                <Typography 
+                                    color="textSecondary" 
+                                    variant="subtitle2" 
+                                    style={{ fontWeight: "bold" }}
+                                >
+                                        Expression Detection
+                                    </Typography>
+                            </span>
+                            <Switch
+                                checked={this.state.showExpression}
+                                onChange={() => this.setState({ showExpression: !this.state.showExpression })}
+                                color="primary"
+                                name="checkedB"
+                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                            />
                             <Typography 
                                 color="textPrimary" 
                                 variant="subtitle1" 

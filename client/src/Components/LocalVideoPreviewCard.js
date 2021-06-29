@@ -1,17 +1,14 @@
 import React from "react";
 import { LocalVideoStream, VideoStreamRenderer} from '@azure/communication-calling';
 import { Paper } from "@material-ui/core";
-
 import * as faceapi from 'face-api.js';
+import { firebaseDatabase } from './FirebaseConfig';
 
 export default class LocalVideoPreviewCard extends React.Component {
     constructor(props) {
         super(props);
         this.deviceManager = props.deviceManager;
         this.selectedCameraDeviceId = props.selectedCameraDeviceId;
-        this.state = {
-            expressionDetectionOn : true,
-        }
     }
 
     async componentDidMount() {
@@ -26,26 +23,34 @@ export default class LocalVideoPreviewCard extends React.Component {
             const targetContainer = document.getElementById('localVideoRenderer');
             targetContainer.appendChild(this.view.target);
 
-            Promise.all(
-                [
-                    faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-                    faceapi.nets.faceExpressionNet.loadFromUri('/models')
-                ]
-            ).then(() => {
-                    if(this.state.expressionDetectionOn) {
-                        const video = document.getElementById('localVideoRenderer').firstChild.firstChild;
-                        setInterval(async() => {
-                            // const detection = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions();
-                            const detection = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions();
-                            console.log(detection);},
-                            1000
-                        )
-                    }
+                Promise.all(
+                    [
+                        faceapi.loadTinyFaceDetectorModel('/models'),
+                        faceapi.loadFaceExpressionModel('/models')
+                    ]
+                ).then(() => {
+                    const video = this.view.target.firstChild;
+                    setInterval(async() => {
+                        await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions()
+                            .then((detection) => {
+                                if(!(detection===undefined)){
+                                    const curExpression = detection.expressions.asSortedArray()[0];
+                                    this.updateUserExpression(this.props.groupId, this.props.userId, curExpression);
+                                    // console.log(curExpression);
+                                }
+                            })
+                        },
+                        1000
+                    )
                 })
 
         } catch (error) {
             console.error(error);
         }
+    }
+
+    updateUserExpression(groupId,userId,curExpression) {
+        firebaseDatabase.ref('expression').child(groupId).child(userId).set(curExpression);
     }
 
     render() {

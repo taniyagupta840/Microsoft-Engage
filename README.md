@@ -11,15 +11,29 @@ ___
 #### Features
 
 - Responsive
-- Video
-- Audio
+- Interactive Homepage Theme
+- Firebase Authentication (via google/email)
+- Display Name
+- Unique Join Code Generator
+- Copy Join Code on a Click
+- Camera Selector (auto/manual)
+- Microphone Selector (auto/manual)
+- Speaker Selector (auto/manual)
+- Video on/off
+- Local Video Preview
+- Auto Adjusting Video Tiles
+- Audio on/off
+- Call Hangup
 - Screen-Share
-- Firebase Authentication
-- File-Sharing
-- Group Chat
+- File-Sharing Support
+- Add Upto 5 Files (in one go)
+- File Upto 5 MB (in one go)
+- Remove Listed File on a Click
+- File Access Token to Download Shared File
+- Group Chat Support
 - Participant's Avatar
-- Remove Participants
-- Face Expression Detector
+- Remove Participants Support
+- AI based Face Expression Detector
 
 ___
 
@@ -104,3 +118,4 @@ ___
 - <b> june 26, 2021 - </b> add chat & code optimization.
 - <b> june 27, 2021 - </b> add participant avatar & remove-participants functionality.
 - <b> june 28, 2021 - </b> integrate face detection and expression detection model.
+- <b> june 29, 2021 - </b> integrate emoji representation of expression data.

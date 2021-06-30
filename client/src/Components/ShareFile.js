@@ -1,7 +1,7 @@
 import React from 'react';
 // import firebase from 'firebase';
 import { firebaseStorage, firebaseStorageTaskEventSTATE_CHANGED, firebaseStorageTaskStatePAUSED, firebaseStorageTaskStateRUNNING } from './FirebaseConfig';
-import { Button, CssBaseline, Dialog, DialogContent, DialogTitle, Divider, Grid, IconButton, TextField, Typography } from '@material-ui/core';
+import { Button, CssBaseline, Dialog, DialogContent, DialogTitle, Grid, IconButton, TextField, Typography } from '@material-ui/core';
 import FolderSharedIcon from '@material-ui/icons/FolderShared';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
@@ -221,17 +221,18 @@ export default class ShareFile extends React.Component {
                     aria-labelledby="Share File Box"
                     fullWidth
                 >
-                    <DialogTitle >
+                    <DialogTitle 
+                        style={{ background: "linear-gradient(to bottom , #002984 0%, #757de8 100%)" }}
+                    >
                         <Typography 
-                            color="textSecondary"
-                            style={{ textAlign: "center", fontWeight: "bold"}}
+                            variant="subtitle1"
+                            style={{ color:"#ffffff", textAlign: "center", fontWeight: "bold", fontFamily: "monospace" }}
                         >
-                            Share File
+                            SHARE FILE
                         </Typography>
                     </DialogTitle>
-                    <Divider variant="middle" />
                     <DialogContent
-                        style={{ minHeight: "30vh" }}
+                        style={{ minHeight: "30vh", marginTop:"2vh" }}
                     >
                         {
                             <Grid 

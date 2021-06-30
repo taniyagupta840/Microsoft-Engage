@@ -1,7 +1,7 @@
 import React from "react";
 import { CallClient, LocalVideoStream } from '@azure/communication-calling';
 import { AzureCommunicationTokenCredential } from '@azure/communication-common';
-import { Button, Dialog, DialogContent, DialogTitle, Divider, Grid, IconButton, TextField, Typography } from "@material-ui/core";
+import { Button, Dialog, DialogContent, DialogTitle, Grid, IconButton, TextField, Typography } from "@material-ui/core";
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import LinkIcon from '@material-ui/icons/Link';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
@@ -234,17 +234,18 @@ export default class MakeCall extends React.Component {
                             aria-labelledby="responsive-dialog-title"
                             maxWidth="sm"
                         >
-                            <DialogTitle >
+                            <DialogTitle 
+                                style={{ background: "linear-gradient(to bottom , #002984 0%, #757de8 100%)" }}
+                            >
                                 <Typography 
-                                    color="textSecondary"
-                                    style={{ textAlign: "center", fontWeight: "bold"}}
+                                    variant="subtitle1"
+                                    style={{ color:"#ffffff", textAlign: "center", fontWeight: "bold", fontFamily: "monospace" }}
                                 >
-                                    Join Code
+                                    JOIN CODE
                                 </Typography>
                             </DialogTitle>
-                            <Divider variant="middle" />
                             <DialogContent
-                                style={{ minHeight: "20vh" }}
+                                style={{ minHeight: "20vh", marginTop: "2vh" }}
                             >
                                 <Grid 
                                     container
@@ -271,6 +272,7 @@ export default class MakeCall extends React.Component {
                                        container
                                        item 
                                        justify="space-evenly"
+                                       style={{ marginTop: "1vh" }}
                                     >
                                         <Grid 
                                             item 

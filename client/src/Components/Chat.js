@@ -58,17 +58,19 @@ export default class Chat extends React.Component {
                     aria-labelledby="Chat Box"
                     maxWidth="xs"
                 >
-                    <DialogTitle >
+                    <DialogTitle
+                        style={{ background: "linear-gradient(to bottom , #002984 0%, #757de8 100%)" }}
+                    >
                         <Typography 
-                            color="textSecondary"
-                            style={{ textAlign: "center", fontWeight: "bold" }}
+                            variant="subtitle1"
+                            style={{ color:"#ffffff", textAlign: "center", fontWeight: "bold", fontFamily: "monospace" }}
                         >
-                            Chats
+                            CHATS
                         </Typography>
                     </DialogTitle>
                     <Divider variant="middle" />
                     <DialogContent
-                        style={{ overflow:"scroll", height:"40vh" }}
+                        style={{ overflow: "scroll", height: "40vh", marginTop: "2vh" }}
                     >
                         <Grid 
                             container

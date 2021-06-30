@@ -370,7 +370,8 @@ export default class CallCard extends React.Component {
                                 this.state.callState === 'Connected' && this.state.remoteParticipants.length === 0 &&
                                 <Typography 
                                     variant="subtitle2"
-                                    color="textSecondary"   
+                                    color="textSecondary"
+                                    style={{ fontFamily: "monospace" }}   
                                 >
                                     No other participants currently on this call
                                 </Typography>
@@ -484,7 +485,7 @@ export default class CallCard extends React.Component {
                         isOpen={this.state.showSettings}
                         onDismiss={() => this.setState({ showSettings: false })}
                         closeButtonAriaLabel="Close"
-                        headerText="Settings"
+                        headerText="SETTINGS"
                         style={{ paddingRight: "24px" }}    
                     >
                             <Typography 
@@ -500,7 +501,7 @@ export default class CallCard extends React.Component {
                                     <Typography 
                                         color="textSecondary" 
                                         variant="subtitle2" 
-                                        style={{ fontWeight: "bold" }}
+                                        style={{ fontWeight: "bold", marginTop: "1vh" }}
                                     >
                                         Camera
                                     </Typography>
@@ -517,7 +518,7 @@ export default class CallCard extends React.Component {
                                 <Typography 
                                     color="textSecondary" 
                                     variant="subtitle2" 
-                                    style={{ fontWeight: "bold" }}
+                                    style={{ fontWeight: "bold", marginTop: "1vh" }}
                                 >
                                         Camera Preview
                                     </Typography>
@@ -529,14 +530,13 @@ export default class CallCard extends React.Component {
                                     userId={this.props.userId}
                                     selectedCameraDeviceId={this.state.selectedCameraDeviceId} 
                                     deviceManager={this.deviceManager}
-                                    style={{ paddingTop: "3vh" }}
                                 />
                             }
                             <span>
                                 <Typography 
                                     color="textSecondary" 
                                     variant="subtitle2" 
-                                    style={{ fontWeight: "bold" }}
+                                    style={{ fontWeight: "bold", marginTop: "1vh" }}
                                 >
                                         Expression Detection
                                     </Typography>
@@ -551,7 +551,7 @@ export default class CallCard extends React.Component {
                             <Typography 
                                 color="textPrimary" 
                                 variant="subtitle1" 
-                                style={{ fontWeight: "bold", paddingTop: "3vh" }}
+                                style={{ fontWeight: "bold", marginTop: "1vh" }}
                             >
                                 Sound Settings
                             </Typography>
@@ -561,7 +561,7 @@ export default class CallCard extends React.Component {
                                     <Typography 
                                         color="textSecondary" 
                                         variant="subtitle2" 
-                                        style={{ fontWeight: "bold" }}
+                                        style={{ fontWeight: "bold", marginTop: "1vh" }}
                                     >
                                         Speaker
                                     </Typography>
@@ -580,7 +580,7 @@ export default class CallCard extends React.Component {
                                     <Typography 
                                         color="textSecondary" 
                                         variant="subtitle2" 
-                                        style={{ fontWeight: "bold" }}
+                                        style={{ fontWeight: "bold", marginTop: "1vh" }}
                                     >
                                         Microphone
                                     </Typography>

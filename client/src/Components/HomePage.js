@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, CssBaseline, Grid } from '@material-ui/core';
+import { Box, Button, CssBaseline, Grid, Typography } from '@material-ui/core';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import Birds from 'vanta/dist/vanta.birds.min';
 
@@ -35,17 +35,46 @@ export default class App extends React.Component {
         style={{ minHeight: '100vh' }}
       >
         <Grid item>
+            <Typography
+              variant="h4"
+              color="primary"
+            >
+              <Box
+                letterSpacing={10}
+                fontFamily="Monospace"
+                fontWeight="fontWeightBold"
+              >
+                AGILE TEAMS
+              </Box>
+            </Typography>
+        </Grid>
+        <Grid item>
+            <Typography
+              variant="subtitle1"
+              color="textSecondary"
+            >
+              <Box
+                letterSpacing={8}
+                fontFamily="Monospace"
+                fontWeight="fontWeightMedium"
+              >
+                Connecting Worlds
+              </Box>
+            </Typography>
+        </Grid>
+        <Grid item>
+          <Box m={5}>
             <Button
                 variant="contained"
                 color="primary"
-                size="medium"
+                size="small"
                 startIcon={<GroupAddIcon />}
                 onClick={() => this.props.isConnect(true)}
             >
                 <b>Connect</b>
-            </Button>
+            </Button> 
+          </Box>
         </Grid>
-          {/* <Chat /> */}
       </Grid>
       </React.Fragment>
       </div>

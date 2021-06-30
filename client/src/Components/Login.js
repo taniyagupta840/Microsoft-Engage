@@ -57,7 +57,7 @@ export default class Login extends React.Component {
                         direction="row"
                         alignItems="center"
                         justify="center"
-                        style={{ minHeight: '100vh' }}
+                        style={{ minHeight: '100vh', overflow: "hidden" }}
                     >
                         <Grid 
                             container 
@@ -67,14 +67,14 @@ export default class Login extends React.Component {
                             alignItems="flex-end"
                             justify="center"
                         >
-                            <Grid item>
+                            <Grid item >
                                 <AccountCircle color="primary" style={{ fontSize:"5vh" }}/>
                             </Grid>
                             <Grid item>
                                 <TextField
                                     id="input-with-icon-grid" 
                                     label="Display Name" 
-                                    size="small" 
+                                    size="medium" 
                                     required={true}
                                     onChange={(e) => { this.displayName = e.target.value }}
                                 />   
@@ -85,7 +85,7 @@ export default class Login extends React.Component {
                                     onClick={ () => {this.provisionNewUser();
                                     this.props.callbackDisplayName(this.displayName);} }
                                 >
-                                    <ArrowForwardIosIcon color="primary"/>
+                                    <ArrowForwardIosIcon color="primary" style={{ fontWeight: "bold" }}/>
                                 </IconButton>
                             </Grid>
                         </Grid>

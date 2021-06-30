@@ -343,7 +343,7 @@ export default class CallCard extends React.Component {
                         <Grid
                             container
                             item
-                            spacing={1}
+                            spacing={0}
                             direction="row"
                             alignItems="center"
                             justify="center"
@@ -360,7 +360,7 @@ export default class CallCard extends React.Component {
                         <Grid 
                             container
                             item
-                            spacing={2}
+                            spacing={0}
                             direction="row"
                             alignItems="center"
                             justify="center"

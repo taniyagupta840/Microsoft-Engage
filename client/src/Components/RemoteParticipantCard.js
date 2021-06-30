@@ -50,6 +50,7 @@ export default class RemoteParticipantCard extends React.Component {
                 <CssBaseline />
                 <Grid
                     item
+                    style={{ margin: "1vh" }}
                 >
                     <Badge
                         overlap="circle"

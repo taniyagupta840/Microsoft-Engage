@@ -50,7 +50,7 @@ export default class App extends React.Component {
         </Grid>
         <Grid item>
             <Typography
-              variant="subtitle1"
+              variant="h5"
               color="textSecondary"
             >
               <Box
@@ -67,7 +67,7 @@ export default class App extends React.Component {
             <Button
                 variant="contained"
                 color="primary"
-                size="small"
+                size="medium"
                 startIcon={<GroupAddIcon />}
                 onClick={() => this.props.isConnect(true)}
             >

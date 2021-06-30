@@ -205,13 +205,13 @@ export default class MakeCall extends React.Component {
                     this.state.loggedIn && !this.state.createGroupCall && !this.state.joinGroupCall &&
                     <Grid
                         container
-                        spacing={3}
+                        spacing={0}
                         direction="row"
                         alignItems="center"
                         justify="center"
                         style={{ minHeight: '100vh' }}
                     >
-                        <Grid item>
+                        <Grid item style={{ margin: "5vh" }}>
                             <Button
                                 startIcon={<AddBoxIcon />}
                                 onClick={ () => {this.generateUuid();
@@ -220,7 +220,7 @@ export default class MakeCall extends React.Component {
                                 Create Link
                             </Button>
                         </Grid>
-                        <Grid item>
+                        <Grid item style={{ margin: "5vh" }}>
                             <Button
                                 startIcon={<LinkIcon />}
                                 onClick={ () => {this.setState({joinGroupCall: true})} }

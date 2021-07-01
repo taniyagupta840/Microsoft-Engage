@@ -34,6 +34,7 @@ ___
 - Participant's Avatar
 - Remove Participants Support
 - AI based Face Expression Detector
+- Like/Unlike Chat Message
 
 ___
 
@@ -119,3 +120,5 @@ ___
 - <b> june 27, 2021 - </b> add participant avatar & remove-participants functionality.
 - <b> june 28, 2021 - </b> integrate face detection and expression detection model.
 - <b> june 29, 2021 - </b> integrate emoji representation of expression data.
+- <b> june 30, 2021 - </b> code optimisation & minetest deployment.
+- <b> july 1, 2021 - </b> add like/unlike feature in chats.

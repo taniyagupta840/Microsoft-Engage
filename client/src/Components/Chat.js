@@ -1,9 +1,9 @@
 import React from 'react';
-// import firebase from 'firebase';
 import { firebaseDatabase } from './FirebaseConfig';
 import { Avatar, Chip, CssBaseline, Dialog, DialogActions, DialogTitle, DialogContent, Divider, Grid, IconButton, TextField, Typography } from '@material-ui/core';
 import ChatIcon from '@material-ui/icons/Chat';
 import SendIcon from '@material-ui/icons/Send';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 
 export default class Chat extends React.Component {
     constructor(props) {
@@ -11,9 +11,10 @@ export default class Chat extends React.Component {
         this.username = this.props.displayName;
         this.groupId = this.props.groupId;
         this.time = undefined;
+        this.likedMessageList = [];
         this.state = {
             openDialog: false,
-            chat:[],
+            chat: [],
             message: "",
         };
     }
@@ -23,16 +24,39 @@ export default class Chat extends React.Component {
         var sendMessageBlock = {
             username: name,
             message: message,
-            time: today.getHours()+':'+today.getMinutes()+':'+today.getSeconds()+':'+today.getMilliseconds()  
+            time: today.getHours()+':'+today.getMinutes()+':'+today.getSeconds()+':'+today.getMilliseconds(),
+            likeCount: 0,
         }
         firebaseDatabase.ref('teams-chat').child(groupId).push(sendMessageBlock);
-        console.log("send: "+ sendMessageBlock);
     }
 
     recieveMessage(groupId) {
-        firebaseDatabase.ref('teams-chat').child(groupId).limitToLast(20).on('child_added', (snapshot) => {
-            this.setState({chat: [...this.state.chat, snapshot.val()]});
+        firebaseDatabase.ref('teams-chat').child(groupId).limitToLast(20).on('value', (snapshot) => {
+            if(!(snapshot.val()===undefined) && !(snapshot.val()===null)) {
+                const arr = [];
+                Object.keys(snapshot.val()).forEach(function(key) {
+                    arr.push({messageId: key, message : snapshot.val()[key]});
+                })
+                this.setState({chat: arr});
+            }
+            // console.log(this.state.chat);
+            // console.log(this.likedMessageList);
         });
+    }
+
+    likeUnlikeMessage(groupId, message) {
+        if(!this.likedMessageList.includes(message.messageId)) {
+            firebaseDatabase.ref('teams-chat').child(groupId).child(message.messageId).child("likeCount").transaction( function(likeCount) {
+                return likeCount+1;
+            })
+            this.likedMessageList.push(message.messageId);
+        }
+        else {
+            firebaseDatabase.ref('teams-chat').child(groupId).child(message.messageId).child("likeCount").transaction( function(likeCount) {
+                return likeCount-1;
+            })
+            this.likedMessageList = this.likedMessageList.filter(e => !(e===message.messageId));
+        }
     }
 
     componentDidMount() {
@@ -82,9 +106,34 @@ export default class Chat extends React.Component {
                                 <Chip
                                     size="small"
                                     avatar={<Avatar></Avatar>}
-                                    label={message.username + ": " + message.message}
+                                    label={message.message.username + ": " + message.message.message}
                                     color="primary"
                                 />
+                                <Typography
+                                    variant="overline"
+                                    style={{ marginLeft: "1vh" }}
+                                >
+                                    {message.message.likeCount}
+                                </Typography>
+                                <IconButton
+                                    size="small"
+                                    color="primary"
+                                    onClick={() => this.likeUnlikeMessage(this.groupId,message)}
+                                >   
+                                    {
+                                        this.likedMessageList.includes(message.messageId) &&
+                                        <ThumbUpIcon 
+                                            style={{ fontSize: "2vh" }}
+                                        />
+                                    }
+                                    {
+                                        !this.likedMessageList.includes(message.messageId) &&
+                                        <ThumbUpIcon 
+                                            color="disabled"
+                                            style={{ fontSize: "2vh" }}
+                                        />
+                                    }
+                                </IconButton>
                             </Grid>
                             )
                         }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { firebaseDatabase } from './FirebaseConfig';
-import { Avatar, Chip, CssBaseline, Dialog, DialogActions, DialogTitle, DialogContent, Divider, Grid, IconButton, TextField, Typography } from '@material-ui/core';
+import { Avatar, Chip, CssBaseline, Dialog, DialogActions, DialogContent, Grid, IconButton, TextField, Typography } from '@material-ui/core';
 import ChatIcon from '@material-ui/icons/Chat';
 import SendIcon from '@material-ui/icons/Send';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
@@ -16,6 +16,7 @@ export default class Chat extends React.Component {
             openDialog: false,
             chat: [],
             message: "",
+            sortedChat: [],
         };
     }
 
@@ -40,7 +41,6 @@ export default class Chat extends React.Component {
                 this.setState({chat: arr});
             }
             // console.log(this.state.chat);
-            // console.log(this.likedMessageList);
         });
     }
 
@@ -82,19 +82,22 @@ export default class Chat extends React.Component {
                     aria-labelledby="Chat Box"
                     maxWidth="xs"
                 >
-                    <DialogTitle
-                        style={{ background: "linear-gradient(to bottom , #002984 0%, #757de8 100%)" }}
+                    <Grid
+                        container
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                        style={{ background: "linear-gradient(to bottom , #002984 0%, #757de8 100%)", padding: "1vh" }}
                     >
                         <Typography 
                             variant="subtitle1"
                             style={{ color:"#ffffff", textAlign: "center", fontWeight: "bold", fontFamily: "monospace" }}
                         >
-                            CHATS
+                            GROUP CHATS
                         </Typography>
-                    </DialogTitle>
-                    <Divider variant="middle" />
+                    </Grid>
                     <DialogContent
-                        style={{ overflow: "scroll", height: "40vh", marginTop: "2vh" }}
+                        style={{ overflow: "scroll", height: "40vh" }}
                     >
                         <Grid 
                             container

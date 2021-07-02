@@ -219,18 +219,22 @@ export default class ShareFile extends React.Component {
                     open={this.state.openDialog}
                     onClose={this.handleDialog}
                     aria-labelledby="Share File Box"
-                    fullWidth
+                    maxWidth="sm"
                 >
-                    <DialogTitle 
-                        style={{ background: "linear-gradient(to bottom , #002984 0%, #757de8 100%)" }}
+                    <Grid
+                        container
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                        style={{ background: "linear-gradient(to bottom , #002984 0%, #757de8 100%)", padding: "1vh" }}
                     >
                         <Typography 
                             variant="subtitle1"
                             style={{ color:"#ffffff", textAlign: "center", fontWeight: "bold", fontFamily: "monospace" }}
                         >
-                            SHARE FILE
+                            SHARE FILES
                         </Typography>
-                    </DialogTitle>
+                    </Grid>
                     <DialogContent
                         style={{ minHeight: "30vh", marginTop:"2vh" }}
                     >

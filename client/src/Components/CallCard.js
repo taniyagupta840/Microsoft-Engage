@@ -337,7 +337,7 @@ export default class CallCard extends React.Component {
                     direction="column"
                     alignItems="center"
                     justify="flex-start"
-
+                    style={{ background: "url(/Rose-Petals.svg) no-repeat center", backgroundSize: "cover" }}
                 >
                     {
                         <Grid

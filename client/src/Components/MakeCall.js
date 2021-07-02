@@ -1,7 +1,7 @@
 import React from "react";
 import { CallClient, LocalVideoStream } from '@azure/communication-calling';
 import { AzureCommunicationTokenCredential } from '@azure/communication-common';
-import { Button, Dialog, DialogContent, DialogTitle, Grid, IconButton, TextField, Typography } from "@material-ui/core";
+import { Button, Dialog, DialogContent, Grid, IconButton, TextField, Typography } from "@material-ui/core";
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import LinkIcon from '@material-ui/icons/Link';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
@@ -209,10 +209,11 @@ export default class MakeCall extends React.Component {
                         direction="row"
                         alignItems="center"
                         justify="center"
-                        style={{ minHeight: '100vh' }}
+                        style={{ minHeight: '100vh', background: "url(/Liquid-Cheese.svg) no-repeat", backgroundSize: "cover" }}
                     >
                         <Grid item style={{ margin: "5vh" }}>
                             <Button
+                                color="primary"
                                 startIcon={<AddBoxIcon />}
                                 onClick={ () => {this.generateUuid();
                                                  this.handleDialog();} }
@@ -222,6 +223,7 @@ export default class MakeCall extends React.Component {
                         </Grid>
                         <Grid item style={{ margin: "5vh" }}>
                             <Button
+                                color="primary"
                                 startIcon={<LinkIcon />}
                                 onClick={ () => {this.setState({joinGroupCall: true})} }
                             >
@@ -331,7 +333,7 @@ export default class MakeCall extends React.Component {
                                 direction="column"
                                 alignItems="center"
                                 justify="center"
-                                style={{ minHeight: '100vh' }}   
+                                style={{ minHeight: '100vh', background: "url(/Liquid-Cheese.svg) no-repeat", backgroundSize: "cover" }}   
                             >
                                 <Grid 
                                     container

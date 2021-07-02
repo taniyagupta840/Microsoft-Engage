@@ -1,7 +1,6 @@
 import React from 'react';
-// import firebase from 'firebase';
 import { firebaseStorage, firebaseStorageTaskEventSTATE_CHANGED, firebaseStorageTaskStatePAUSED, firebaseStorageTaskStateRUNNING } from './FirebaseConfig';
-import { Button, CssBaseline, Dialog, DialogContent, DialogTitle, Grid, IconButton, TextField, Typography } from '@material-ui/core';
+import { Button, CssBaseline, Dialog, DialogContent, Grid, IconButton, TextField, Typography } from '@material-ui/core';
 import FolderSharedIcon from '@material-ui/icons/FolderShared';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';

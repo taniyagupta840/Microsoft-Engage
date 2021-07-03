@@ -1,6 +1,6 @@
 import React from "react";
 import { utils } from './Utilities/Utilities';
-import { Avatar, Badge, CssBaseline, Grid, IconButton } from "@material-ui/core";
+import { Avatar, Badge, CssBaseline, Grid, IconButton, Tooltip } from "@material-ui/core";
 import CancelTwoToneIcon from '@material-ui/icons/CancelTwoTone';
 
 export default class RemoteParticipantCard extends React.Component {
@@ -67,11 +67,13 @@ export default class RemoteParticipantCard extends React.Component {
                             </IconButton>
                         }
                     >
+                        <Tooltip title={this.state.displayName} >
                         <Avatar 
                             style={{ backgroundColor: this.avatarColor[Math.floor(Math.random()*6)] }}
                         >
                             {String(this.state.displayName).substring(0,1).toUpperCase()}
                         </Avatar>
+                        </Tooltip>
                     </Badge>
                 </Grid>
             </React.Fragment>

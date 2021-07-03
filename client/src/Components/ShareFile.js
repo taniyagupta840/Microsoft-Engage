@@ -1,6 +1,6 @@
 import React from 'react';
 import { firebaseStorage, firebaseStorageTaskEventSTATE_CHANGED, firebaseStorageTaskStatePAUSED, firebaseStorageTaskStateRUNNING } from './FirebaseConfig';
-import { Button, CssBaseline, Dialog, DialogContent, Grid, IconButton, TextField, Typography } from '@material-ui/core';
+import { Button, CssBaseline, Dialog, DialogContent, Grid, IconButton, TextField, Tooltip, Typography } from '@material-ui/core';
 import FolderSharedIcon from '@material-ui/icons/FolderShared';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
@@ -209,11 +209,13 @@ export default class ShareFile extends React.Component {
         return (
             <React.Fragment>
                 <CssBaseline />
+                <Tooltip title='Share-Files' >
                 <IconButton
                     onClick={this.handleDialog}
                 >
                     <FolderSharedIcon style={{color: "#f4a460"}} />
                 </IconButton>
+                </Tooltip>
                 <Dialog
                     open={this.state.openDialog}
                     onClose={this.handleDialog}

@@ -5,7 +5,7 @@ import StreamRenderer from "./StreamRenderer";
 import { LocalVideoStream } from '@azure/communication-calling';
 import { utils } from './Utilities/Utilities';
 import { Dropdown, Panel, PanelType } from "office-ui-fabric-react";
-import { CssBaseline, IconButton, Grid, Switch, Typography } from '@material-ui/core';
+import { CssBaseline, IconButton, Grid, Switch, Tooltip, Typography } from '@material-ui/core';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import VideocamOffIcon from '@material-ui/icons/VideocamOff';
 import MicIcon from '@material-ui/icons/Mic';
@@ -400,67 +400,81 @@ export default class CallCard extends React.Component {
                             alignItems="center"
                             justify="center"
                             style= {{ height: "20vh" }}
-                        >
+                        >      
                             <span>
                                 {   
                                     this.state.videoOn &&
+                                    <Tooltip title='Camera-On' >
                                     <IconButton
                                         onClick = { () => this.handleVideoOnOff()}
                                     >
                                         <VideocamIcon color="primary" />
                                     </IconButton>
+                                    </Tooltip>  
                                 }
                                 {   
                                     !this.state.videoOn &&
+                                    <Tooltip title='Camera-Off' >
                                     <IconButton
                                         onClick = { () => this.handleVideoOnOff()} 
                                     >
                                         <VideocamOffIcon color="primary" />
                                     </IconButton>
+                                    </Tooltip>
                                 }
                             </span>
                             <span>
                                 {
                                     !this.state.micMuted &&
+                                    <Tooltip title='Mic-On' >
                                     <IconButton
                                         onClick = { () => this.handleMicOnOff()}
                                     >
                                         <MicIcon style={{color: "#4682b4"}} />
                                     </IconButton>
+                                    </Tooltip>
                                 }
                                 {
                                     this.state.micMuted &&
+                                    <Tooltip title='Mic-Off' >
                                     <IconButton
                                         onClick = { () => this.handleMicOnOff()}
                                     >
                                         <MicOffIcon style={{color: "#4682b4"}} />
                                     </IconButton>
+                                    </Tooltip>
                                 }
                             </span>
                             <span>
                                 {
                                     !this.state.screenShareOn &&
+                                    <Tooltip title='Screen-Share' >
                                     <IconButton
                                         onClick = { () => this.handleScreenSharingOnOff()} 
                                     >
                                         <ScreenShareIcon style={{color: "#2e8b57"}} />
                                     </IconButton>
+                                    </Tooltip>
                                 }
                                 {
                                     this.state.screenShareOn &&
+                                    <Tooltip title='Screen-Share Off' >
                                     <IconButton
                                         onClick = { () => this.handleScreenSharingOnOff() } 
                                     >
                                         <StopScreenShareIcon style={{color: "#2e8b57"}} />
                                     </IconButton>
+                                    </Tooltip>
                                 }
                             </span>
                             <span>
+                                <Tooltip title='Setting' >
                                 <IconButton
                                     onClick={() => this.setState({ showSettings: true })}
                                 >
                                     <SettingsIcon />
                                 </IconButton>
+                                </Tooltip>
                             </span>
                             <span>
                                 <ShareFile />
@@ -468,13 +482,16 @@ export default class CallCard extends React.Component {
                             <span>
                                 <Chat groupId={this.props.groupId} displayName={this.props.displayName} />
                             </span>
+                            
                             <span>
                                 {
+                                    <Tooltip title='Hang-Up' >
                                     <IconButton
                                         onClick = { () => this.call.hangUp()} 
                                     >
                                         <CallEndIcon color="secondary"/>
                                     </IconButton>
+                                    </Tooltip>
                                 } 
                             </span>
                         </Grid>

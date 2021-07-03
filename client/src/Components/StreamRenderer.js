@@ -23,11 +23,6 @@ export default class StreamRenderer extends React.Component {
     }
 
     async componentDidMount() {
-
-        // console.log("!!!"+utils.getIdentifierText(this.remoteParticipant.identifier));
-        // console.log("!!! callId"+this.props.callId)
-        // console.log("!!! groupId"+this.props.groupId);
-
         document.getElementById(this.componentId).hidden = true;
 
         this.remoteParticipant.on('isSpeakingChanged', () => {
@@ -87,7 +82,9 @@ export default class StreamRenderer extends React.Component {
                 throw new Error(`[App][StreamMedia][id=${this.stream.id}][attachRenderer] target is undefined. Must create renderer first`);
             }
             document.getElementById(this.componentId).hidden = false;
-            document.getElementById(this.videoContainerId).appendChild(this.view.target);
+            document.getElementById(this.videoContainerId).appendChild(this.view.target.firstChild);
+            console.log("!!!stream")
+            console.log(this.videoContainerId);
         } catch (e) {
             console.error(e);
         }
@@ -146,6 +143,8 @@ export default class StreamRenderer extends React.Component {
         return (
             <Grid
                 item
+                justify="center"
+                alignItems="center"
                 style={{ margin: "2vh" }}
                 id={this.componentId}
                 xl={4}
@@ -157,13 +156,16 @@ export default class StreamRenderer extends React.Component {
                     !(this.stream.mediaStreamType === 'ScreenSharing') &&
                     <Paper
                         variant="elevation"
-                        elevation={10}
+                        elevation={0}
+                        style={{ overflow: "hidden", background: "transparent" }}
+                        component="div"
                     >
-                        <span id={this.videoContainerId} ></span>
+                        <div id={this.videoContainerId} >   
+                        </div>
                         <Typography 
-                            variant="subtitle2"
+                            variant="subtitle1"
                             color="textSecondary"
-                            style={{ fontWeight: "bold", textAlign: "center" }}
+                            style={{ fontWeight: "bold", textAlign: "center", fontFamily: "monospace" }}
                         >
                             {`${String(this.state.displayName).toUpperCase()}`}                           
                         </Typography>
@@ -178,19 +180,19 @@ export default class StreamRenderer extends React.Component {
                         </Typography>
                     </Paper>
                 }
-                                {
+                {
                     (this.stream.mediaStreamType === 'ScreenSharing') &&
                     <Paper
                         variant="elevation"
-                        elevation={10}
+                        elevation={1}
                     >
                         <span id={this.videoContainerId} ></span>
                         <Typography 
-                            variant="subtitle2"
+                            variant="subtitle1"
                             color="textSecondary"
-                            style={{ fontWeight: "bold", textAlign: "center" }}
+                            style={{ fontWeight: "bold", textAlign: "center", fontFamily: "monospace" }}
                         >
-                            {`${String(this.state.displayName).toUpperCase()} Screen`}
+                            {`${String(this.state.displayName).toUpperCase()}'s Screen`}
                         </Typography>
                     </Paper>
                 }

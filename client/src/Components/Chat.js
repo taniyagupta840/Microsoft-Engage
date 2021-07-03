@@ -1,6 +1,6 @@
 import React from 'react';
 import { firebaseDatabase } from './FirebaseConfig';
-import { Avatar, Chip, CssBaseline, Dialog, DialogActions, DialogContent, Grid, IconButton, TextField, Typography } from '@material-ui/core';
+import { Avatar, Chip, CssBaseline, Dialog, DialogActions, DialogContent, Grid, IconButton, TextField, Tooltip, Typography } from '@material-ui/core';
 import ChatIcon from '@material-ui/icons/Chat';
 import SendIcon from '@material-ui/icons/Send';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
@@ -71,11 +71,13 @@ export default class Chat extends React.Component {
         return(
             <React.Fragment>
                 <CssBaseline />
+                <Tooltip title='Group-Chat' >
                 <IconButton
                     onClick={this.handleDialog}
                 >
                     <ChatIcon style={{color: "#ff33cc"}} />
                 </IconButton>
+                </Tooltip>
                 <Dialog
                     open={this.state.openDialog}
                     onClose={this.handleDialog}

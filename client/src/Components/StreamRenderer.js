@@ -84,9 +84,9 @@ export default class StreamRenderer extends React.Component {
                 throw new Error(`[App][StreamMedia][id=${this.stream.id}][attachRenderer] target is undefined. Must create renderer first`);
             }
             document.getElementById(this.componentId).hidden = false;
-            document.getElementById(this.videoContainerId).appendChild(this.view.target.firstChild);
-            console.log("!!!stream")
-            console.log(this.videoContainerId);
+            document.getElementById(this.videoContainerId).appendChild(this.view.target);
+            // console.log("!!!stream")
+            // console.log(this.videoContainerId);
         } catch (e) {
             console.error(e);
         }

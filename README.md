@@ -12,6 +12,7 @@ ___
 
 - Responsive
 - Interactive Homepage Theme
+- Tooltips for Buttons/Avatar
 - Firebase Authentication (via google/email)
 - Display Name
 - Unique Join Code Generator
@@ -35,6 +36,7 @@ ___
 - Remove Participants Support
 - AI based Face Expression Detector
 - Like/Unlike Chat Message
+- Participants Mic Status (Muted/Unmuted/Speaking)
 
 ___
 

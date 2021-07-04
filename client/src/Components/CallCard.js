@@ -485,7 +485,7 @@ export default class CallCard extends React.Component {
                             
                             <span>
                                 {
-                                    <Tooltip title='Hang-Up' >
+                                    <Tooltip title='End-Call' >
                                     <IconButton
                                         onClick = { () => this.call.hangUp()} 
                                     >

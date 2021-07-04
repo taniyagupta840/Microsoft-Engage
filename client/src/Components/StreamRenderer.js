@@ -3,6 +3,9 @@ import { utils } from './Utilities/Utilities';
 import { VideoStreamRenderer } from "@azure/communication-calling";
 import { Grid, Paper, Typography } from "@material-ui/core";
 import { firebaseDatabase } from "./FirebaseConfig";
+import MicIcon from '@material-ui/icons/Mic';
+import MicOffIcon from '@material-ui/icons/MicOff';
+import SettingsVoiceIcon from '@material-ui/icons/SettingsVoice';
 
 export default class StreamRenderer extends React.Component {
     constructor(props) {
@@ -13,7 +16,6 @@ export default class StreamRenderer extends React.Component {
         this.videoContainerId = this.componentId + '-videoContainer';
         this.renderer = undefined;
         this.view = undefined;
-        // this.emojis = ["🙂","😂","😫","😲","😡","😰","🤢","😐","🤣"];
         this.emojis = ["😐","🙂","😂","🤣","😫","😲","😡","😰","🤢"];
         this.state = {
             isSpeaking: false,
@@ -34,9 +36,9 @@ export default class StreamRenderer extends React.Component {
                 this.setState({ isSpeaking: false });
             }
         });
-        this.remoteParticipant.on('displayNameChanged', () => {
-            this.setState({ displayName: this.remoteParticipant.displayName?.trim() });
-        })
+        // this.remoteParticipant.on('displayNameChanged', () => {
+        //     this.setState({ displayName: this.remoteParticipant.displayName?.trim() });
+        // })
 
         this.stream.on('isAvailableChanged', async () => {
             try {
@@ -160,14 +162,13 @@ export default class StreamRenderer extends React.Component {
                         style={{ overflow: "hidden", background: "transparent" }}
                         component="div"
                     >
-                        <div id={this.videoContainerId} >   
-                        </div>
+                        <div id={this.videoContainerId} ></div>
                         <Typography 
                             variant="subtitle1"
                             color="textSecondary"
                             style={{ fontWeight: "bold", textAlign: "center", fontFamily: "monospace" }}
                         >
-                            {`${String(this.state.displayName).toUpperCase()}`}                           
+                            {String(this.state.displayName).toUpperCase()} {this.remoteParticipant.isMuted ? <MicOffIcon fontSize="small" /> : (this.state.isSpeaking ? <SettingsVoiceIcon fontSize="small" />:<MicIcon fontSize="small" />)}                          
                         </Typography>
                         <Typography
                             variant="h4"

@@ -59,12 +59,14 @@ export default class RemoteParticipantCard extends React.Component {
                             horizontal: 'left',
                           }}
                         badgeContent={
+                            <Tooltip title='Remove'>
                             <IconButton
                                 size="small"
                                 onClick={ (e) => this.handleRemoveParticipant(e, this.remoteParticipant.identifier) }
                             >
                                 <CancelTwoToneIcon fontSize="small" color="secondary" />
                             </IconButton>
+                            </Tooltip>
                         }
                     >
                         <Tooltip title={this.state.displayName} >

@@ -233,8 +233,8 @@ export default class MakeCall extends React.Component {
                         <Dialog
                             open={this.state.openDialog}
                             onClose={this.handleDialog}
-                            aria-labelledby="responsive-dialog-title"
-                            maxWidth="sm"
+                            maxWidth="xs"
+                            fullWidth={true}
                         >
                             <Grid
                                 container

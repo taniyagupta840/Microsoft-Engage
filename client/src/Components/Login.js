@@ -72,8 +72,7 @@ export default class Login extends React.Component {
                             </Grid>
                             <Grid item>
                                 <TextField
-                                    id="input-with-icon-grid" 
-                                    label="Display Name" 
+                                    label="Display-Name" 
                                     size="medium" 
                                     required={true}
                                     onChange={(e) => { this.displayName = e.target.value }}

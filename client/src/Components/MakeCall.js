@@ -356,6 +356,7 @@ export default class MakeCall extends React.Component {
                                         color="primary"
                                         size="small"
                                         onClick={() => {this.joinGroup(true);}}
+                                        variant="contained"
                                     >
                                         <Typography variant="subtitle2">
                                             Join    

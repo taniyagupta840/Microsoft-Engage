@@ -2,9 +2,12 @@
 
 __Microsoft Engage' 21 - Teams Clone__
 
-__Live -__ [agile-teams-clone.herokuapp.com](agile-teams-clone.herokuapp.com)
+__Live-1 -__ [https://agile-teams.minetest.in](https://agile-teams.minetest.in)
 
-__Developer -__ <code><b>Umang Barthwal</b></code>
+__Live-2 -__ [https://agile-teams-clone.herokuapp.com](https://agile-teams-clone.herokuapp.com)
+
+__Mentor -__ <code><b>Achal Gupta</b></code>
+__Mentee -__ <code><b>Umang Barthwal</b></code>
 
 ___
 
@@ -61,30 +64,42 @@ ___
 - Open-Browser
  <code>http://localhost:3000</code>
 
+
+ ###### Production Setup
+ - <code>cd Microsoft-Engage</code>
+ - <code>npm run heroku-postbuild</code>
+
 ###### Tools & Technologies
-- Node.js: Backend Server
-- React: Frontend Server
-- Azure Communication Services: End-Points for Video Calling
-- Firebase Authentication: Google & Email Athentication
-- Firebase Storage: File-Sharing Feature
-- Firebase Database: Chat Feature
-- Heruko-Hosting: Web-app Hosting
-- FluentUI Fabric: Design
-- Bootstrap: Design
-- Material UI: Design
-- UUID Generator: Unique Join ID 
-- Vanta.js: Background Animation
-- Face-API: Processing Trained-Models
-- Tiny-Face-Detector Model: Trained Face Model
-- Face-Expression-Model: Trained Expression Model
+
+| `Tools & Technogies`        | `Usage`                     |
+|:--------------------------: | :--------------------------:|
+|Azure Communication Services|End-Points for Video Calling| 
+|Bootstrap 5|Design|
+|Face-api.js|Processing Trained-Models|
+|Face-Expression-Model|Trained Expression Model|
+|Firebase Authentication|Google & Email Athentication|
+|Firebase Database|Chat Feature & Face-Expression Detection|
+|Firebase Storage|File-Sharing Feature|
+|FluentUI Fabric|Design|
+|Heruko-Hosting|Web-app Hosting|
+|Material UI|Design|
+|Minetest-Hosting|Web-app Hosting|
+|Node.js|Backend|
+|React|Frontend|   
+|Tiny-Face-Detector Model|Trained Face Model|
+|UUID Generator|Unique Join ID |
+|Vanta.js|Background Animation|
+
+
+
 
 ___
 
 #### Challenges
 
-- React - Totally newbie
+- React
 - UI/UX
-- Video-Stream Representation ( still persist )
+- Video-Stream Representation
 - Lifting-Up State in React
 - Not able to catch updated messages in React state
 - Input video stream to Face api AI model and optimisation
@@ -124,3 +139,5 @@ ___
 - <b> june 29, 2021 - </b> integrate emoji representation of expression data.
 - <b> june 30, 2021 - </b> code optimisation & minetest deployment.
 - <b> july 1, 2021 - </b> add like/unlike feature in chats.
+- <b> july 2, 2021 - </b> add svg background.
+- <b> july 3, 2021 - </b> add tooltips on buttons/avatar.

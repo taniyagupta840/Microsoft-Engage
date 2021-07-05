@@ -1,7 +1,8 @@
 import React from "react";
+import { firebaseDatabase } from './FirebaseConfig';
 import { CallClient, LocalVideoStream } from '@azure/communication-calling';
 import { AzureCommunicationTokenCredential } from '@azure/communication-common';
-import { Button, Dialog, DialogContent, Grid, IconButton, TextField, Typography } from "@material-ui/core";
+import { AppBar, Avatar, Button, Chip, Dialog, DialogContent, Grid, IconButton, Paper, TextField, Toolbar, Tooltip, Typography } from "@material-ui/core";
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import LinkIcon from '@material-ui/icons/Link';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
@@ -10,6 +11,11 @@ import { MessageBar, MessageBarType } from 'office-ui-fabric-react'
 import Login from './Login';
 import CallCard from "./CallCard";
 import { setLogLevel } from '@azure/logger';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ChatIcon from '@material-ui/icons/Chat';
+import DuoIcon from '@material-ui/icons/Duo';
+import SendIcon from '@material-ui/icons/Send';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 
 export default class MakeCall extends React.Component {
     constructor(props) {
@@ -35,6 +41,10 @@ export default class MakeCall extends React.Component {
             openDialog: false,
             displayName: undefined,
             userId: undefined,
+            roomStatus: false,
+            chatMeetSwitch: true,
+            chat: [],
+            message: "",
         };
     }
 
@@ -197,6 +207,51 @@ export default class MakeCall extends React.Component {
         this.setState({displayName: displayName});
     }
 
+    sendMessage(groupId, name, message) {
+        var today = new Date();
+        var sendMessageBlock = {
+            username: name,
+            message: message,
+            time: today.getHours()+':'+today.getMinutes()+':'+today.getSeconds()+':'+today.getMilliseconds(),
+            likeCount: 0,
+        }
+        firebaseDatabase.ref('teams-chat').child(groupId).push(sendMessageBlock);
+    }
+
+    recieveMessage(groupId) {
+        firebaseDatabase.ref('teams-chat').child(groupId).limitToLast(20).on('value', (snapshot) => {
+            if(!(snapshot.val()===undefined) && !(snapshot.val()===null)) {
+                const arr = [];
+                Object.keys(snapshot.val()).forEach(function(key) {
+                    arr.push({messageId: key, message : snapshot.val()[key]});
+                })
+                this.setState({chat: arr});
+            }
+            // console.log(this.state.chat);
+        });
+    }
+
+    likeUnlikeMessage(groupId, message) {
+        if(!this.likedMessageList.includes(message.messageId)) {
+            firebaseDatabase.ref('teams-chat').child(groupId).child(message.messageId).child("likeCount").transaction( function(likeCount) {
+                return likeCount+1;
+            })
+            this.likedMessageList.push(message.messageId);
+        }
+        else {
+            firebaseDatabase.ref('teams-chat').child(groupId).child(message.messageId).child("likeCount").transaction( function(likeCount) {
+                return likeCount-1;
+            })
+            this.likedMessageList = this.likedMessageList.filter(e => !(e===message.messageId));
+        }
+    }
+
+    // componentDidMount() {
+    //     if(!(this.state.groupId === undefined)) {
+    //         this.recieveMessage(this.state.groupId);
+    //     }
+    // }
+
     render() {
         return (
             <div>
@@ -218,7 +273,7 @@ export default class MakeCall extends React.Component {
                                 onClick={ () => {this.generateUuid();
                                                  this.handleDialog();} }
                             >
-                                Create Link
+                                Create Meet
                             </Button>
                         </Grid>
                         <Grid item style={{ margin: "5vh" }}>
@@ -227,7 +282,7 @@ export default class MakeCall extends React.Component {
                                 startIcon={<LinkIcon />}
                                 onClick={ () => {this.setState({joinGroupCall: true})} }
                             >
-                                Join Link
+                                Join Meet
                             </Button>
                         </Grid>
                         <Dialog
@@ -247,7 +302,7 @@ export default class MakeCall extends React.Component {
                                     variant="subtitle1"
                                     style={{ color:"#ffffff", textAlign: "center", fontWeight: "bold", fontFamily: "monospace" }}
                                 >
-                                    JOIN CODE
+                                    MEETING CODE
                                 </Typography>
                             </Grid>
                             <DialogContent
@@ -325,7 +380,7 @@ export default class MakeCall extends React.Component {
                                 <b>{this.state.deviceManagerWarning}</b>
                             </MessageBar>
                         }
-                        {
+                        {/* {
                             !this.state.call && this.state.joinGroupCall &&
                             <Grid
                                 container
@@ -364,7 +419,245 @@ export default class MakeCall extends React.Component {
                                     </Button>
                                 </Grid>
                             </Grid>
+                        } */}
+                        {
+                            !this.state.call && this.state.joinGroupCall && !this.state.roomStatus &&
+                            <Grid
+                                container
+                                spacing={2}
+                                direction="column"
+                                alignItems="center"
+                                justify="center"
+                                style={{ minHeight: '100vh', background: "url(/Liquid-Cheese.svg) no-repeat", backgroundSize: "cover" }}   
+                            >
+                                <Grid 
+                                    container
+                                    item
+                                    justify="center"
+                                >
+                                    <TextField 
+                                        variant="standard"
+                                        label=" -- Enter Joining Code -- " 
+                                        size="medium"
+                                        onChange={ (e) => { this.destinationGroup = e.target.value }}
+                                    />
+                                </Grid>
+                                <Grid
+                                    container
+                                    item
+                                    justify="center"
+                                >
+                                    <Button
+                                        color="primary"
+                                        size="small"
+                                        onClick={() => {this.setState({roomStatus: true});}}
+                                        variant="contained"
+                                    >
+                                        <Typography variant="subtitle2">
+                                            Enter Room    
+                                        </Typography>
+                                    </Button>
+                                </Grid>
+                            </Grid>
                         }
+                        {/* =============== Start - Meeting Room =============== */}
+                        {
+                            !this.state.call && this.state.joinGroupCall && this.state.roomStatus &&
+                            <Grid
+                                container
+                                // spacing={2}
+                                direction="row"
+                                justify="center"
+                                alignItems="flex-start"
+                                style={{ minHeight: '100vh', background: "url(Rose-Petals.svg) no-repeat center", backgroundSize: "cover" }}   
+                            >
+                                <AppBar position="relative">
+                                    <Toolbar variant="dense">
+                                        <Typography
+                                            color="inherit"
+                                            variant="h6"
+                                            style={{ fontFamily: "monospace", marginLeft: "2vh", fontWeight: "bold" }}
+                                        >
+                                            Room
+                                        </Typography>
+                                        <Grid
+                                            container
+                                            item
+                                            direction="row"
+                                            justify="flex-end"
+                                        >
+                                            <Tooltip title="Leave Room">
+                                            <IconButton
+                                                color="inherit"
+                                                onClick={() => {this.setState({roomStatus: false});}}
+                                            >
+                                                <ExitToAppIcon />
+                                            </IconButton>
+                                            </Tooltip>
+                                        </Grid>
+                                    </Toolbar>
+                                </AppBar>
+                                <Grid
+                                    container
+                                    item
+                                    justify="center"
+                                    alignItems="center"
+                                    style={{ height: "10vh", marginLeft: "2vh", marginRight: "2vh" }}
+                                >
+                                    <Grid
+                                        item
+                                        style={{ paddingRight: "3vh" }}
+                                    >
+                                        <Tooltip title="Chat" >
+                                        <IconButton 
+                                            color="primary" 
+                                            onClick={() => this.setState({chatMeetSwitch: true})}
+                                        >
+                                            <ChatIcon style={{ fontSize: "4vh" }} />
+                                        </IconButton>
+                                        </Tooltip>
+                                    </Grid>
+                                    <Grid
+                                        item
+                                        style={{ paddingLeft: "3vh" }}
+                                    >
+                                        <Tooltip title="Meet" >
+                                        <IconButton 
+                                            color="primary" 
+                                            onClick={() => this.setState({chatMeetSwitch: false})}
+                                        >
+                                            <DuoIcon style={{ fontSize: "4vh" }} />
+                                        </IconButton>
+                                        </Tooltip> 
+                                    </Grid>
+                                </Grid> 
+                                <Grid
+                                    container
+                                    item
+                                    justify="center"
+                                    alignItems="center"
+                                    style={{ height: "70vh", marginLeft: "2vh", marginRight: "2vh"  }}
+                                >
+                                    {
+                                        this.state.chatMeetSwitch &&
+                                        <Paper
+                                            elevation={5}
+                                            style={{ width: "100vh", background: "transparent", paddingLeft: "2vh", paddingRight: "2vh", paddingTop: "2vh" }}
+                                        >
+                                            <Grid
+                                                container
+                                                style={{ height: "55vh", padding: "1vh", overflow: "scroll" }}
+                                            >
+                                                {
+                                                    this.state.chat.map((message) => 
+                                                    <Grid container item>
+                                                        <Chip
+                                                            size="small"
+                                                            avatar={<Avatar></Avatar>}
+                                                            label={message.message.username + ": " + message.message.message}
+                                                            color="primary"
+                                                        />
+                                                        <Typography
+                                                            variant="overline"
+                                                            style={{ marginLeft: "1vh" }}
+                                                        >
+                                                            {message.message.likeCount}
+                                                        </Typography>
+                                                        <IconButton
+                                                            size="small"
+                                                            color="primary"
+                                                            onClick={() => this.likeUnlikeMessage(this.groupId,message)}
+                                                        >   
+                                                        {
+                                                            this.likedMessageList.includes(message.messageId) &&
+                                                            <ThumbUpIcon 
+                                                                style={{ fontSize: "2vh" }}
+                                                            />
+                                                        }
+                                                        {
+                                                            !this.likedMessageList.includes(message.messageId) &&
+                                                            <ThumbUpIcon 
+                                                                color="disabled"
+                                                                style={{ fontSize: "2vh" }}
+                                                            />
+                                                        }
+                                                        </IconButton>
+                                                    </Grid>
+                                                    )
+                                                }
+                                            </Grid>
+                                            <Grid 
+                                                container
+                                                style={{ padding: "1vh" }}
+                                            >
+                                                <TextField
+                                                    size="small"
+                                                    variant="standard"
+                                                    style={{ width:"85vh" }} 
+                                                    //  this one in not responsive !!!
+                                                    value={this.state.message}
+                                                    onChange={ (e) => this.setState({message: e.target.value}) } 
+                                                />
+                                                <IconButton
+                                                    onClick={() => {this.sendMessage(this.destinationGroup,this.state.displayName,this.state.message);
+                                                                    this.setState({message: ""});}}
+                                                    color="primary"
+                                                > 
+                                                    <SendIcon />
+                                                </IconButton>
+                                            </Grid>
+                                        </Paper>
+                                    }
+                                    {
+
+                                    }
+                                </Grid> 
+                                                            
+                                
+                                {/* <Grid 
+                                    container
+                                    item
+                                    justify="center"
+                                >
+                                    <Typography>
+                                        ROOM
+                                    </Typography>
+                                </Grid>
+                                <Grid
+                                    container
+                                    item
+                                    justify="center"
+                                >
+                                    <Button
+                                        color="primary"
+                                        size="small"
+                                        onClick={() => {this.joinGroup(true);}}
+                                        variant="contained"
+                                    >
+                                        <Typography variant="subtitle2">
+                                            Join   
+                                        </Typography>
+                                    </Button>
+                                </Grid>
+                                <Grid
+                                    container
+                                    item
+                                    justify="center"
+                                >
+                                    <Button
+                                        color="primary"
+                                        size="small"
+                                        onClick={() => {this.setState({roomStatus: false});}}
+                                        variant="contained"
+                                    >
+                                        <Typography variant="subtitle2">
+                                            Leave Room 
+                                        </Typography>
+                                    </Button>
+                                </Grid> */}
+                            </Grid>
+                        }
+                        {/* =============== End - Meeting Room =============== */}
                         {
                             this.state.call &&
                             <CallCard

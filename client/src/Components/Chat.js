@@ -174,33 +174,52 @@ export default class Chat extends React.Component {
                     <Paper
                         elevation={5}
                         component="span"
-                        style={{ width: "100vh", background: "transparent", paddingLeft: "2vh", paddingRight: "2vh", paddingTop: "2vh" }}
+                        style={{ height: "70vh", width: "100vh", background: "transparent", padding: "2vh" }}
                     >
                     <Grid
                         container
+                        spacing={2}
+                    >
+                    <Grid
+                        container
+                        item
+                        justify="center"
+                        alignItems="flex-start"
+                        style={{ height: "55vh", overflow: "scroll"  }}
+                    >
+                    <Grid
+                        container
+                        item
                         direction="row"
                         alignItems="flex-start"
                         justify="flex-start"
-                        style={{ height: "55vh", padding: "1vh", overflow: "scroll" }}
+                        style={{ padding: "1vh"}}
                     >
                         {
                             this.state.chat.map((message) => 
                             <Grid 
                                 container
                                 item
+                                alignItems="center"
+                                justify="flex-start"
                             >
+                                <Grid item>
                                 <Chip
                                     size="small"
                                     avatar={<Avatar></Avatar>}
                                     label={message.message.username + ": " + message.message.message}
                                     color="primary"
                                 />
+                                </Grid>
+                                <Grid item>
                                 <Typography
                                     variant="overline"
                                     style={{ marginLeft: "1vh" }}
                                 >
                                     {message.message.likeCount}
                                 </Typography>
+                                </Grid>
+                                <Grid item>
                                 <IconButton
                                     size="small"
                                     color="primary"
@@ -220,13 +239,17 @@ export default class Chat extends React.Component {
                                     />
                                 }
                                 </IconButton>
+                                </Grid>
                             </Grid>
                             )
                         }
                     </Grid>
+                    </Grid>
                     <Grid 
                         container
-                        style={{ padding: "1vh" }}
+                        item
+                        justify="center"
+                        alignItems="center"
                     >
                         <TextField
                             size="small"
@@ -243,6 +266,7 @@ export default class Chat extends React.Component {
                         > 
                             <SendIcon />
                         </IconButton>
+                    </Grid>
                     </Grid>
                     </Paper>
                 }

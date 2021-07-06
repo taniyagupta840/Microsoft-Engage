@@ -1,8 +1,7 @@
 import React from "react";
-import { firebaseDatabase } from './FirebaseConfig';
 import { CallClient, LocalVideoStream } from '@azure/communication-calling';
 import { AzureCommunicationTokenCredential } from '@azure/communication-common';
-import { AppBar, Avatar, Button, Chip, Dialog, DialogContent, Grid, IconButton, Paper, TextField, Toolbar, Tooltip, Typography } from "@material-ui/core";
+import { AppBar, Button, Dialog, DialogContent, Grid, IconButton, Paper, TextField, Toolbar, Tooltip, Typography } from "@material-ui/core";
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import LinkIcon from '@material-ui/icons/Link';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
@@ -14,8 +13,8 @@ import { setLogLevel } from '@azure/logger';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ChatIcon from '@material-ui/icons/Chat';
 import DuoIcon from '@material-ui/icons/Duo';
-import SendIcon from '@material-ui/icons/Send';
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import Chat from './Chat';
+
 
 export default class MakeCall extends React.Component {
     constructor(props) {
@@ -43,8 +42,6 @@ export default class MakeCall extends React.Component {
             userId: undefined,
             roomStatus: false,
             chatMeetSwitch: true,
-            chat: [],
-            message: "",
         };
     }
 
@@ -206,51 +203,6 @@ export default class MakeCall extends React.Component {
     callbackDisplayName = (displayName) => {
         this.setState({displayName: displayName});
     }
-
-    sendMessage(groupId, name, message) {
-        var today = new Date();
-        var sendMessageBlock = {
-            username: name,
-            message: message,
-            time: today.getHours()+':'+today.getMinutes()+':'+today.getSeconds()+':'+today.getMilliseconds(),
-            likeCount: 0,
-        }
-        firebaseDatabase.ref('teams-chat').child(groupId).push(sendMessageBlock);
-    }
-
-    recieveMessage(groupId) {
-        firebaseDatabase.ref('teams-chat').child(groupId).limitToLast(20).on('value', (snapshot) => {
-            if(!(snapshot.val()===undefined) && !(snapshot.val()===null)) {
-                const arr = [];
-                Object.keys(snapshot.val()).forEach(function(key) {
-                    arr.push({messageId: key, message : snapshot.val()[key]});
-                })
-                this.setState({chat: arr});
-            }
-            // console.log(this.state.chat);
-        });
-    }
-
-    likeUnlikeMessage(groupId, message) {
-        if(!this.likedMessageList.includes(message.messageId)) {
-            firebaseDatabase.ref('teams-chat').child(groupId).child(message.messageId).child("likeCount").transaction( function(likeCount) {
-                return likeCount+1;
-            })
-            this.likedMessageList.push(message.messageId);
-        }
-        else {
-            firebaseDatabase.ref('teams-chat').child(groupId).child(message.messageId).child("likeCount").transaction( function(likeCount) {
-                return likeCount-1;
-            })
-            this.likedMessageList = this.likedMessageList.filter(e => !(e===message.messageId));
-        }
-    }
-
-    // componentDidMount() {
-    //     if(!(this.state.groupId === undefined)) {
-    //         this.recieveMessage(this.state.groupId);
-    //     }
-    // }
 
     render() {
         return (
@@ -535,81 +487,29 @@ export default class MakeCall extends React.Component {
                                     container
                                     item
                                     justify="center"
-                                    alignItems="center"
+                                    alignItems="flex-start"
                                     style={{ height: "70vh", marginLeft: "2vh", marginRight: "2vh"  }}
                                 >
                                     {
                                         this.state.chatMeetSwitch &&
-                                        <Paper
-                                            elevation={5}
-                                            style={{ width: "100vh", background: "transparent", paddingLeft: "2vh", paddingRight: "2vh", paddingTop: "2vh" }}
-                                        >
-                                            <Grid
-                                                container
-                                                style={{ height: "55vh", padding: "1vh", overflow: "scroll" }}
-                                            >
-                                                {
-                                                    this.state.chat.map((message) => 
-                                                    <Grid container item>
-                                                        <Chip
-                                                            size="small"
-                                                            avatar={<Avatar></Avatar>}
-                                                            label={message.message.username + ": " + message.message.message}
-                                                            color="primary"
-                                                        />
-                                                        <Typography
-                                                            variant="overline"
-                                                            style={{ marginLeft: "1vh" }}
-                                                        >
-                                                            {message.message.likeCount}
-                                                        </Typography>
-                                                        <IconButton
-                                                            size="small"
-                                                            color="primary"
-                                                            onClick={() => this.likeUnlikeMessage(this.groupId,message)}
-                                                        >   
-                                                        {
-                                                            this.likedMessageList.includes(message.messageId) &&
-                                                            <ThumbUpIcon 
-                                                                style={{ fontSize: "2vh" }}
-                                                            />
-                                                        }
-                                                        {
-                                                            !this.likedMessageList.includes(message.messageId) &&
-                                                            <ThumbUpIcon 
-                                                                color="disabled"
-                                                                style={{ fontSize: "2vh" }}
-                                                            />
-                                                        }
-                                                        </IconButton>
-                                                    </Grid>
-                                                    )
-                                                }
-                                            </Grid>
-                                            <Grid 
-                                                container
-                                                style={{ padding: "1vh" }}
-                                            >
-                                                <TextField
-                                                    size="small"
-                                                    variant="standard"
-                                                    style={{ width:"85vh" }} 
-                                                    //  this one in not responsive !!!
-                                                    value={this.state.message}
-                                                    onChange={ (e) => this.setState({message: e.target.value}) } 
-                                                />
-                                                <IconButton
-                                                    onClick={() => {this.sendMessage(this.destinationGroup,this.state.displayName,this.state.message);
-                                                                    this.setState({message: ""});}}
-                                                    color="primary"
-                                                > 
-                                                    <SendIcon />
-                                                </IconButton>
-                                            </Grid>
-                                        </Paper>
+                                        <Chat 
+                                            groupId={this.destinationGroup} 
+                                            displayName={this.state.displayName} 
+                                            isRoom={true}
+                                        />  
                                     }
                                     {
-
+                                        !this.state.chatMeetSwitch &&
+                                        <Button
+                                            color="primary"
+                                            size="small"
+                                            onClick={() => {this.joinGroup(true);}}
+                                            variant="contained"
+                                        >
+                                            <Typography variant="subtitle2">
+                                                Join   
+                                            </Typography>
+                                        </Button>
                                     }
                                 </Grid> 
                                                             

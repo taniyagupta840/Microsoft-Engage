@@ -480,7 +480,7 @@ export default class CallCard extends React.Component {
                                 <ShareFile />
                             </span>
                             <span>
-                                <Chat groupId={this.props.groupId} displayName={this.props.displayName} />
+                                <Chat groupId={this.props.groupId} displayName={this.props.displayName} isRoom={false}/>
                             </span>
                             
                             <span>

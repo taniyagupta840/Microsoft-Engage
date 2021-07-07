@@ -119,7 +119,7 @@ export default class CallCard extends React.Component {
             });
 
             const callStateChanged = () => {
-                console.log('Call state changed ', this.call.state);
+                // console.log('Call state changed ', this.call.state);
                 this.setState({ callState: this.call.state });
 
                 if (this.call.state !== 'None' &&
@@ -138,12 +138,12 @@ export default class CallCard extends React.Component {
             this.call.on('stateChanged', callStateChanged);
 
             this.call.on('idChanged', () => {
-                console.log('Call id Changed ', this.call.id);
+                // console.log('Call id Changed ', this.call.id);
                 this.setState({ callId: this.call.id });
             });
 
             this.call.on('isMutedChanged', () => {
-                console.log('Local microphone muted changed ', this.call.isMuted);
+                // console.log('Local microphone muted changed ', this.call.isMuted);
                 this.setState({ micMuted: this.call.isMuted });
             });
 
@@ -153,13 +153,13 @@ export default class CallCard extends React.Component {
 
             this.call.remoteParticipants.forEach(rp => this.subscribeToRemoteParticipant(rp));
             this.call.on('remoteParticipantsUpdated', e => {
-                console.log(`Call=${this.call.callId}, remoteParticipantsUpdated, added=${e.added}, removed=${e.removed}`);
+                // console.log(`Call=${this.call.callId}, remoteParticipantsUpdated, added=${e.added}, removed=${e.removed}`);
                 e.added.forEach(p => {
-                    console.log('participantAdded', p);
+                    // console.log('participantAdded', p);
                     this.subscribeToRemoteParticipant(p);
                 });
                 e.removed.forEach(p => {
-                    console.log('participantRemoved', p);
+                    // console.log('participantRemoved', p);
                     if(p.callEndReason) {
                         this.setState(prevState => ({
                             callMessage: `${prevState.callMessage ? prevState.callMessage + `\n` : ``}
@@ -180,11 +180,11 @@ export default class CallCard extends React.Component {
         }
 
         participant.on('displayNameChanged', () => {
-            console.log('displayNameChanged ', participant.displayName);
+            // console.log('displayNameChanged ', participant.displayName);
         });
 
         participant.on('stateChanged', () => {
-            console.log('Participant state changed', participant.identifier.communicationUserId, participant.state);
+            // console.log('Participant state changed', participant.identifier.communicationUserId, participant.state);
         });
 
         const addToListOfAllRemoteParticipantStreams = (participantStreams) => {

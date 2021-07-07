@@ -30,7 +30,7 @@ export default class ShareFile extends React.Component {
         for (var i = 10; i > 0; --i)
             result += chars[Math.floor(Math.random() * chars.length)];
         result += String(Math.floor(Math.random() * 100) + 1);
-        console.log(result);
+        // console.log(result);
         return result;
     }
 
@@ -46,7 +46,7 @@ export default class ShareFile extends React.Component {
         }
         else{
             try{
-                console.log("uploading file ");
+                // console.log("uploading file ");
                 const storageRef  = firebaseStorage.ref();
                 let folderName = this.random();
                 for(let i of this.state.FILES_UPLOAD){
@@ -54,7 +54,7 @@ export default class ShareFile extends React.Component {
                     const fileToUpload = storageRef.child(folderName+'/'+i.name);
                     let uploadTask = fileToUpload.put(i);
                     uploadTask.then(snapshot => {
-                        console.log('File Uploaded Successfully');
+                        // console.log('File Uploaded Successfully');
                         switch (snapshot.state) {
                             case firebaseStorageTaskStatePAUSED:
                                 alert("Sorry, we are facing some problem!!");
@@ -114,7 +114,7 @@ export default class ShareFile extends React.Component {
                     document.getElementById("filedisplaylist").appendChild(list);
                 }
                 else{
-                    alert("5MB Limit Exceed");
+                    alert("Either 5MB limit exceeded or more than 5 files selected!");
                 }
             }
         }
@@ -138,7 +138,7 @@ export default class ShareFile extends React.Component {
     copy = () =>{
         let url = this.state.URL;
         navigator.clipboard.writeText(url);
-        console.table("copied");
+        // console.table("copied");
     }
     
     download = () => {
@@ -156,7 +156,7 @@ export default class ShareFile extends React.Component {
                     let oldval  = this.state.PROGRESS
                     this.setState ({PROGRESS : parseFloat(oldval)+parseFloat(step)})
                     document.getElementById('inputCode').value = '';
-                    console.log(url)
+                    // console.log(url)
                     let element = document.createElement('a'); 
                     element.setAttribute('href', url); 
                     element.setAttribute('target', "_blank"); 

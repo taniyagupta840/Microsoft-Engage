@@ -71,6 +71,7 @@ export default class Chat extends React.Component {
         return(
             <React.Fragment>
                 <CssBaseline />
+                {/* Start - Chat UI inside Call */}
                 {
                     !this.props.isRoom &&
                     <div>
@@ -168,7 +169,8 @@ export default class Chat extends React.Component {
                     </Dialog>
                     </div>
                 }
-                
+                {/* End - Chat UI inside Call */}
+                {/* Start - Chat UI inside Room */}
                 {
                     this.props.isRoom &&
                     <Paper
@@ -176,100 +178,101 @@ export default class Chat extends React.Component {
                         component="span"
                         style={{ height: "70vh", width: "100vh", background: "transparent", padding: "2vh" }}
                     >
-                    <Grid
-                        container
-                        spacing={2}
-                    >
-                    <Grid
-                        container
-                        item
-                        justify="center"
-                        alignItems="flex-start"
-                        style={{ height: "55vh", overflow: "scroll"  }}
-                    >
-                    <Grid
-                        container
-                        item
-                        direction="row"
-                        alignItems="flex-start"
-                        justify="flex-start"
-                        style={{ padding: "1vh"}}
-                    >
-                        {
-                            this.state.chat.map((message) => 
+                        <Grid
+                            container
+                            spacing={2}
+                        >
+                            <Grid
+                                container
+                                item
+                                justify="center"
+                                alignItems="flex-start"
+                                style={{ height: "55vh", overflow: "scroll"  }}
+                            >
+                                <Grid
+                                    container
+                                    item
+                                    direction="row"
+                                    alignItems="flex-start"
+                                    justify="flex-start"
+                                    style={{ padding: "1vh"}}
+                                >
+                                    {
+                                        this.state.chat.map((message) => 
+                                        <Grid 
+                                            container
+                                            item
+                                            alignItems="center"
+                                            justify="flex-start"
+                                        >
+                                            <Grid item>
+                                                <Chip
+                                                    size="small"
+                                                    avatar={<Avatar></Avatar>}
+                                                    label={message.message.username + ": " + message.message.message}
+                                                    color="primary"
+                                                />
+                                            </Grid>
+                                            <Grid item>
+                                                <Typography
+                                                    variant="overline"
+                                                    style={{ marginLeft: "1vh" }}
+                                                >
+                                                    {message.message.likeCount}
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item>
+                                                <IconButton
+                                                    size="small"
+                                                    color="primary"
+                                                    onClick={() => this.likeUnlikeMessage(this.groupId,message)}
+                                                >   
+                                                {
+                                                    this.likedMessageList.includes(message.messageId) &&
+                                                    <ThumbUpIcon 
+                                                        style={{ fontSize: "2vh" }}
+                                                    />
+                                                }
+                                                {
+                                                    !this.likedMessageList.includes(message.messageId) &&
+                                                    <ThumbUpIcon 
+                                                        color="disabled"
+                                                        style={{ fontSize: "2vh" }}
+                                                    />
+                                                }
+                                                </IconButton>
+                                            </Grid>
+                                        </Grid>
+                                        )
+                                    }
+                                </Grid>
+                            </Grid>
                             <Grid 
                                 container
                                 item
+                                justify="center"
                                 alignItems="center"
-                                justify="flex-start"
                             >
-                                <Grid item>
-                                <Chip
+                                <TextField
                                     size="small"
-                                    avatar={<Avatar></Avatar>}
-                                    label={message.message.username + ": " + message.message.message}
-                                    color="primary"
+                                    variant="standard"
+                                    style={{ width:"85vh" }} 
+                                    //  this one in not responsive !!!
+                                    value={this.state.message}
+                                    onChange={ (e) => this.setState({message: e.target.value}) } 
                                 />
-                                </Grid>
-                                <Grid item>
-                                <Typography
-                                    variant="overline"
-                                    style={{ marginLeft: "1vh" }}
-                                >
-                                    {message.message.likeCount}
-                                </Typography>
-                                </Grid>
-                                <Grid item>
                                 <IconButton
-                                    size="small"
+                                    onClick={() => {this.sendMessage(this.groupId,this.username,this.state.message);
+                                                    this.setState({message: ""});}}
                                     color="primary"
-                                    onClick={() => this.likeUnlikeMessage(this.groupId,message)}
-                                >   
-                                {
-                                    this.likedMessageList.includes(message.messageId) &&
-                                    <ThumbUpIcon 
-                                        style={{ fontSize: "2vh" }}
-                                    />
-                                }
-                                {
-                                    !this.likedMessageList.includes(message.messageId) &&
-                                    <ThumbUpIcon 
-                                        color="disabled"
-                                        style={{ fontSize: "2vh" }}
-                                    />
-                                }
+                                > 
+                                    <SendIcon />
                                 </IconButton>
-                                </Grid>
                             </Grid>
-                            )
-                        }
-                    </Grid>
-                    </Grid>
-                    <Grid 
-                        container
-                        item
-                        justify="center"
-                        alignItems="center"
-                    >
-                        <TextField
-                            size="small"
-                            variant="standard"
-                            style={{ width:"85vh" }} 
-                            //  this one in not responsive !!!
-                            value={this.state.message}
-                            onChange={ (e) => this.setState({message: e.target.value}) } 
-                        />
-                        <IconButton
-                            onClick={() => {this.sendMessage(this.groupId,this.username,this.state.message);
-                                            this.setState({message: ""});}}
-                            color="primary"
-                        > 
-                            <SendIcon />
-                        </IconButton>
-                    </Grid>
-                    </Grid>
+                        </Grid>
                     </Paper>
                 }
+                {/* Start - Chat UI inside Room */}
             </React.Fragment>
         );
     }

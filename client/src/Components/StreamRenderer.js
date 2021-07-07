@@ -36,9 +36,6 @@ export default class StreamRenderer extends React.Component {
                 this.setState({ isSpeaking: false });
             }
         });
-        // this.remoteParticipant.on('displayNameChanged', () => {
-        //     this.setState({ displayName: this.remoteParticipant.displayName?.trim() });
-        // })
 
         this.stream.on('isAvailableChanged', async () => {
             try {
@@ -105,7 +102,7 @@ export default class StreamRenderer extends React.Component {
     recieveUserExpression(groupId, userId) {
         firebaseDatabase.ref('expression').child(groupId).child(userId).on("value", (snapshot) => {
                 this.setState({userExpression: snapshot.val()});
-                console.log(this.state.userExpression);
+                // console.log(this.state.userExpression);
         })
     }
 

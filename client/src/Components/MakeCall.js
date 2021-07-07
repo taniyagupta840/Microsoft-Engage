@@ -1,7 +1,7 @@
 import React from "react";
 import { CallClient, LocalVideoStream } from '@azure/communication-calling';
 import { AzureCommunicationTokenCredential } from '@azure/communication-common';
-import { AppBar, Button, Dialog, DialogContent, Grid, IconButton, Paper, TextField, Toolbar, Tooltip, Typography } from "@material-ui/core";
+import { AppBar, Button, Dialog, DialogContent, Grid, IconButton, TextField, Toolbar, Tooltip, Typography } from "@material-ui/core";
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import LinkIcon from '@material-ui/icons/Link';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
@@ -9,7 +9,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react'
 import Login from './Login';
 import CallCard from "./CallCard";
-import { setLogLevel } from '@azure/logger';
+// import { setLogLevel } from '@azure/logger';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ChatIcon from '@material-ui/icons/Chat';
 import DuoIcon from '@material-ui/icons/Duo';
@@ -51,7 +51,7 @@ export default class MakeCall extends React.Component {
                 const tokenCredential = new AzureCommunicationTokenCredential(userDetails.token);
                 // console.log("!!! tokencred"+userDetails.id);
                 this.setState({userId: userDetails.id});
-                setLogLevel('verbose');
+                // setLogLevel('verbose');
                 this.callClient = new CallClient();
                 this.callAgent = await this.callClient.createCallAgent(tokenCredential, { displayName: userDetails.displayName });
                 window.callAgent = this.callAgent;
@@ -59,7 +59,7 @@ export default class MakeCall extends React.Component {
                 await this.deviceManager.askDevicePermission({ audio: true });
                 await this.deviceManager.askDevicePermission({ video: true });
                 this.callAgent.on('callsUpdated', e => {
-                    console.log(`callsUpdated, added=${e.added}, removed=${e.removed}`);
+                    // console.log(`callsUpdated, added=${e.added}, removed=${e.removed}`);
 
                     e.added.forEach(call => {
                         this.setState({ call: call })
@@ -193,7 +193,7 @@ export default class MakeCall extends React.Component {
     copy = () =>{
         let uuid = this.state.UUID;
         navigator.clipboard.writeText(uuid);
-        console.table("copied");
+        // console.table("copied");
     }
 
     handleDialog = () => {
@@ -206,7 +206,7 @@ export default class MakeCall extends React.Component {
 
     render() {
         return (
-            <div>
+            <React.Fragment>
                 <Login onLoggedIn={this.handleLogIn} callbackDisplayName={this.callbackDisplayName} />
                 { 
                     this.state.loggedIn && !this.state.createGroupCall && !this.state.joinGroupCall &&
@@ -237,78 +237,80 @@ export default class MakeCall extends React.Component {
                                 Join Meet
                             </Button>
                         </Grid>
-                        <Dialog
-                            open={this.state.openDialog}
-                            onClose={this.handleDialog}
-                            maxWidth="xs"
-                            fullWidth={true}
+                    </Grid>    
+                }
+                {
+                    <Dialog
+                    open={this.state.openDialog}
+                    onClose={this.handleDialog}
+                    maxWidth="xs"
+                    fullWidth={true}
+                >
+                    <Grid
+                        container
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                        style={{ background: "linear-gradient(to bottom , #002984 0%, #757de8 100%)", padding: "1vh" }}
+                    >
+                        <Typography 
+                            variant="subtitle1"
+                            style={{ color:"#ffffff", textAlign: "center", fontWeight: "bold", fontFamily: "monospace" }}
                         >
-                            <Grid
+                            MEETING CODE
+                        </Typography>
+                    </Grid>
+                    <DialogContent
+                        style={{ minHeight: "20vh", marginTop: "2vh" }}
+                    >
+                        <Grid 
+                            container
+                            spacing={0}
+                            direction="column"
+                            alignItems="center"
+                            justify="space-around"
+                        >
+                            <Grid 
                                 container
-                                direction="row"
+                                item
                                 justify="center"
-                                alignItems="center"
-                                style={{ background: "linear-gradient(to bottom , #002984 0%, #757de8 100%)", padding: "1vh" }}
                             >
-                                <Typography 
-                                    variant="subtitle1"
-                                    style={{ color:"#ffffff", textAlign: "center", fontWeight: "bold", fontFamily: "monospace" }}
-                                >
-                                    MEETING CODE
-                                </Typography>
+                                <Button>
+                                    <Typography
+                                        color="primary"
+                                        variant="subtitle2"
+                                    >
+                                        {this.state.UUID}
+                                    </Typography>
+                                </Button>   
                             </Grid>
-                            <DialogContent
-                                style={{ minHeight: "20vh", marginTop: "2vh" }}
+                            <Grid
+                               container
+                               item 
+                               justify="space-evenly"
+                               style={{ marginTop: "1vh" }}
                             >
                                 <Grid 
-                                    container
-                                    spacing={0}
-                                    direction="column"
-                                    alignItems="center"
-                                    justify="space-around"
+                                    item 
                                 >
-                                    <Grid 
-                                        container
-                                        item
-                                        justify="center"
+                                    <IconButton
                                     >
-                                        <Button>
-                                            <Typography
-                                                color="primary"
-                                                variant="subtitle2"
-                                            >
-                                                {this.state.UUID}
-                                            </Typography>
-                                        </Button>   
-                                    </Grid>
-                                    <Grid
-                                       container
-                                       item 
-                                       justify="space-evenly"
-                                       style={{ marginTop: "1vh" }}
-                                    >
-                                        <Grid 
-                                            item 
-                                        >
-                                            <IconButton
-                                            >
-                                                <ShareIcon />
-                                            </IconButton>
-                                        </Grid>
-                                        <Grid 
-                                            item 
-                                        >
-                                            <IconButton
-                                                onClick={ this.copy }    
-                                            >
-                                                <FileCopyIcon />
-                                            </IconButton>
-                                        </Grid>
-                                    </Grid>
+                                        <ShareIcon />
+                                    </IconButton>
                                 </Grid>
-                            </DialogContent>
-                         </Dialog>
-                    </Grid>
+                                <Grid 
+                                    item 
+                                >
+                                    <IconButton
+                                        onClick={ this.copy }    
+                                    >
+                                        <FileCopyIcon />
+                                    </IconButton>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </DialogContent>
+                 </Dialog>
                 }
                 <div className="">
                     <div className="">
@@ -332,46 +334,6 @@ export default class MakeCall extends React.Component {
                                 <b>{this.state.deviceManagerWarning}</b>
                             </MessageBar>
                         }
-                        {/* {
-                            !this.state.call && this.state.joinGroupCall &&
-                            <Grid
-                                container
-                                spacing={2}
-                                direction="column"
-                                alignItems="center"
-                                justify="center"
-                                style={{ minHeight: '100vh', background: "url(/Liquid-Cheese.svg) no-repeat", backgroundSize: "cover" }}   
-                            >
-                                <Grid 
-                                    container
-                                    item
-                                    justify="center"
-                                >
-                                    <TextField 
-                                        variant="standard"
-                                        label=" -- Enter Joining Code -- " 
-                                        size="medium"
-                                        onChange={ (e) => { this.destinationGroup = e.target.value }}
-                                    />
-                                </Grid>
-                                <Grid
-                                    container
-                                    item
-                                    justify="center"
-                                >
-                                    <Button
-                                        color="primary"
-                                        size="small"
-                                        onClick={() => {this.joinGroup(true);}}
-                                        variant="contained"
-                                    >
-                                        <Typography variant="subtitle2">
-                                            Join    
-                                        </Typography>
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        } */}
                         {
                             !this.state.call && this.state.joinGroupCall && !this.state.roomStatus &&
                             <Grid
@@ -461,12 +423,12 @@ export default class MakeCall extends React.Component {
                                         style={{ paddingRight: "3vh" }}
                                     >
                                         <Tooltip title="Chat" >
-                                        <IconButton 
-                                            color="primary" 
-                                            onClick={() => this.setState({chatMeetSwitch: true})}
-                                        >
-                                            <ChatIcon style={{ fontSize: "4vh" }} />
-                                        </IconButton>
+                                            <IconButton 
+                                                color="primary" 
+                                                onClick={() => this.setState({chatMeetSwitch: true})}
+                                            >
+                                                <ChatIcon style={{ fontSize: "4vh" }} />
+                                            </IconButton>
                                         </Tooltip>
                                     </Grid>
                                     <Grid
@@ -474,12 +436,12 @@ export default class MakeCall extends React.Component {
                                         style={{ paddingLeft: "3vh" }}
                                     >
                                         <Tooltip title="Meet" >
-                                        <IconButton 
-                                            color="primary" 
-                                            onClick={() => this.setState({chatMeetSwitch: false})}
-                                        >
-                                            <DuoIcon style={{ fontSize: "4vh" }} />
-                                        </IconButton>
+                                            <IconButton 
+                                                color="primary" 
+                                                onClick={() => this.setState({chatMeetSwitch: false})}
+                                            >
+                                                <DuoIcon style={{ fontSize: "4vh" }} />
+                                            </IconButton>
                                         </Tooltip> 
                                     </Grid>
                                 </Grid> 
@@ -512,49 +474,6 @@ export default class MakeCall extends React.Component {
                                         </Button>
                                     }
                                 </Grid> 
-                                                            
-                                
-                                {/* <Grid 
-                                    container
-                                    item
-                                    justify="center"
-                                >
-                                    <Typography>
-                                        ROOM
-                                    </Typography>
-                                </Grid>
-                                <Grid
-                                    container
-                                    item
-                                    justify="center"
-                                >
-                                    <Button
-                                        color="primary"
-                                        size="small"
-                                        onClick={() => {this.joinGroup(true);}}
-                                        variant="contained"
-                                    >
-                                        <Typography variant="subtitle2">
-                                            Join   
-                                        </Typography>
-                                    </Button>
-                                </Grid>
-                                <Grid
-                                    container
-                                    item
-                                    justify="center"
-                                >
-                                    <Button
-                                        color="primary"
-                                        size="small"
-                                        onClick={() => {this.setState({roomStatus: false});}}
-                                        variant="contained"
-                                    >
-                                        <Typography variant="subtitle2">
-                                            Leave Room 
-                                        </Typography>
-                                    </Button>
-                                </Grid> */}
                             </Grid>
                         }
                         {/* =============== End - Meeting Room =============== */}
@@ -576,7 +495,7 @@ export default class MakeCall extends React.Component {
                         }
                     </div>
                 </div>
-            </div>
+            </React.Fragment>
         );
     }
 }

@@ -17,7 +17,7 @@ const generateToken = async () => {
 
 router.get('/', async function(req, res, next) {
     let token = await generateToken();
-    console.log(token);
+    // console.log(token);
     res.json(token);
 });
 

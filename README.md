@@ -141,3 +141,6 @@ ___
 - <b> july 1, 2021 - </b> add like/unlike feature in chats.
 - <b> july 2, 2021 - </b> add svg background.
 - <b> july 3, 2021 - </b> add tooltips on buttons/avatar.
+- <b> july 4, 2021 - </b> add participant's mic-status & bug fixing.
+- <b> july 5, 2021 - </b> plan the integration of adapt feature.
+- <b> july 6, 2021 - </b> add room & chat functionality before the meet.

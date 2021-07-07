@@ -71,10 +71,11 @@ ___
 
 ###### Tools & Technologies
 
-| `Tools & Technogies`        | `Usage`                     |
+| `Tools & Technologies`        | `Usage`                     |
 |:--------------------------: | :--------------------------:|
 |Azure Communication Services|End-Points for Video Calling| 
 |Bootstrap 5|Design|
+|Emoji-picker-react|Emojis|
 |Face-api.js|Processing Trained-Models|
 |Face-Expression-Model|Trained Expression Model|
 |Firebase Authentication|Google & Email Athentication|
@@ -91,8 +92,6 @@ ___
 |Vanta.js|Background Animation|
 
 
-
-
 ___
 
 #### Challenges
@@ -103,6 +102,7 @@ ___
 - Lifting-Up State in React
 - Not able to catch updated messages in React state
 - Input video stream to Face api AI model and optimisation
+- Adapt feature
 
 ___
 
@@ -117,6 +117,7 @@ ___
 - www.vantajs.com
 - https://firebase.google.com/docs/database/web/read-and-write
 - https://justadudewhohacks.github.io/face-api.js/face_and_landmark_detection/
+- https://www.npmjs.com/package/emoji-picker-react
 
 ___
 

@@ -220,7 +220,7 @@ export default class ShareFile extends React.Component {
                     open={this.state.openDialog}
                     onClose={this.handleDialog}
                     aria-labelledby="Share File Box"
-                    maxWidth="sm"
+                    maxWidth="md"
                 >
                     <Grid
                         container
@@ -242,7 +242,7 @@ export default class ShareFile extends React.Component {
                         {
                             <Grid 
                                 container
-                                justify="space-evenly"
+                                justify="space-between"
                             >
                                 <Grid 
                                     item
@@ -255,6 +255,7 @@ export default class ShareFile extends React.Component {
                                         justify="center"
                                     >
                                         <Button
+                                            color="primary"
                                             startIcon={<CloudUploadIcon />}
                                             id="upload"
                                             onClick={this.upload}
@@ -266,6 +267,7 @@ export default class ShareFile extends React.Component {
                                         container 
                                         item
                                         justify="center"
+                                        style={{ marginTop: "2vh" }}
                                     >
                                         <IconButton
                                             onClick={this.filepick}
@@ -339,6 +341,7 @@ export default class ShareFile extends React.Component {
                                         justify="center"
                                     >
                                         <Button
+                                            color="primary"
                                             startIcon={<CloudDownloadIcon />}
                                             id="dowload"
                                             onClick={this.checkFiles}
@@ -350,9 +353,11 @@ export default class ShareFile extends React.Component {
                                         container
                                         item
                                         justify="center"
+                                        style={{ marginTop: "2vh" }}
                                     >
                                         <TextField 
-                                            label="Enter Unique Code"
+                                            variant="outlined"
+                                            placeholder="- Enter Unique Code -"
                                             margin="dense"
                                             size="small" 
                                             id="inputCode"

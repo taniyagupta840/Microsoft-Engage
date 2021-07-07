@@ -11,7 +11,6 @@ import Login from './Login';
 import CallCard from "./CallCard";
 // import { setLogLevel } from '@azure/logger';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import ChatIcon from '@material-ui/icons/Chat';
 import DuoIcon from '@material-ui/icons/Duo';
 import Chat from './Chat';
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { utils } from "./Utilities/Utilities";
 import HomePage from "./HomePage";
-import { CssBaseline, IconButton, Grid, TextField } from "@material-ui/core";
+import { CssBaseline, IconButton, Grid, InputAdornment, Paper, TextField } from "@material-ui/core";
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import FirebaseAuthentication from "./FirebaseAuthentication";
@@ -59,35 +59,55 @@ export default class Login extends React.Component {
                         justify="center"
                         style={{ minHeight: '100vh', overflow: "hidden", background: "url(/Liquid-Cheese.svg) no-repeat", backgroundSize: "cover"  }}
                     >
-                        <Grid 
-                            container 
-                            item
-                            direction="row"
-                            spacing={1} 
-                            alignItems="flex-end"
-                            justify="center"
+                        <Paper
+                            elevation={5}
+                            style={{ minHeight: "40vh", minWidth: "50vh" }}
                         >
-                            <Grid item >
-                                <AccountCircle color="primary" style={{ fontSize:"5vh" }}/>
-                            </Grid>
-                            <Grid item>
-                                <TextField
-                                    label="Display-Name" 
-                                    size="medium" 
-                                    required={true}
-                                    onChange={(e) => { this.displayName = e.target.value }}
-                                />   
-                            </Grid>
-                            <Grid item>
-                                <IconButton
-                                    size="small"
-                                    onClick={ () => {this.provisionNewUser();
-                                    this.props.callbackDisplayName(this.displayName);} }
+                            <Grid
+                                container
+                                justify="center"
+                                alignItems="center"
+                                style={{ minHeight: "40vh", minWidth: "50vh"}}
+                            >
+                                <Grid
+                                    item
+                                    container
+                                    justify="center"
+                                    alignItems="center"
+                                    spacing={1}
                                 >
-                                    <ArrowForwardIosIcon color="primary" style={{ fontWeight: "bold" }}/>
-                                </IconButton>
+                                    <Grid item>
+                                        <TextField
+                                            variant="outlined"
+                                            placeholder=" Display Name"
+                                            size="small" 
+                                            required={true}
+                                            onChange={(e) => { this.displayName = e.target.value }}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment>
+                                                        <IconButton
+                                                            size="small"
+                                                        >
+                                                            <AccountCircle color="primary" />
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                )
+                                            }}
+                                        />   
+                                    </Grid>
+                                    <Grid item>
+                                        <IconButton
+                                            size="small"
+                                            onClick={ () => {this.provisionNewUser();
+                                                            this.props.callbackDisplayName(this.displayName);} }
+                                        >
+                                            <ArrowForwardIosIcon color="primary"/>
+                                        </IconButton>
+                                    </Grid>
+                                </Grid>
                             </Grid>
-                        </Grid>
+                        </Paper>
                     </Grid>
                 }
                 {   

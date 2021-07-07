@@ -13,6 +13,7 @@ import CallCard from "./CallCard";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import DuoIcon from '@material-ui/icons/Duo';
 import Chat from './Chat';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 
 
 export default class MakeCall extends React.Component {
@@ -341,36 +342,53 @@ export default class MakeCall extends React.Component {
                                 direction="column"
                                 alignItems="center"
                                 justify="center"
-                                style={{ minHeight: '100vh', background: "url(/Liquid-Cheese.svg) no-repeat", backgroundSize: "cover" }}   
+                                style={{ minHeight: '100vh', background: "url(/Liquid-Cheese.svg) no-repeat", backgroundSize: "cover"  }}   
                             >
-                                <Grid 
-                                    container
-                                    item
-                                    justify="center"
+                                <Paper
+                                    elevation={5}
+                                    style={{ minHeight: "40vh", minWidth: "50vh" }}
                                 >
-                                    <TextField 
-                                        variant="standard"
-                                        label=" -- Enter Joining Code -- " 
-                                        size="medium"
-                                        onChange={ (e) => { this.destinationGroup = e.target.value }}
-                                    />
-                                </Grid>
-                                <Grid
-                                    container
-                                    item
-                                    justify="center"
-                                >
-                                    <Button
-                                        color="primary"
-                                        size="small"
-                                        onClick={() => {this.setState({roomStatus: true});}}
-                                        variant="contained"
+                                    <Grid
+                                        container
+                                        justify="center"
+                                        alignItems="center"
+                                        style={{ minHeight: "40vh", minWidth: "50vh"}}
                                     >
-                                        <Typography variant="subtitle2">
-                                            Enter Room    
-                                        </Typography>
-                                    </Button>
-                                </Grid>
+                                        <Grid 
+                                            item
+                                            container
+                                            spacing={2}
+                                        >
+                                            <Grid 
+                                                container
+                                                item
+                                                justify="center"
+                                            >
+                                                <TextField 
+                                                    variant="outlined"
+                                                    placeholder="-- Enter Joining Code --"
+                                                    size="small"
+                                                    onChange={ (e) => { this.destinationGroup = e.target.value }}
+                                                />
+                                            </Grid>
+                                            <Grid
+                                                container
+                                                item
+                                                justify="center"
+                                            >
+                                                <Button
+                                                    variant="contained"
+                                                    startIcon={<MeetingRoomIcon />}
+                                                    color="primary"
+                                                    size="small"
+                                                    onClick={() => {this.setState({roomStatus: true});}}
+                                                >   
+                                                    Enter Room
+                                                </Button>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Paper>
                             </Grid>
                         }
                         {/* =============== Start - Meeting Room =============== */}

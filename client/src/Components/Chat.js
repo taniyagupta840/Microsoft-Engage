@@ -4,6 +4,8 @@ import { Avatar, Chip, CssBaseline, Dialog, DialogActions, DialogContent, Grid, 
 import ChatIcon from '@material-ui/icons/Chat';
 import SendIcon from '@material-ui/icons/Send';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import Picker from 'emoji-picker-react';
+import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 
 export default class Chat extends React.Component {
     constructor(props) {
@@ -14,6 +16,7 @@ export default class Chat extends React.Component {
         this.likedMessageList = [];
         this.state = {
             openDialog: false,
+            openEmojiDialog: false,
             chat: [],
             message: "",
             sortedChat: [],
@@ -65,6 +68,14 @@ export default class Chat extends React.Component {
 
     handleDialog = () => {
         this.setState({openDialog: !this.state.openDialog});
+    };
+
+    onEmojiClick = (event, emojiObject) => {
+        this.setState({message: this.state.message+emojiObject.emoji});
+    };
+
+    handleEmojiDialog = () => {
+        this.setState({openEmojiDialog: !this.state.openEmojiDialog});
     };
 
     render() {
@@ -238,6 +249,13 @@ export default class Chat extends React.Component {
                                         )
                                     }
                                 </Grid>
+                                <Dialog
+                                    open={this.state.openEmojiDialog}
+                                    onClose={this.handleEmojiDialog}
+                                    aria-labelledby="Chat Box"
+                                >
+                                    <Picker onEmojiClick={this.onEmojiClick} />
+                                </Dialog>
                             </Grid>
                             <Grid 
                                 container
@@ -245,10 +263,18 @@ export default class Chat extends React.Component {
                                 justify="center"
                                 alignItems="center"
                             >
+                                <Tooltip title="Emoji" >
+                                    <IconButton
+                                        onClick={this.handleEmojiDialog}
+                                        color="primary"
+                                    > 
+                                        <EmojiEmotionsIcon />
+                                    </IconButton>
+                                </Tooltip>
                                 <TextField
                                     size="small"
                                     variant="standard"
-                                    style={{ width:"85vh" }} 
+                                    style={{ width:"70vh" }} 
                                     //  this one in not responsive !!!
                                     value={this.state.message}
                                     onChange={ (e) => this.setState({message: e.target.value}) } 

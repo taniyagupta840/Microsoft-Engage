@@ -1,7 +1,7 @@
 import React from "react";
 import { CallClient, LocalVideoStream } from '@azure/communication-calling';
 import { AzureCommunicationTokenCredential } from '@azure/communication-common';
-import { AppBar, Button, Dialog, DialogContent, Grid, IconButton, TextField, Toolbar, Tooltip, Typography } from "@material-ui/core";
+import { AppBar, Button, Dialog, DialogContent, Grid, IconButton, Paper, TextField, Toolbar, Tooltip, Typography } from "@material-ui/core";
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import LinkIcon from '@material-ui/icons/Link';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
@@ -41,7 +41,7 @@ export default class MakeCall extends React.Component {
             displayName: undefined,
             userId: undefined,
             roomStatus: false,
-            chatMeetSwitch: true,
+            // chatMeetSwitch: true,
         };
     }
 
@@ -379,7 +379,6 @@ export default class MakeCall extends React.Component {
                             !this.state.call && this.state.joinGroupCall && this.state.roomStatus &&
                             <Grid
                                 container
-                                // spacing={2}
                                 direction="row"
                                 justify="center"
                                 alignItems="flex-start"
@@ -416,63 +415,45 @@ export default class MakeCall extends React.Component {
                                     item
                                     justify="center"
                                     alignItems="center"
-                                    style={{ height: "10vh", marginLeft: "2vh", marginRight: "2vh" }}
+                                    style={{ height: "90vh", marginLeft: "2vh", marginRight: "2vh"  }}
                                 >
-                                    <Grid
-                                        item
-                                        style={{ paddingRight: "3vh" }}
+                                    <Paper
+                                        elevation={5}
+                                        component="span"
+                                        style={{ height: "80vh", width: "100vh", background: "transparent", padding: "2vh" }}
                                     >
-                                        <Tooltip title="Chat" >
-                                            <IconButton 
-                                                color="primary" 
-                                                onClick={() => this.setState({chatMeetSwitch: true})}
-                                            >
-                                                <ChatIcon style={{ fontSize: "4vh" }} />
-                                            </IconButton>
-                                        </Tooltip>
-                                    </Grid>
-                                    <Grid
-                                        item
-                                        style={{ paddingLeft: "3vh" }}
-                                    >
-                                        <Tooltip title="Meet" >
-                                            <IconButton 
-                                                color="primary" 
-                                                onClick={() => this.setState({chatMeetSwitch: false})}
-                                            >
-                                                <DuoIcon style={{ fontSize: "4vh" }} />
-                                            </IconButton>
-                                        </Tooltip> 
-                                    </Grid>
-                                </Grid> 
-                                <Grid
-                                    container
-                                    item
-                                    justify="center"
-                                    alignItems="flex-start"
-                                    style={{ height: "70vh", marginLeft: "2vh", marginRight: "2vh"  }}
-                                >
-                                    {
-                                        this.state.chatMeetSwitch &&
-                                        <Chat 
-                                            groupId={this.destinationGroup} 
-                                            displayName={this.state.displayName} 
-                                            isRoom={true}
-                                        />  
-                                    }
-                                    {
-                                        !this.state.chatMeetSwitch &&
-                                        <Button
-                                            color="primary"
-                                            size="small"
-                                            onClick={() => {this.joinGroup(true);}}
-                                            variant="contained"
+                                        <Grid
+                                            container
                                         >
-                                            <Typography variant="subtitle2">
-                                                Join   
-                                            </Typography>
-                                        </Button>
-                                    }
+                                            <Grid
+                                                container
+                                                item
+                                                justify="flex-end"
+                                                alignItems="center"
+                                            >
+                                                <Grid item>
+                                                    <Tooltip title="Join Meet" >
+                                                        <IconButton 
+                                                            color="primary" 
+                                                            onClick={() => {this.joinGroup(true);}}
+                                                        >
+                                                            <DuoIcon style={{ fontSize: "4vh" }} />
+                                                        </IconButton>
+                                                    </Tooltip> 
+                                                </Grid>
+                                            </Grid>
+                                            <Grid
+                                                container
+                                                item 
+                                            >
+                                               <Chat 
+                                                    groupId={this.destinationGroup} 
+                                                    displayName={this.state.displayName} 
+                                                    isRoom={true}
+                                                />   
+                                            </Grid>
+                                        </Grid>
+                                    </Paper>
                                 </Grid> 
                             </Grid>
                         }

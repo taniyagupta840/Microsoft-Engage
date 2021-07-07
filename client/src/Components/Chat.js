@@ -173,21 +173,13 @@ export default class Chat extends React.Component {
                 {/* Start - Chat UI inside Room */}
                 {
                     this.props.isRoom &&
-                    <Paper
-                        elevation={5}
-                        component="span"
-                        style={{ height: "70vh", width: "100vh", background: "transparent", padding: "2vh" }}
-                    >
-                        <Grid
-                            container
-                            spacing={2}
-                        >
+                        <React.Fragment>
                             <Grid
                                 container
                                 item
                                 justify="center"
                                 alignItems="flex-start"
-                                style={{ height: "55vh", overflow: "scroll"  }}
+                                style={{ height: "60vh", overflow: "scroll"  }}
                             >
                                 <Grid
                                     container
@@ -261,16 +253,17 @@ export default class Chat extends React.Component {
                                     value={this.state.message}
                                     onChange={ (e) => this.setState({message: e.target.value}) } 
                                 />
-                                <IconButton
-                                    onClick={() => {this.sendMessage(this.groupId,this.username,this.state.message);
-                                                    this.setState({message: ""});}}
-                                    color="primary"
-                                > 
-                                    <SendIcon />
-                                </IconButton>
+                                <Tooltip title="Send" >
+                                    <IconButton
+                                        onClick={() => {this.sendMessage(this.groupId,this.username,this.state.message);
+                                                        this.setState({message: ""});}}
+                                        color="primary"
+                                    > 
+                                        <SendIcon />
+                                    </IconButton>
+                                </Tooltip>
                             </Grid>
-                        </Grid>
-                    </Paper>
+                        </React.Fragment>
                 }
                 {/* Start - Chat UI inside Room */}
             </React.Fragment>

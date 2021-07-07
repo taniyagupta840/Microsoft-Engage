@@ -13,33 +13,36 @@ ___
 
 #### Features
 
-- Responsive
-- Interactive Homepage Theme
-- Tooltips for Buttons/Avatar
-- Firebase Authentication (via google/email)
-- Display Name
-- Unique Join Code Generator
-- Copy Join Code on a Click
-- Camera Selector (auto/manual)
-- Microphone Selector (auto/manual)
-- Speaker Selector (auto/manual)
-- Video on/off
-- Local Video Preview
-- Auto Adjusting Video Tiles
-- Audio on/off
-- Call Hangup
-- Screen-Share
-- File-Sharing Support
-- Add Upto 5 Files (in one go)
-- File Upto 5 MB (in one go)
-- Remove Listed File on a Click
-- File Access Token to Download Shared File
-- Group Chat Support
-- Participant's Avatar
-- Remove Participants Support
-- AI based Face Expression Detector
-- Like/Unlike Chat Message
-- Participants Mic Status (Muted/Unmuted/Speaking)
+1. Responsive
+2. Interactive Homepage Theme
+3. Tooltips for Buttons/Avatar
+4. Firebase Authentication (via google/email)
+5. Display Name
+6. Unique Join Code Generator
+7. Copy Join Code on a Click
+8. Camera Selector (auto/manual)
+9. Microphone Selector (auto/manual)
+10. Speaker Selector (auto/manual)
+11. Video on/off
+12. Local Video Preview
+13. Auto Adjusting Video Tiles
+14. Audio on/off
+15. Call Hangup
+16. Screen-Share
+17. File-Sharing Support
+18. Add Upto 5 Files (in one go)
+19. File Upto 5 MB (in one go)
+20. Remove Listed File on a Click
+21. File Access Token to Download Shared File
+22. Group Chat Support
+23. Participant's Avatar
+24. Remove Participants Support
+25. AI based Face Expression Detector
+26. Like/Unlike Chat Message
+27. Participants Mic Status (Muted/Unmuted/Speaking)
+28. Emoji Picker
+29. Chat Room
+30. Group Chat access before/after Meet
 
 ___
 
@@ -145,3 +148,4 @@ ___
 - <b> july 4, 2021 - </b> add participant's mic-status & bug fixing.
 - <b> july 5, 2021 - </b> plan the integration of adapt feature.
 - <b> july 6, 2021 - </b> add room & chat functionality before the meet.
+- <b> july 7, 2021 - </b> restructure the room.

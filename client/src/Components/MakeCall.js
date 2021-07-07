@@ -382,7 +382,7 @@ export default class MakeCall extends React.Component {
                                 direction="row"
                                 justify="center"
                                 alignItems="flex-start"
-                                style={{ minHeight: '100vh', background: "url(Rose-Petals.svg) no-repeat center", backgroundSize: "cover" }}   
+                                style={{ minHeight: '100vh' }}   
                             >
                                 <AppBar position="relative">
                                     <Toolbar variant="dense">
@@ -420,7 +420,7 @@ export default class MakeCall extends React.Component {
                                     <Paper
                                         elevation={5}
                                         component="span"
-                                        style={{ height: "80vh", width: "100vh", background: "transparent", padding: "2vh" }}
+                                        style={{ height: "80vh", width: "100vh", background: "url(Rose-Petals.svg) no-repeat center", backgroundSize: "cover", padding: "2vh" }}
                                     >
                                         <Grid
                                             container

@@ -1,6 +1,6 @@
 import React from 'react';
 import { firebaseDatabase } from './FirebaseConfig';
-import { Avatar, Chip, CssBaseline, Dialog, DialogActions, DialogContent, Grid, IconButton, Paper, TextField, Tooltip, Typography } from '@material-ui/core';
+import { Avatar, Chip, CssBaseline, Dialog, DialogActions, DialogContent, Grid, IconButton, InputAdornment, Paper, TextField, Tooltip, Typography } from '@material-ui/core';
 import ChatIcon from '@material-ui/icons/Chat';
 import SendIcon from '@material-ui/icons/Send';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
@@ -157,25 +157,55 @@ export default class Chat extends React.Component {
                                 </Grid>
                                 )
                             }
+                                <Dialog
+                                    open={this.state.openEmojiDialog}
+                                    onClose={this.handleEmojiDialog}
+                                    aria-labelledby="Chat Box"
+                                >
+                                    <Picker onEmojiClick={this.onEmojiClick} />
+                                </Dialog>
                             </Grid>
                         </DialogContent>
-                        <DialogActions
-                            style={{ paddingLeft:"2vh" }}
-                        >
-                            <TextField 
-                                size="small"
-                                variant="standard"
-                                style={{ width:"100vh" }}
-                                value={this.state.message}
-                                onChange={ (e) => this.setState({message: e.target.value}) } 
-                            />
-                            <IconButton
-                                onClick={() => {this.sendMessage(this.groupId,this.username,this.state.message);
-                                                this.setState({message: ""});}}
-                                color="primary"
-                            > 
-                                <SendIcon />
-                            </IconButton>
+                        <DialogActions>
+                            <Paper
+                                    elevation={5}
+                                    style={{ width: "80vh" }}
+                            >
+                            <TextField
+                                    size="medium"
+                                    fullWidth
+                                    variant="standard"
+                                    value={this.state.message}
+                                    onChange={ (e) => this.setState({message: e.target.value}) }
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment>
+                                                <Tooltip title="Emoji" >
+                                                    <IconButton
+                                                        onClick={this.handleEmojiDialog}
+                                                        color="primary"
+                                                        size="small"
+                                                    > 
+                                                        <EmojiEmotionsIcon />
+                                                    </IconButton>
+                                                </Tooltip>
+                                            </InputAdornment>
+                                        ),
+                                        endAdornment: (
+                                            <Tooltip title="Send" >
+                                                <IconButton
+                                                    onClick={() => {this.sendMessage(this.groupId,this.username,this.state.message);
+                                                                    this.setState({message: ""});}}
+                                                    color="primary"
+                                                    size="small"
+                                                > 
+                                                    <SendIcon />
+                                                </IconButton>
+                                            </Tooltip>
+                                        )
+                                    }}
+                                />
+                            </Paper>
                         </DialogActions>
                     </Dialog>
                     </div>
@@ -263,31 +293,45 @@ export default class Chat extends React.Component {
                                 justify="center"
                                 alignItems="center"
                             >
-                                <Tooltip title="Emoji" >
-                                    <IconButton
-                                        onClick={this.handleEmojiDialog}
-                                        color="primary"
-                                    > 
-                                        <EmojiEmotionsIcon />
-                                    </IconButton>
-                                </Tooltip>
+                                <Paper
+                                    elevation={5}
+                                    style={{ width: "80vh" }}
+                                >
                                 <TextField
-                                    size="small"
+                                    size="medium"
+                                    fullWidth
                                     variant="standard"
-                                    style={{ width:"70vh" }} 
-                                    //  this one in not responsive !!!
                                     value={this.state.message}
-                                    onChange={ (e) => this.setState({message: e.target.value}) } 
+                                    onChange={ (e) => this.setState({message: e.target.value}) }
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment>
+                                                <Tooltip title="Emoji" >
+                                                    <IconButton
+                                                        onClick={this.handleEmojiDialog}
+                                                        color="primary"
+                                                        size="small"
+                                                    > 
+                                                        <EmojiEmotionsIcon />
+                                                    </IconButton>
+                                                </Tooltip>
+                                            </InputAdornment>
+                                        ),
+                                        endAdornment: (
+                                            <Tooltip title="Send" >
+                                                <IconButton
+                                                    onClick={() => {this.sendMessage(this.groupId,this.username,this.state.message);
+                                                                    this.setState({message: ""});}}
+                                                    color="primary"
+                                                    size="small"
+                                                > 
+                                                    <SendIcon />
+                                                </IconButton>
+                                            </Tooltip>
+                                        )
+                                    }}
                                 />
-                                <Tooltip title="Send" >
-                                    <IconButton
-                                        onClick={() => {this.sendMessage(this.groupId,this.username,this.state.message);
-                                                        this.setState({message: ""});}}
-                                        color="primary"
-                                    > 
-                                        <SendIcon />
-                                    </IconButton>
-                                </Tooltip>
+                                </Paper>
                             </Grid>
                         </React.Fragment>
                 }

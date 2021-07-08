@@ -2,7 +2,7 @@ import React from "react";
 import { CallClient, LocalVideoStream } from '@azure/communication-calling';
 import { AzureCommunicationTokenCredential } from '@azure/communication-common';
 import { AppBar, Button, Dialog, DialogContent, Grid, IconButton, Paper, TextField, Toolbar, Tooltip, Typography } from "@material-ui/core";
-import { MessageBar, MessageBarType } from 'office-ui-fabric-react';
+// import { MessageBar, MessageBarType } from 'office-ui-fabric-react';
 import Login from './Login';
 import CallCard from "./CallCard";
 // import { setLogLevel } from '@azure/logger';
@@ -335,7 +335,7 @@ export default class MakeCall extends React.Component {
                         {/* --------------  --------------  -------------- */}
                         {/*                 Enter Meet Code                */}
                         {/* --------------  --------------  -------------- */}
-                        {
+                        {/* {
                             this.state.callError &&
                             <MessageBar
                                 messageBarType={MessageBarType.error}
@@ -354,7 +354,7 @@ export default class MakeCall extends React.Component {
                                 dismissButtonAriaLabel="Close">
                                 <b>{this.state.deviceManagerWarning}</b>
                             </MessageBar>
-                        }
+                        } */}
                         {
                             !this.state.call && this.state.joinGroupCall && !this.state.roomStatus &&
                             <Grid

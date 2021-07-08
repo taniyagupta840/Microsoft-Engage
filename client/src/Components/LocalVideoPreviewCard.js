@@ -40,7 +40,7 @@ export default class LocalVideoPreviewCard extends React.Component {
                                 }
                             })
                         },
-                        1000
+                        500
                     )
                 })
 

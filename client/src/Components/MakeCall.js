@@ -502,8 +502,8 @@ export default class MakeCall extends React.Component {
                                                         variant="subtitle2"
                                                         style={{ fontFamily: "monospace", fontWeight: "bold" ,marginLeft: "2vh", marginRight: "2vh" }}
                                                     >
-                                                        <ChatIcon />
-                                                        GROUP CHATS
+                                                        <ChatIcon style={{ marginRight: "1vh" }} />
+                                                        GROUP-CHATS
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item>

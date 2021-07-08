@@ -151,8 +151,6 @@ export default class StreamRenderer extends React.Component {
         return (
             <Grid
                 item
-                justify="center"
-                alignItems="center"
                 style={{ margin: "2vh" }}
                 id={this.componentId}
                 xl={4}

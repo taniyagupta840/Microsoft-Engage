@@ -12,7 +12,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import DuoIcon from '@material-ui/icons/Duo';
 import Chat from './Chat';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
-
+import ChatIcon from '@material-ui/icons/Chat';
 
 export default class MakeCall extends React.Component {
     constructor(props) {
@@ -415,27 +415,39 @@ export default class MakeCall extends React.Component {
                             >
                                 <AppBar position="relative">
                                     <Toolbar variant="dense">
-                                        <Typography
-                                            color="inherit"
-                                            variant="h6"
-                                            style={{ fontFamily: "monospace", marginLeft: "2vh", fontWeight: "bold" }}
-                                        >
-                                            Room
-                                        </Typography>
                                         <Grid
                                             container
-                                            item
-                                            direction="row"
-                                            justify="flex-end"
+                                            justify="space-between"
+                                            alignItems="center"
                                         >
-                                            <Tooltip title="Leave Room">
-                                            <IconButton
-                                                color="inherit"
-                                                onClick={() => {this.setState({roomStatus: false});}}
-                                            >
-                                                <ExitToAppIcon />
-                                            </IconButton>
-                                            </Tooltip>
+                                            <Grid item>
+                                                <Typography
+                                                    color="inherit"
+                                                    variant="subtitle2"
+                                                    style={{ fontFamily: "monospace", fontWeight: "bold", marginLeft: "2vh", marginRight: "2vh" }}
+                                                >
+                                                    Room
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item>
+                                                <Typography
+                                                    color="inherit"
+                                                    variant="subtitle1"
+                                                    style={{ fontFamily: "monospace", fontWeight: "bold" }}
+                                                >
+                                                    AGILE TEAMS
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item>
+                                                <Tooltip title="Leave Room">
+                                                    <IconButton
+                                                        color="inherit"
+                                                        onClick={() => {this.setState({roomStatus: false});}}
+                                                    >
+                                                        <ExitToAppIcon />
+                                                    </IconButton>
+                                                </Tooltip>
+                                            </Grid>
                                         </Grid>
                                     </Toolbar>
                                 </AppBar>
@@ -457,9 +469,19 @@ export default class MakeCall extends React.Component {
                                             <Grid
                                                 container
                                                 item
-                                                justify="flex-end"
+                                                justify="space-between"
                                                 alignItems="center"
                                             >
+                                                <Grid item>
+                                                    <Typography
+                                                        color="primary"
+                                                        variant="subtitle2"
+                                                        style={{ fontFamily: "monospace", fontWeight: "bold" ,marginLeft: "2vh", marginRight: "2vh" }}
+                                                    >
+                                                        <ChatIcon />
+                                                        GROUP CHATS
+                                                    </Typography>
+                                                </Grid>
                                                 <Grid item>
                                                     <Tooltip title="Join Meet" >
                                                         <IconButton 
@@ -473,7 +495,7 @@ export default class MakeCall extends React.Component {
                                             </Grid>
                                             <Grid
                                                 container
-                                                item 
+                                                item
                                             >
                                                <Chat 
                                                     groupId={this.destinationGroup} 

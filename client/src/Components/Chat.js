@@ -220,7 +220,7 @@ export default class Chat extends React.Component {
                                 item
                                 justify="center"
                                 alignItems="flex-start"
-                                style={{ height: "60vh", overflow: "scroll"  }}
+                                style={{ height: "60vh", overflow: "scroll", marginBottom: "2vh"  }}
                             >
                                 <Grid
                                     container

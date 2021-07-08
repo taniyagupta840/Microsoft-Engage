@@ -207,7 +207,7 @@ export default class MakeCall extends React.Component {
             <React.Fragment>
                 <Login onLoggedIn={this.handleLogIn} callbackDisplayName={this.callbackDisplayName} />
                 { 
-                    this.state.loggedIn && !this.state.createGroupCall && !this.state.joinGroupCall &&
+                    // this.state.loggedIn && !this.state.createGroupCall && !this.state.joinGroupCall &&
                     <Grid
                         container
                         spacing={0}
@@ -293,19 +293,24 @@ export default class MakeCall extends React.Component {
                                 <Grid 
                                     item 
                                 >
-                                    <IconButton
-                                    >
-                                        <ShareIcon />
-                                    </IconButton>
+                                    <Tooltip title="Share via Email" >
+                                        <IconButton
+                                            href={`mailto:test@example.com?subject=Agile Teams Joining Code&body=You are invited to join Agile Teams Meet. Your Joining Code: ${this.state.UUID}`}
+                                        >
+                                            <ShareIcon />
+                                        </IconButton>
+                                    </Tooltip>
                                 </Grid>
                                 <Grid 
                                     item 
                                 >
-                                    <IconButton
-                                        onClick={ this.copy }    
-                                    >
-                                        <FileCopyIcon />
-                                    </IconButton>
+                                    <Tooltip title="Copy" >
+                                        <IconButton
+                                            onClick={ this.copy }    
+                                        >
+                                            <FileCopyIcon />
+                                        </IconButton>
+                                    </Tooltip>
                                 </Grid>
                             </Grid>
                         </Grid>

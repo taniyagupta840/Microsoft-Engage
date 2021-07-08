@@ -87,8 +87,11 @@ export default class Login extends React.Component {
                                 <Grid item>
                                     <IconButton
                                         color="primary"
-                                        onClick={ () => {this.provisionNewUser();
-                                                        this.props.callbackDisplayName(this.displayName);} }
+                                        onClick={ () => {
+                                            if(!(this.displayName===undefined) && !(this.displayName===null))
+                                            this.provisionNewUser();
+                                            this.props.callbackDisplayName(this.displayName);
+                                        } }
                                         >
                                             <ArrowForwardIosIcon color="primary"/>
                                     </IconButton>

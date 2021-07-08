@@ -2,8 +2,8 @@ import React from "react";
 import { CallClient, LocalVideoStream } from '@azure/communication-calling';
 import { AzureCommunicationTokenCredential } from '@azure/communication-common';
 import { AppBar, Button, Dialog, DialogContent, Grid, IconButton, Paper, TextField, Toolbar, Tooltip, Typography } from "@material-ui/core";
-import AddBoxIcon from '@material-ui/icons/AddBox';
-import LinkIcon from '@material-ui/icons/Link';
+// import AddBoxIcon from '@material-ui/icons/AddBox';
+// import LinkIcon from '@material-ui/icons/Link';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import ShareIcon from '@material-ui/icons/Share';
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react'
@@ -218,23 +218,25 @@ export default class MakeCall extends React.Component {
                         justify="center"
                         style={{ minHeight: '100vh', background: "url(/Liquid-Cheese.svg) no-repeat", backgroundSize: "cover" }}
                     >
-                        <Grid item style={{ margin: "5vh" }}>
+                        <Grid item style={{ margin: "7vh" }}>
                             <Button
                                 color="primary"
-                                startIcon={<AddBoxIcon />}
+                                variant="contained"
+                                // startIcon={<AddBoxIcon />}
                                 onClick={ () => {this.generateUuid();
                                                  this.handleDialog();} }
                             >
                                 Create Meet
                             </Button>
                         </Grid>
-                        <Grid item style={{ margin: "5vh" }}>
+                        <Grid item style={{ margin: "7vh" }}>
                             <Button
                                 color="primary"
-                                startIcon={<LinkIcon />}
+                                variant="contained"
+                                // startIcon={<LinkIcon />}
                                 onClick={ () => {this.setState({joinGroupCall: true})} }
                             >
-                                Join Meet
+                                Join Room
                             </Button>
                         </Grid>
                     </Grid>    

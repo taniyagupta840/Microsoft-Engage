@@ -373,7 +373,7 @@ export default class MakeCall extends React.Component {
                                         container
                                         justify="center"
                                         alignItems="center"
-                                        style={{ minHeight: "40vh", minWidth: "50vh"}}
+                                        style={{ minHeight: "40vh", minWidth: "50vh", background: "linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.8)), url(/teams.png) no-repeat center", backgroundSize: "contain"}}
                                     >
                                         <Grid 
                                             item
@@ -447,17 +447,8 @@ export default class MakeCall extends React.Component {
                                             <Grid item>
                                                 <Typography
                                                     color="inherit"
-                                                    variant="subtitle2"
-                                                    style={{ fontFamily: "monospace", fontWeight: "bold", marginLeft: "2vh", marginRight: "2vh" }}
-                                                >
-                                                    Room
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item>
-                                                <Typography
-                                                    color="inherit"
                                                     variant="subtitle1"
-                                                    style={{ fontFamily: "monospace", fontWeight: "bold" }}
+                                                    style={{ fontFamily: "monospace", fontWeight: "bold", marginLeft: "2vh" }}
                                                 >
                                                     AGILE TEAMS
                                                 </Typography>
@@ -489,6 +480,7 @@ export default class MakeCall extends React.Component {
                                     >
                                         <Grid
                                             container
+                                            style={{ background: "linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url(/chat.png) no-repeat center", backgroundSize: "contain" }}
                                         >
                                             <Grid
                                                 container

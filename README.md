@@ -94,10 +94,19 @@ ___
 |UUID Generator|Unique Join ID |
 |Vanta.js|Background Animation|
 
+___
+
+#### Documentation
+
+###### Components
+
+###### Code Flow Before Adapt Stage
+
+###### Code Flow After Adapt Stage
 
 ___
 
-#### Challenges
+#### Challenges Faced
 
 - React
 - UI/UX
@@ -107,9 +116,10 @@ ___
 - Input video stream to Face api AI model and optimisation
 - Adapt feature
 
+
 ___
 
-#### Resources
+#### Resources Used
 
 - www.microsoft.acehacker.com
 - www.docs.microsoft.com
@@ -149,3 +159,4 @@ ___
 - <b> july 5, 2021 - </b> plan the integration of adapt feature.
 - <b> july 6, 2021 - </b> add room & chat functionality before the meet.
 - <b> july 7, 2021 - </b> restructure the room.
+- <b> july 8, 2021 - </b> debug & UI enhancement.

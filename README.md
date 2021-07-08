@@ -6,7 +6,7 @@ __Live-1 -__ [https://agile-teams.minetest.in](https://agile-teams.minetest.in)
 
 __Live-2 -__ [https://agile-teams-clone.herokuapp.com](https://agile-teams-clone.herokuapp.com)
 
-__Mentor -__ <code><b>Achal Gupta</b></code>
+__Mentor -__ <code><b>Achal Gupta</b></code> <br/>
 __Mentee -__ <code><b>Umang Barthwal</b></code>
 
 ___
@@ -17,7 +17,7 @@ ___
 2. Interactive Homepage Theme
 3. Tooltips for Buttons/Avatar
 4. Firebase Authentication (via google/email)
-5. Display Name
+5. Multi-User Video Call
 6. Unique Join Code Generator
 7. Copy Join Code on a Click
 8. Camera Selector (auto/manual)
@@ -99,6 +99,43 @@ ___
 #### Documentation
 
 ###### Components
+
+- __Node.js & Express__
+ The project uses a node environment and express server at the backend. Express server running on http://localhost:5000.
+
+- __React.js__ 
+The project uses React.js for serving the client-end. React server running on http://localhost:3000. Client-end is linked to the backend using the proxy.
+
+- __APIs__
+    1. /acs-token: Returns the generated ACS (Azure Communication Services) Token.
+	2. /generate-uuid: Return UUID.
+
+- __HomePage__
+React Component for the homepage of the project. It uses Vanta.js for interactive Bird Animation background.
+
+- __FirebaseAuthentication__
+React Component to authenticate the users using firebase authentication. Google authentication & Email authentication options are available.
+
+- __MakeCall__
+React Component uses the ACS Token to establish the connection between the user and Azure Communication Services.
+
+- __CallCard__
+React Component uses the UUID to start the meet. It handles all the functionalities related to the video call, such as camera toggle, microphone toggle, screen-share etc.
+
+- __RemoteParticipantCard__
+React Component to create an avatar of each participant and functionality to remove the participant from the meet.
+
+- __LocalVideoPreviewCard__
+React Component uses the device camera to stream local video. It also contains face detection & expression detection models to detect user's facial expressions and confidence probability.
+
+- __StreamRenderer__
+React Component to render the video streams of the remote participants & preview in the form of dynamically adjustable tiles. It also has the functionality to process the remote participant's expression & expression probability and map it to the right emoji.
+
+- __ShareFile__
+React Component to share files. There is a limit of a total of 5 MB and up to 5 files at a time. Shared files can be accessed by other participants using the unique code generated after the upload.
+
+- __Chat__
+React Component to provide group chat functionality. Users can access the chat before/after joining the meet. It has features like adding emojis and liking others messages.
 
 ###### Code Flow Before Adapt Stage
 

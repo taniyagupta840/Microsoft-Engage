@@ -359,6 +359,19 @@ export default class MakeCall extends React.Component {
                                             container
                                             spacing={2}
                                         >
+                                            <Grid
+                                                container
+                                                item
+                                                justify="center"
+                                            >
+                                                <Typography
+                                                    color="primary"
+                                                    style={{  fontWeight: "bold" }}
+                                                    variant="caption"
+                                                >
+                                                    ENTER JOINING CODE
+                                                </Typography>
+                                            </Grid>
                                             <Grid 
                                                 container
                                                 item
@@ -366,7 +379,6 @@ export default class MakeCall extends React.Component {
                                             >
                                                 <TextField 
                                                     variant="outlined"
-                                                    placeholder="-- Enter Joining Code --"
                                                     size="small"
                                                     onChange={ (e) => { this.destinationGroup = e.target.value }}
                                                 />

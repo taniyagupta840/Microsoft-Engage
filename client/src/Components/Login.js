@@ -57,7 +57,8 @@ export default class Login extends React.Component {
                         direction="row"
                         alignItems="center"
                         justify="center"
-                        style={{ minHeight: '100vh', overflow: "hidden", background: "url(/Liquid-Cheese.svg) no-repeat", backgroundSize: "cover"  }}
+                        style={{ minHeight: '100vh', overflow: "hidden" }}
+                        // , background: "url(/valley.svg)", backgroundSize: "cover"
                     >
                         <Grid container justify="center">
                             <Grid

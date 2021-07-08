@@ -2,8 +2,6 @@ import React from "react";
 import { CallClient, LocalVideoStream } from '@azure/communication-calling';
 import { AzureCommunicationTokenCredential } from '@azure/communication-common';
 import { AppBar, Button, Dialog, DialogContent, Grid, IconButton, Paper, TextField, Toolbar, Tooltip, Typography } from "@material-ui/core";
-// import AddBoxIcon from '@material-ui/icons/AddBox';
-// import LinkIcon from '@material-ui/icons/Link';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import ShareIcon from '@material-ui/icons/Share';
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react'
@@ -216,7 +214,7 @@ export default class MakeCall extends React.Component {
                         direction="row"
                         alignItems="center"
                         justify="center"
-                        style={{ minHeight: '100vh', background: "url(/Liquid-Cheese.svg) no-repeat", backgroundSize: "cover" }}
+                        style={{ minHeight: '100vh', background: "url(/wave.svg) no-repeat", backgroundSize: "cover" }}
                     >
                         <Grid item style={{ margin: "7vh" }}>
                             <Button
@@ -340,11 +338,11 @@ export default class MakeCall extends React.Component {
                             !this.state.call && this.state.joinGroupCall && !this.state.roomStatus &&
                             <Grid
                                 container
-                                spacing={2}
+                                spacing={0}
                                 direction="column"
                                 alignItems="center"
                                 justify="center"
-                                style={{ minHeight: '100vh', background: "url(/Liquid-Cheese.svg) no-repeat", backgroundSize: "cover"  }}   
+                                style={{ minHeight: '100vh', background: "url(/wave.svg) no-repeat", backgroundSize: "cover"  }}   
                             >
                                 <Paper
                                     elevation={5}
@@ -401,7 +399,7 @@ export default class MakeCall extends React.Component {
                                 direction="row"
                                 justify="center"
                                 alignItems="flex-start"
-                                style={{ minHeight: '100vh' }}   
+                                style={{ minHeight: '100vh', background: "url(/wave.svg) no-repeat", backgroundSize: "cover" }}   
                             >
                                 <AppBar position="relative">
                                     <Toolbar variant="dense">
@@ -439,7 +437,7 @@ export default class MakeCall extends React.Component {
                                     <Paper
                                         elevation={5}
                                         component="span"
-                                        style={{ height: "80vh", width: "100vh", background: "url(Rose-Petals.svg) no-repeat center", backgroundSize: "cover", padding: "2vh" }}
+                                        style={{ height: "80vh", width: "100vh", padding: "2vh" }}
                                     >
                                         <Grid
                                             container

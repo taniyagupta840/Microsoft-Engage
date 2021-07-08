@@ -11,6 +11,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 export default class ShareFile extends React.Component {
     constructor(props) {
         super(props);
+        
         this.state = {
             openDialog: false,
             PROGRESS_UPLOAD:0,
@@ -23,6 +24,10 @@ export default class ShareFile extends React.Component {
         }
     }
 
+    /**
+     * Generate unique password for the uploaded files
+     * @returns 
+     */
     random = () =>{
         var result = '';
         let chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -138,7 +143,6 @@ export default class ShareFile extends React.Component {
     copy = () =>{
         let url = this.state.URL;
         navigator.clipboard.writeText(url);
-        // console.table("copied");
     }
     
     download = () => {
@@ -170,6 +174,7 @@ export default class ShareFile extends React.Component {
             }      
         }
     }
+
     checkFiles = () => {
         let text = document.getElementById('inputCode').value
         if (text.length>0){
@@ -210,11 +215,11 @@ export default class ShareFile extends React.Component {
             <React.Fragment>
                 <CssBaseline />
                 <Tooltip title='Share-Files' >
-                <IconButton
-                    onClick={this.handleDialog}
-                >
-                    <FolderSharedIcon style={{color: "#f4a460"}} />
-                </IconButton>
+                    <IconButton
+                        onClick={this.handleDialog}
+                    >
+                        <FolderSharedIcon style={{color: "#f4a460"}} />
+                    </IconButton>
                 </Tooltip>
                 <Dialog
                     open={this.state.openDialog}
@@ -333,7 +338,6 @@ export default class ShareFile extends React.Component {
                                 <Grid 
                                     item
                                     style={{ width: "35vh" }}
-                                    // justify="center"
                                 >
                                     <Grid 
                                         container

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Box, Button, CssBaseline, Grid, Typography } from '@material-ui/core';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import Birds from 'vanta/dist/vanta.birds.min';

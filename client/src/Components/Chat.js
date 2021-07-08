@@ -1,10 +1,10 @@
 import React from 'react';
 import { firebaseDatabase } from './FirebaseConfig';
 import { Avatar, Chip, CssBaseline, Dialog, DialogActions, DialogContent, Grid, IconButton, InputAdornment, Paper, TextField, Tooltip, Typography } from '@material-ui/core';
+import Picker from 'emoji-picker-react';
 import ChatIcon from '@material-ui/icons/Chat';
 import SendIcon from '@material-ui/icons/Send';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import Picker from 'emoji-picker-react';
 import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 
 export default class Chat extends React.Component {
@@ -82,7 +82,10 @@ export default class Chat extends React.Component {
         return(
             <React.Fragment>
                 <CssBaseline />
-                {/* Start - Chat UI inside Call */}
+
+                {/* --------------  --------------  -------------- */}
+                {/*                 Meet Group Chat                */}
+                {/* --------------  --------------  -------------- */}
                 {
                     !this.props.isRoom &&
                     <div>
@@ -210,8 +213,10 @@ export default class Chat extends React.Component {
                     </Dialog>
                     </div>
                 }
-                {/* End - Chat UI inside Call */}
-                {/* Start - Chat UI inside Room */}
+
+                {/* --------------  --------------  -------------- */}
+                {/*                 Room Group Chat                */}
+                {/* --------------  --------------  -------------- */}
                 {
                     this.props.isRoom &&
                         <React.Fragment>
@@ -335,7 +340,6 @@ export default class Chat extends React.Component {
                             </Grid>
                         </React.Fragment>
                 }
-                {/* Start - Chat UI inside Room */}
             </React.Fragment>
         );
     }

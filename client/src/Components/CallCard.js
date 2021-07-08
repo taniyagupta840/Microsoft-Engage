@@ -6,6 +6,8 @@ import { LocalVideoStream } from '@azure/communication-calling';
 import { utils } from './Utilities/Utilities';
 import { Dropdown, Panel, PanelType } from "office-ui-fabric-react";
 import { CssBaseline, IconButton, Grid, Switch, Tooltip, Typography } from '@material-ui/core';
+import ShareFile from './ShareFile';
+import Chat from './Chat';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import VideocamOffIcon from '@material-ui/icons/VideocamOff';
 import MicIcon from '@material-ui/icons/Mic';
@@ -14,8 +16,6 @@ import ScreenShareIcon from '@material-ui/icons/ScreenShare';
 import StopScreenShareIcon from '@material-ui/icons/StopScreenShare';
 import CallEndIcon from '@material-ui/icons/CallEnd';
 import SettingsIcon from '@material-ui/icons/Settings';
-import ShareFile from './ShareFile';
-import Chat from './Chat';
 
 export default class CallCard extends React.Component {
     constructor(props) {
@@ -23,6 +23,7 @@ export default class CallCard extends React.Component {
         this.callFinishConnectingResolve = undefined;
         this.call = props.call;
         this.deviceManager = props.deviceManager;
+        
         this.state = {
             callState: this.call.state,
             callId: this.call.id,
@@ -345,6 +346,10 @@ export default class CallCard extends React.Component {
                     justify="flex-start"
                     style={{ background: "url(/valley.svg) no-repeat center", backgroundSize: "cover" }}
                 >
+
+                    {/* --------------  --------------  -------------- */}
+                    {/*               Participants' Avatar             */}
+                    {/* --------------  --------------  -------------- */}
                     {
                         <Grid
                             container
@@ -362,6 +367,10 @@ export default class CallCard extends React.Component {
                             }
                         </Grid>
                     }
+
+                    {/* --------------  --------------  -------------- */}
+                    {/*            Participants' Video Tiles           */}
+                    {/* --------------  --------------  -------------- */}
                     {
                         <Grid 
                             container
@@ -397,6 +406,10 @@ export default class CallCard extends React.Component {
                             }
                         </Grid>
                     }
+
+                    {/* --------------  --------------  -------------- */}
+                    {/*                   Meet Toolbar                 */}
+                    {/* --------------  --------------  -------------- */}
                     {
                         <Grid
                             item 

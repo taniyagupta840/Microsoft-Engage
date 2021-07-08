@@ -2,15 +2,15 @@ import React from "react";
 import { CallClient, LocalVideoStream } from '@azure/communication-calling';
 import { AzureCommunicationTokenCredential } from '@azure/communication-common';
 import { AppBar, Button, Dialog, DialogContent, Grid, IconButton, Paper, TextField, Toolbar, Tooltip, Typography } from "@material-ui/core";
-import FileCopyIcon from '@material-ui/icons/FileCopy';
-import ShareIcon from '@material-ui/icons/Share';
-import { MessageBar, MessageBarType } from 'office-ui-fabric-react'
+import { MessageBar, MessageBarType } from 'office-ui-fabric-react';
 import Login from './Login';
 import CallCard from "./CallCard";
 // import { setLogLevel } from '@azure/logger';
+import Chat from './Chat';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+import ShareIcon from '@material-ui/icons/Share';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import DuoIcon from '@material-ui/icons/Duo';
-import Chat from './Chat';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import ChatIcon from '@material-ui/icons/Chat';
 
@@ -39,15 +39,17 @@ export default class MakeCall extends React.Component {
             displayName: undefined,
             userId: undefined,
             roomStatus: false,
-            // chatMeetSwitch: true,
         };
     }
 
+    /**
+     * Processing ACS Token & initialising device permissions
+     * @param {*} userDetails 
+     */
     handleLogIn = async (userDetails) => {
         if (userDetails) {
             try {
                 const tokenCredential = new AzureCommunicationTokenCredential(userDetails.token);
-                // console.log("!!! tokencred"+userDetails.id);
                 this.setState({userId: userDetails.id});
                 // setLogLevel('verbose');
                 this.callClient = new CallClient();
@@ -57,7 +59,6 @@ export default class MakeCall extends React.Component {
                 await this.deviceManager.askDevicePermission({ audio: true });
                 await this.deviceManager.askDevicePermission({ video: true });
                 this.callAgent.on('callsUpdated', e => {
-                    // console.log(`callsUpdated, added=${e.added}, removed=${e.removed}`);
 
                     e.added.forEach(call => {
                         this.setState({ call: call })
@@ -95,6 +96,11 @@ export default class MakeCall extends React.Component {
         }
     };
 
+    /**
+     * Initialising the primary camera, microphone & speaker
+     * @param {*} withVideo 
+     * @returns 
+     */
     async getCallOptions(withVideo) {
         let callOptions = {
             videoOptions: {
@@ -176,11 +182,13 @@ export default class MakeCall extends React.Component {
         return callOptions;
     }
 
+    /**
+     * Fetching UUID
+     */
     async generateUuid() {
         const uuid = await fetch('/generate-uuid')
                         .then(async function(response){
                             return response.json().then(function(parsedResponse) {
-                                // console.log(parsedResponse);
                                 return parsedResponse;
                             });
                         });
@@ -191,7 +199,6 @@ export default class MakeCall extends React.Component {
     copy = () =>{
         let uuid = this.state.UUID;
         navigator.clipboard.writeText(uuid);
-        // console.table("copied");
     }
 
     handleDialog = () => {
@@ -205,7 +212,14 @@ export default class MakeCall extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <Login onLoggedIn={this.handleLogIn} callbackDisplayName={this.callbackDisplayName} />
+
+                {
+                    <Login onLoggedIn={this.handleLogIn} callbackDisplayName={this.callbackDisplayName} />
+                }
+
+                {/* --------------  --------------  -------------- */}
+                {/*                 Create & Join Page             */}
+                {/* --------------  --------------  -------------- */}
                 { 
                     this.state.loggedIn && !this.state.createGroupCall && !this.state.joinGroupCall &&
                     <Grid
@@ -220,7 +234,6 @@ export default class MakeCall extends React.Component {
                             <Button
                                 color="primary"
                                 variant="contained"
-                                // startIcon={<AddBoxIcon />}
                                 onClick={ () => {this.generateUuid();
                                                  this.handleDialog();} }
                             >
@@ -231,7 +244,6 @@ export default class MakeCall extends React.Component {
                             <Button
                                 color="primary"
                                 variant="contained"
-                                // startIcon={<LinkIcon />}
                                 onClick={ () => {this.setState({joinGroupCall: true})} }
                             >
                                 Join Room
@@ -317,8 +329,12 @@ export default class MakeCall extends React.Component {
                     </DialogContent>
                  </Dialog>
                 }
-                <div className="">
-                    <div className="">
+                <div>
+                    <div>
+
+                        {/* --------------  --------------  -------------- */}
+                        {/*                 Enter Meet Code                */}
+                        {/* --------------  --------------  -------------- */}
                         {
                             this.state.callError &&
                             <MessageBar
@@ -408,7 +424,10 @@ export default class MakeCall extends React.Component {
                                 </Paper>
                             </Grid>
                         }
-                        {/* =============== Start - Meeting Room =============== */}
+
+                        {/* --------------  --------------  -------------- */}
+                        {/*                   Meeting Room                 */}
+                        {/* --------------  --------------  -------------- */}
                         {
                             !this.state.call && this.state.joinGroupCall && this.state.roomStatus &&
                             <Grid
@@ -513,7 +532,10 @@ export default class MakeCall extends React.Component {
                                 </Grid> 
                             </Grid>
                         }
-                        {/* =============== End - Meeting Room =============== */}
+
+                        {/* --------------  --------------  -------------- */}
+                        {/*                    Call Card                   */}
+                        {/* --------------  --------------  -------------- */}
                         {
                             this.state.call &&
                             <CallCard

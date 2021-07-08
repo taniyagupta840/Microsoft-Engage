@@ -41,14 +41,26 @@ export default class Login extends React.Component {
         return (
             <div>
                 <CssBaseline />
+
+                {/* --------------  --------------  -------------- */}
+                {/*                     HomePage                   */}
+                {/* --------------  --------------  -------------- */}
                 {
                     !this.state.connect && 
                     <HomePage isConnect={this.callbackConnect} />
                 }
+
+                {/* --------------  --------------  -------------- */}
+                {/*              Firebase Authentication           */}
+                {/* --------------  --------------  -------------- */}
                 {
                     this.state.connect &&
                     <FirebaseAuthentication onAuthentication={this.callbackAuthentication} />
                 }
+
+                {/* --------------  --------------  -------------- */}
+                {/*                 Input Username                 */}
+                {/* --------------  --------------  -------------- */}
                 {   
                     this.state.connect && !this.state.loggedIn && !this.displayName && this.state.isAuthenticated &&
                     <Grid
@@ -58,9 +70,11 @@ export default class Login extends React.Component {
                         alignItems="center"
                         justify="center"
                         style={{ minHeight: '100vh', overflow: "hidden" }}
-                        // , background: "url(/valley.svg)", backgroundSize: "cover"
                     >
-                        <Grid container justify="center">
+                        <Grid 
+                            container 
+                            justify="center"
+                        >
                             <Grid
                                 item
                                 container

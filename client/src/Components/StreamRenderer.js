@@ -82,8 +82,6 @@ export default class StreamRenderer extends React.Component {
             }
             document.getElementById(this.componentId).hidden = false;
             document.getElementById(this.videoContainerId).appendChild(this.view.target);
-            // console.log("!!!stream")
-            // console.log(this.videoContainerId);
         } catch (e) {
             console.error(e);
         }
@@ -99,6 +97,11 @@ export default class StreamRenderer extends React.Component {
         }
     }
 
+    /**
+     * Fetching participants' expression from firebase
+     * @param {*} groupId 
+     * @param {*} userId 
+     */
     recieveUserExpression(groupId, userId) {
         firebaseDatabase.ref('expression').child(groupId).child(userId).on("value", (snapshot) => {
                 this.setState({userExpression: snapshot.val()});
@@ -106,6 +109,12 @@ export default class StreamRenderer extends React.Component {
         })
     }
 
+    /**
+     * Mapping expression & confidence probability to emojis
+     * @param {*} expression 
+     * @param {*} probability 
+     * @returns 
+     */
     getEmoji(expression,probability){
         if(expression==='neutral') {
                 return this.emojis[0];
@@ -182,9 +191,11 @@ export default class StreamRenderer extends React.Component {
                     (this.stream.mediaStreamType === 'ScreenSharing') &&
                     <Paper
                         variant="elevation"
-                        elevation={1}
+                        elevation={5}
+                        style={{ overflow: "hidden" }}
+                        component="div"
                     >
-                        <span id={this.videoContainerId} ></span>
+                        <div id={this.videoContainerId} ></div>
                         <Typography 
                             variant="subtitle1"
                             color="textSecondary"

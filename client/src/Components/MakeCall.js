@@ -180,7 +180,7 @@ export default class MakeCall extends React.Component {
         const uuid = await fetch('/generate-uuid')
                         .then(async function(response){
                             return response.json().then(function(parsedResponse) {
-                                console.log(parsedResponse);
+                                // console.log(parsedResponse);
                                 return parsedResponse;
                             });
                         });
@@ -207,7 +207,7 @@ export default class MakeCall extends React.Component {
             <React.Fragment>
                 <Login onLoggedIn={this.handleLogIn} callbackDisplayName={this.callbackDisplayName} />
                 { 
-                    // this.state.loggedIn && !this.state.createGroupCall && !this.state.joinGroupCall &&
+                    this.state.loggedIn && !this.state.createGroupCall && !this.state.joinGroupCall &&
                     <Grid
                         container
                         spacing={0}

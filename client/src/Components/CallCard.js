@@ -305,12 +305,18 @@ export default class CallCard extends React.Component {
 
     cameraDeviceSelectionChanged = async (event, item) => {
         const cameras = await this.deviceManager.getCameras();
-        const cameraDeviceInfo = cameras.find(cameraDeviceInfo => { return cameraDeviceInfo.id === item.key });
-        const localVideoStream = this.call.localVideoStreams[0];
-        if (localVideoStream) {
-            localVideoStream.switchSource(cameraDeviceInfo);
+        if(cameras.length>1){
+            const cameraDeviceInfo = cameras.find(cameraDeviceInfo => { return cameraDeviceInfo.id === item.key });
+            const localVideoStream = this.call.localVideoStreams[0];
+            if (localVideoStream) {
+                try {
+                    localVideoStream.switchSource(cameraDeviceInfo);
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+            this.setState({ selectedCameraDeviceId: cameraDeviceInfo.id });
         }
-        this.setState({ selectedCameraDeviceId: cameraDeviceInfo.id });
     };
 
     speakerDeviceSelectionChanged = async (event, item) => {

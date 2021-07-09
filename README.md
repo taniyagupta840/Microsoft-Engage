@@ -119,12 +119,24 @@ The project uses React.js for serving the client-end. React server running on ht
 
 - __HomePage__
 React Component for the homepage of the project. It uses Vanta.js for interactive Bird Animation background.
+`Home Page`
+![gif](/docs/HomePage.gif)
 
 - __FirebaseAuthentication__
 React Component to authenticate the users using firebase authentication. Google authentication & Email authentication options are available.
+`Firebase Authetication Page`
+![picture](/docs/FirebaseAuth.png)
 
 - __MakeCall__
 React Component uses the ACS Token to establish the connection between the user and Azure Communication Services.
+`Username Page`
+![picture](/docs/UsernamePage.png)
+`Create Meet or Join Room`
+![gif](/docs/CreateJoinMeetPage.gif)
+`Create Meet`
+![picture](/docs/GeneratedMeetingCodePage.png)
+`Join Room`
+![picture](/docs/EnterJoiningCodePage.png)
 
 - __CallCard__
 React Component uses the UUID to start the meet. It handles all the functionalities related to the video call, such as camera toggle, microphone toggle, screen-share etc.
@@ -140,12 +152,20 @@ React Component to render the video streams of the remote participants & preview
 
 - __ShareFile__
 React Component to share files. There is a limit of a total of 5 MB and up to 5 files at a time. Shared files can be accessed by other participants using the unique code generated after the upload.
+`Share File Dialog`
+![picture](/docs/FileShare.png)
+
 
 - __Chat__
 React Component to provide group chat functionality. Users can access the chat before/after joining the meet. It has features like adding emojis and liking others messages.
+`Agile Teams - Room Group Chat`
+![picture](/docs/RoomChat.png)
+`Agile Teams - Meet Group Chat`
+![picture](/docs/MeetChat.png)
+
+
 
 ###### Code Flow Before Adapt Stage
-
 ![picture](/docs/BeforeAdapt.png)
 
 ###### Code Flow After Adapt Stage

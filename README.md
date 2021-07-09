@@ -107,27 +107,27 @@ ___
 
 ###### Components
 
-- __Node.js & Express__
+- __Node.js & Express:__
  The project uses a node environment and express server at the backend. Express server running on http://localhost:5000.
 
-- __React.js__ 
+- __React.js:__ 
 The project uses React.js for serving the client-end. React server running on http://localhost:3000. Client-end is linked to the backend using the proxy.
 
-- __APIs__
+- __APIs:__
     1. /acs-token: Returns the generated ACS (Azure Communication Services) Token.
 	2. /generate-uuid: Return UUID.
 
-- __HomePage__
+- __HomePage:__
 React Component for the homepage of the project. It uses Vanta.js for interactive Bird Animation background. <br/>
 `Home Page`
 ![gif](/docs/HomePage.gif)
 
-- __FirebaseAuthentication__
+- __FirebaseAuthentication:__
 React Component to authenticate the users using firebase authentication. Google authentication & Email authentication options are available. <br/>
 `Firebase Authetication Page`
 ![picture](/docs/FirebaseAuth.png)
 
-- __MakeCall__
+- __MakeCall:__
 React Component uses the ACS Token to establish the connection between the user and Azure Communication Services. <br/>
 `Username Page`
 ![picture](/docs/UsernamePage.png)
@@ -138,25 +138,37 @@ React Component uses the ACS Token to establish the connection between the user 
 `Join Room`
 ![picture](/docs/EnterJoiningCodePage.png)
 
-- __CallCard__
-React Component uses the UUID to start the meet. It handles all the functionalities related to the video call, such as camera toggle, microphone toggle, screen-share etc.
+- __CallCard:__
+React Component uses the UUID to start the meet. It handles all the functionalities related to the video call, such as camera toggle, microphone toggle, screen-share etc. <br />
+`Meet Window`
+![picture](/docs/MeetWindow.png)
+`Screen Share`
+![picture](/docs/ScreenShare.png)
 
-- __RemoteParticipantCard__
-React Component to create an avatar of each participant and functionality to remove the participant from the meet.
+- __RemoteParticipantCard:__
+React Component to create an avatar of each participant and functionality to remove the participant from the meet. <br />
+`Avatar`
+![picture](/docs/Avatar.png)
 
-- __LocalVideoPreviewCard__
-React Component uses the device camera to stream local video. It also contains face detection & expression detection models to detect user's facial expressions and confidence probability.
+- __LocalVideoPreviewCard:__
+React Component uses the device camera to stream local video. It also contains face detection & expression detection models to detect user's facial expressions and confidence probability. <br />
+`Settings`
+![picture](/docs/Settings.png)
 
-- __StreamRenderer__
-React Component to render the video streams of the remote participants & preview in the form of dynamically adjustable tiles. It also has the functionality to process the remote participant's expression & expression probability and map it to the right emoji.
+- __StreamRenderer:__
+React Component to render the video streams of the remote participants & preview in the form of dynamically adjustable tiles. It also has the functionality to process the remote participant's expression & expression probability and map it to the right emoji. <br />
+`Expression Detection`
+![picture](/docs/ExpressionDetection2.png)
+![picture](/docs/ExpressionDetection1.png)
 
-- __ShareFile__
+
+- __ShareFile:__
 React Component to share files. There is a limit of a total of 5 MB and up to 5 files at a time. Shared files can be accessed by other participants using the unique code generated after the upload. <br/>
 `Share File Dialog`
 ![picture](/docs/FileShare.png)
 
 
-- __Chat__
+- __Chat:__
 React Component to provide group chat functionality. Users can access the chat before/after joining the meet. It has features like adding emojis and liking others messages. <br/>
 `Agile Teams - Room Group Chat`
 ![picture](/docs/RoomChat.png)

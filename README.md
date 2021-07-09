@@ -139,7 +139,10 @@ React Component to provide group chat functionality. Users can access the chat b
 
 ###### Code Flow Before Adapt Stage
 
+![picture](/docs/BeforeAdapt.png)
+
 ###### Code Flow After Adapt Stage
+![picture](/docs/AfterAdapt.png)
 
 ___
 

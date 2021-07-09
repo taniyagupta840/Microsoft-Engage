@@ -1,4 +1,6 @@
-> # Microsoft-Engage
+> # Agile Teams
+
+#### Overview
 
 __Microsoft Engage' 21 - Agile Teams__
 
@@ -13,6 +15,7 @@ __Mentee -__ <code><b>Umang Barthwal</b></code>
 ___
 
 #### Agile Teams Sprints
+**Agile Teams** adopts the Agile mindset to deal with the uncertain and turbulent environment of the Engage Mentorship Program. Agile Teams followed an incremental development approach due to the short period of the program and the pressure of adapting to the new features. A sprint of two to three days performed, where the goal of each sprint is to build essential elements first and come out with a working prototype. More features are built into the project in subsequent sprints and are adjusted based on the mentor's and fellow's feedback between sprints. <br />
 ![gif](/docs/AgileSprints.gif)
 
 
@@ -61,17 +64,17 @@ ___
 
 ###### Development Setup
 - Clone the Repository
-- Setup Backend-Server
- <code>npm install</code>
+- Setup Backend-Server <br />
+ <code>npm install</code> <br />
  <code>npm start</code>
 
 
-- Setup React-Server
- <code>cd client</code>
- <code>npm install</code>
+- Setup React-Server <br />
+ <code>cd client</code> <br />
+ <code>npm install</code> <br />
  <code>npm start</code>
 
-- Open-Browser
+- Open-Browser <br />
  <code>http://localhost:3000</code>
 
 
@@ -81,7 +84,7 @@ ___
 
 ###### Tools & Technologies
 
-| `Tools & Technologies`        | `Usage`                     |
+| `Tools/Technologies`        | `Usage`                     |
 |:--------------------------: | :--------------------------:|
 |Azure Communication Services|End-Points for Video Calling| 
 |Bootstrap 5|Design|
@@ -188,7 +191,6 @@ ___
 
 #### Challenges Faced
 
-- React
 - UI/UX
 - Video-Stream Representation
 - Lifting-Up State in React
@@ -202,7 +204,7 @@ ___
 #### Resources Used
 
 - www.microsoft.acehacker.com
-- www.docs.microsoft.com
+- https://docs.microsoft.com/en-us/azure/communication-services/overview
 - www.stackoverflow.com
 - www.medium.com
 - www.material-ui.com
@@ -211,6 +213,8 @@ ___
 - https://firebase.google.com/docs/database/web/read-and-write
 - https://justadudewhohacks.github.io/face-api.js/face_and_landmark_detection/
 - https://www.npmjs.com/package/emoji-picker-react
+- https://loading.io
+- https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 
 ___
 

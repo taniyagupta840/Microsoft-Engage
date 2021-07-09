@@ -1,6 +1,6 @@
 > # Microsoft-Engage
 
-__Microsoft Engage' 21 - Teams Clone__
+__Microsoft Engage' 21 - Agile Teams__
 
 __Live-1 -__ [https://agile-teams.minetest.in](https://agile-teams.minetest.in)
 
@@ -8,6 +8,13 @@ __Live-2 -__ [https://agile-teams-clone.herokuapp.com](https://agile-teams-clone
 
 __Mentor -__ <code><b>Achal Gupta</b></code> <br/>
 __Mentee -__ <code><b>Umang Barthwal</b></code>
+
+
+___
+
+#### Agile Teams Sprints
+![gif](/docs/AgileSprints.gif)
+
 
 ___
 
@@ -144,6 +151,7 @@ React Component to provide group chat functionality. Users can access the chat b
 ###### Code Flow After Adapt Stage
 ![picture](/docs/AfterAdapt.png)
 
+
 ___
 
 #### Challenges Faced
@@ -185,7 +193,7 @@ ___
 - <b> june 21, 2021 - </b> add firebase authentication.
 - <b> june 22, 2021 - </b> add setting panel & major ui changes using Material UI.
 - <b> june 23, 2021 - </b> change firebase configration & add file sharing functionality.
-- <b> june 24, 2021 - </b> add animated background on homepage.
+- <b> june 24, 2021 - </b> add animated background on homepage & file sharing functionality.
 - <b> june 25, 2021 - </b> start chat development.
 - <b> june 26, 2021 - </b> add chat & code optimization.
 - <b> june 27, 2021 - </b> add participant avatar & remove-participants functionality.

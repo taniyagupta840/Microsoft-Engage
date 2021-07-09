@@ -11,7 +11,7 @@ __Live-2 -__ [https://agile-teams-clone.herokuapp.com](https://agile-teams-clone
 __Mentor -__ <code><b>Achal Gupta</b></code> <br/>
 __Mentee -__ <code><b>Umang Barthwal</b></code>
 
-
+**Agile Teams** is a single-page meeting web app. Users can organise group video calls by sharing unique meet codes. Users can access group chats before the meet starts and after the meet get over. Agile Teams is packed with many essential and fancy features, like chat, file sharing, screen share, facial expression detection, etc. **Agile Teams connecting worlds!**
 ___
 
 #### Agile Teams Sprints
@@ -51,7 +51,7 @@ ___
 26. Like/Unlike Chat Message
 27. Participants Mic Status (Muted/Unmuted/Speaking)
 28. Emoji Picker
-29. Chat Room
+29. Single-Page Web-App
 30. Group Chat access before/after Meet
 
 ___
@@ -203,13 +203,13 @@ ___
 
 #### Resources Used
 
-- www.microsoft.acehacker.com
+- https://www.microsoft.acehacker.com
 - https://docs.microsoft.com/en-us/azure/communication-services/overview
-- www.stackoverflow.com
-- www.medium.com
-- www.material-ui.com
-- www.w3schools.com
-- www.vantajs.com
+- https://www.stackoverflow.com
+- https://www.medium.com
+- https://www.material-ui.com
+- https://www.w3schools.com
+- https://www.vantajs.com
 - https://firebase.google.com/docs/database/web/read-and-write
 - https://justadudewhohacks.github.io/face-api.js/face_and_landmark_detection/
 - https://www.npmjs.com/package/emoji-picker-react
@@ -244,3 +244,4 @@ ___
 - <b> july 6, 2021 - </b> add room & chat functionality before the meet.
 - <b> july 7, 2021 - </b> restructure the room.
 - <b> july 8, 2021 - </b> debug & UI enhancement.
+- <b> july 9, 2021 - </b> add documentation & illustrations.

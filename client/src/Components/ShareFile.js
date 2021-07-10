@@ -290,12 +290,11 @@ export default class ShareFile extends React.Component {
                                             <Typography
                                                 color= "textSecondary"
                                                 variant="body2"
-                                                style={{ overflow:"scroll" }}
+                                                // style={{ overflow:"scroll" }}
                                             >
                                                 <span 
                                                     id="filedisplaylist" 
                                                     onClick={this.removeFile}
-                                                    style={{ width: "" }}
                                                 >
                                                 </span>   
                                             </Typography>  

@@ -117,7 +117,7 @@ export default class Chat extends React.Component {
                             </Typography>
                         </Grid>
                         <DialogContent
-                            style={{ overflow: "scroll", height: "40vh" }}
+                            style={{ height: "40vh" }}
                         >
                             <Grid 
                                 container
@@ -225,7 +225,7 @@ export default class Chat extends React.Component {
                                 item
                                 justify="center"
                                 alignItems="flex-start"
-                                style={{ height: "60vh", overflow: "scroll", marginBottom: "2vh"  }}
+                                style={{ height: "60vh", marginBottom: "2vh"  }}
                             >
                                 <Grid
                                     container

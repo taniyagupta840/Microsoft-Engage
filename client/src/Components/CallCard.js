@@ -379,7 +379,7 @@ export default class CallCard extends React.Component {
                             direction="row"
                             alignItems="center"
                             justify="center"
-                            style={{ height: "70vh", overflow: "scroll" }}
+                            style={{ height: "70vh" }}
                         >
                             {
                                 this.state.callState === 'Connected' && this.state.remoteParticipants.length === 0 &&

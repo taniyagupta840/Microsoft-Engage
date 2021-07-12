@@ -15,7 +15,7 @@ ____
 
 #### 🏷️ Table of Contents  
 * **[Overview](#overview)**
-* **[Sprints](#sprints)** 
+* **[Agile Sprints](#sprints)** 
 * **[Features](#features)**
 * **[Setup Instructions](#setupInstructions)**
     * **[Prerequisites](#prerequisites)**
@@ -40,6 +40,8 @@ ____
 * **[Challenges Faced](#challengesFaced)**
 * **[Resources Used](#resourcesUsed)**
 * **[Daily Logs](#dailyLogs)**
+* **[Future Feature](#futureFeature)**
+
   
 
 ___
@@ -56,7 +58,7 @@ ___
 
 
 <a name="sprints"></a>
-#### 🏃 Sprints
+#### 🏃 Agile Sprints
 **Agile Teams** adopts the Agile mindset to deal with the uncertain and turbulent environment of the Engage Mentorship Program. Agile Teams followed an incremental development approach due to the short period of the program and the pressure of adapting to the new features. A sprint of two to three days performed, where the goal of each sprint is to build essential elements first and come out with a working prototype. More features are built into the project in subsequent sprints and are adjusted based on the mentor's and fellow's feedback between sprints. <br />
 ![gif](/docs/AgileSprints.gif)
 
@@ -84,7 +86,7 @@ ___
 14. Audio on/off
 15. Call Hangup
 16. Screen-Share
-17. **File-Sharing Functionality**
+17. **File-Sharing Functionality** 🤩
 18. Add Upto 5 Files (in one selection | editable)
 19. File Upto 5 MB (in one selection | editable)
 20. Remove Listed File on a Click
@@ -92,7 +94,7 @@ ___
 22. Group Chat Functionality
 23. Participant's Avatar
 24. Remove Participants on a Click
-25. **AI based Face Expression Detector**
+25. **AI based Face Expression Detector** 🤩
 26. Like/Unlike Chat Message
 27. Participants Mic Status (Muted/Unmuted/Speaking)
 28. Emoji Picker
@@ -295,32 +297,44 @@ ___
 
 <a name="dailyLogs"></a>
 #### 🏡 Daily Logs
-- <b> june 14, 2021 - </b> setup react + express app and deployed on Heroku.
-- <b> june 15, 2021 - </b> create & integrate acs-token api + login-ui development.
-- <b> june 16, 2021 - </b> add local video stream and video/audio/hangup functionalities.
-- <b> june 17, 2021 - </b> add remote video stream and video/audio/hangup functionalities.
-- <b> june 18, 2021 - </b> add bootstrap cards to render video streams.
-- <b> june 19, 2021 - </b> create uuid-generator api.
-- <b> june 20, 2021 - </b> integrate uuid-generator functionality.
-- <b> june 21, 2021 - </b> add firebase authentication.
-- <b> june 22, 2021 - </b> add setting panel & major ui changes using Material UI.
-- <b> june 23, 2021 - </b> change firebase configration & add file sharing functionality.
-- <b> june 24, 2021 - </b> add animated background on homepage & file sharing functionality.
-- <b> june 25, 2021 - </b> start chat development.
-- <b> june 26, 2021 - </b> add chat & code optimization.
-- <b> june 27, 2021 - </b> add participant avatar & remove-participants functionality.
-- <b> june 28, 2021 - </b> integrate face detection and expression detection model.
-- <b> june 29, 2021 - </b> integrate emoji representation of expression data.
-- <b> june 30, 2021 - </b> code optimisation & minetest deployment.
-- <b> july 1, 2021 - </b> add like/unlike feature in chats.
-- <b> july 2, 2021 - </b> add svg background.
-- <b> july 3, 2021 - </b> add tooltips on buttons/avatar.
-- <b> july 4, 2021 - </b> add participant's mic-status & bug fixing.
-- <b> july 5, 2021 - </b> plan the integration of adapt feature.
-- <b> july 6, 2021 - </b> add room & chat functionality before the meet.
-- <b> july 7, 2021 - </b> restructure the room.
-- <b> july 8, 2021 - </b> debug & UI enhancement.
-- <b> july 9, 2021 - </b> add documentation & illustrations.
-- <b> july 10, 2021 - </b> add documentation & bug fixing.
-- <b> july 11, 2021 - </b> video demo.
-- <b> july 12, 2021 - </b> video demo.
+
+| Date | Logs |
+|:--------------------------:|:--------------------------:|
+|june 14, 2021|setup react + express app and deployed on Heroku|
+|june 15, 2021|create & integrate acs-token api + login-ui development|
+|june 16, 2021|add local video stream and video/audio/hangup functionalities|
+|june 17, 2021|add remote video stream and video/audio/hangup functionalities|
+|june 18, 2021|add bootstrap cards to render video streams|
+|june 19, 2021|create uuid-generator api|
+|june 20, 2021|integrate uuid-generator functionality|
+|june 21, 2021|add firebase authentication|
+|june 22, 2021|add setting panel & major ui changes using Material UI|
+|june 23, 2021|change firebase configration & add file sharing functionality|
+|june 24, 2021|add animated background on homepage & file sharing functionality|
+|june 25, 2021|start chat development|
+|june 26, 2021|add chat & code optimization|
+|june 27, 2021|add participant avatar & remove-participants functionality|
+|june 28, 2021|integrate face detection and expression detection model|
+|june 29, 2021|integrate emoji representation of expression data|
+|june 30, 2021|code optimisation & minetest deployment|
+| july 1, 2021|add like/unlike feature in chats|
+| july 2, 2021|add svg background.|
+| july 3, 2021|add tooltips on buttons/avatar|
+| july 4, 2021|add participant's mic-status & bug fixing|
+| july 5, 2021|plan the integration of adapt feature|
+| july 6, 2021|add room & chat functionality before the meet|
+| july 7, 2021|restructure the room|
+| july 8, 2021|debug & UI enhancement|
+| july 9, 2021|add documentation & illustrations|
+| july 10, 2021|add documentation & bug fixing|
+| july 11, 2021|video demo|
+| july 12, 2021|video demo|
+
+___
+
+
+<a name="futureFeature"></a>
+#### 🌟 Future Feature
+
+* Agile Teams virtual avatar based on user's spatial actions. So user will able to stream his/her virtual avatar, instead of the video.
+<img src="https://github.com/yemount/pose-animator/blob/master//resources/gifs/avatar-new-1.gif?raw=true" alt="cameraDemo" style="width: 250px;"/>

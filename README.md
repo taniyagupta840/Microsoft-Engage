@@ -1,26 +1,59 @@
 > # Agile Teams
 
-#### Overview
-
 __Microsoft Engage' 21 - Agile Teams__
 
 __Live-1 -__ [https://agile-teams.minetest.in](https://agile-teams.minetest.in)
 
-__Live-2 -__ [https://agile-teams-clone.herokuapp.com](https://agile-teams-clone.herokuapp.com)
+__Live-2 -__ [https://agile-teams.herokuapp.com](https://agile-teams.herokuapp.com)
 
 __Mentor -__ <code><b>Achal Gupta</b></code> <br/>
 __Mentee -__ <code><b>Umang Barthwal</b></code>
 
-**Agile Teams** is a single-page meeting web app. Users can organise group video calls by sharing unique meet codes. Users can access group chats before the meet starts and after the meet get over. Agile Teams is packed with many essential and fancy features, like chat, file sharing, screen share, facial expression detection, etc. **Agile Teams connecting worlds!**
+
+____
+
+
+#### Table of Contents  
+* **[Overview](#overview)**
+* **[Sprints](#sprints)** 
+* **[Features](#features)**
+* **[Setup Instructions](#setupInstructions)**
+    * **[Prerequisites](#prerequisites)**
+    * **[Development Setup](#developmentSetup)**
+    * **[Production Setup](#productionSetup)**
+* **[Tools & Technologies](#tools&Technologies)**
+* **[Documentation](#documentation)**
+    * **[Components](#components)**
+    * **[Code Flow Before Adapt Stage](#codeFlowBeforeAdaptStage)**
+    * **[Code Flow After Adapt Stage](#codeFlowAfterAdaptStage)**
+* **[Challenges Faced](#challengesFaced)**
+* **[Resources Used](#resourcesUsed)**
+* **[Daily Logs](#dailyLogs)**
+  
+
 ___
 
-#### Agile Teams Sprints
+
+<a name="overview"></a>
+#### Overview
+
+**Agile Teams** is a single-page meeting web app. Users can organise group video calls by sharing unique meet codes. Users can access group chats before the meet starts and after the meet get over. Agile Teams is packed with many essential and fancy features, like chat, file sharing, screen share, facial expression detection, etc. <br />
+**Agile Teams connecting worlds!**
+
+
+___
+
+
+<a name="sprints"></a>
+#### Sprints
 **Agile Teams** adopts the Agile mindset to deal with the uncertain and turbulent environment of the Engage Mentorship Program. Agile Teams followed an incremental development approach due to the short period of the program and the pressure of adapting to the new features. A sprint of two to three days performed, where the goal of each sprint is to build essential elements first and come out with a working prototype. More features are built into the project in subsequent sprints and are adjusted based on the mentor's and fellow's feedback between sprints. <br />
 ![gif](/docs/AgileSprints.gif)
 
 
 ___
 
+
+<a name="features"></a>
 #### Features
 
 1. Responsive
@@ -54,14 +87,19 @@ ___
 29. Single-Page Web-App
 30. Group Chat access before/after Meet
 
+
 ___
 
+
+<a name="setupInstructions"></a>
 #### Setup Instructions
 
+<a name="prerequisites"></a>
 ###### Prerequisites
 - Node + npm
 - React
 
+<a name="developmentSetup"></a>
 ###### Development Setup
 - Clone the Repository
 - Setup Backend-Server <br />
@@ -77,12 +115,17 @@ ___
 - Open-Browser <br />
  <code>http://localhost:3000</code>
 
-
+<a name="productionSetup"></a>
  ###### Production Setup
  - <code>cd Microsoft-Engage</code>
  - <code>npm run heroku-postbuild</code>
 
-###### Tools & Technologies
+
+ ___
+
+
+<a name="tools&Technologies"></a>
+#### Tools & Technologies
 
 | `Tools/Technologies`        | `Usage`                     |
 |:--------------------------: | :--------------------------:|
@@ -104,10 +147,14 @@ ___
 |UUID Generator|Unique Join ID |
 |Vanta.js|Background Animation|
 
+
 ___
 
+
+<a name="documentation"></a>
 #### Documentation
 
+<a name="components"></a>
 ###### Components
 
 - __Node.js & Express:__
@@ -179,16 +226,19 @@ React Component to provide group chat functionality. Users can access the chat b
 ![picture](/docs/MeetChat.png)
 
 
-
+<a name="codeFlowBeforeAdaptStage"></a>
 ###### Code Flow Before Adapt Stage
 ![picture](/docs/BeforeAdapt.png)
 
+<a name="codeFlowAfterAdaptStage"></a>
 ###### Code Flow After Adapt Stage
 ![picture](/docs/AfterAdapt.png)
 
 
 ___
 
+
+<a name="challengesFaced"></a>
 #### Challenges Faced
 
 - UI/UX
@@ -201,6 +251,8 @@ ___
 
 ___
 
+
+<a name="resourcesUsed"></a>
 #### Resources Used
 
 - https://www.microsoft.acehacker.com
@@ -216,8 +268,11 @@ ___
 - https://loading.io
 - https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 
+
 ___
 
+
+<a name="dailyLogs"></a>
 #### Daily Logs
 - <b> june 14, 2021 - </b> setup react + express app and deployed on Heroku.
 - <b> june 15, 2021 - </b> create & integrate acs-token api + login-ui development.

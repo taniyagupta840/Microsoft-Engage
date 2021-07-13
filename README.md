@@ -6,6 +6,8 @@ __Live-1 -__ [https://agile-teams.minetest.in](https://agile-teams.minetest.in)
 
 __Live-2 -__ [https://agile-teams.herokuapp.com](https://agile-teams.herokuapp.com)
 
+__Demo Video -__ [https://youtu.be/2I-MkRHqy3A](https://youtu.be/2I-MkRHqy3A)
+
 __Mentor -__ <code><b>Achal Gupta</b></code> <br/>
 __Mentee -__ <code><b>Umang Barthwal</b></code>
 
@@ -327,8 +329,8 @@ ___
 | july 8, 2021|debug & UI enhancement|
 | july 9, 2021|add documentation & illustrations|
 | july 10, 2021|add documentation & bug fixing|
-| july 11, 2021|video demo|
-| july 12, 2021|video demo|
+| july 11, 2021|demo video|
+| july 12, 2021|demo video|
 
 ___
 
